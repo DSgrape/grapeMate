@@ -6,5 +6,114 @@
     android:orientation="vertical">
 
 
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MAIN"
+        android:textColor="@color/purple_200"
+        android:textSize="60dp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#7C4DFF" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="45dp"
+        android:text="덕성"
+        android:textStyle="bold"
+        android:textColor="@color/purple_200"
+        android:layout_marginLeft="15dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#7C4DFF" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="7dp">
+        <Button
+            android:layout_weight="1"
+            android:background="@drawable/btn_choice"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:text="귀가"/>
+        <Button
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_choice"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:text="운동"/>
+        <Button
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_choice"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:text="음식"/>
+        <Button
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_choice"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:text="공부"/>
+        <Button
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_choice"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:text="기타"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#7C4DFF" />
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            app:backgroundTint="#7C4DFF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:src="@android:drawable/ic_menu_add"
+            android:layout_margin="16dp" />
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#7C4DFF" />
 
 </LinearLayout>

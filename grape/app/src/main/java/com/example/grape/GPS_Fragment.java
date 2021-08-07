@@ -16,7 +16,7 @@ public class GPS_Fragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
 
-        View v= inflater.inflate(R.layout.main_fragment,container,false);
+        View v= inflater.inflate(R.layout.gps_fragment,container,false);
 
 
         return v;
