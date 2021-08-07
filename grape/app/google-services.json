@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "294130839282",
+    "project_id": "grape-3cabc",
+    "storage_bucket": "grape-3cabc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:294130839282:android:56a2a23e9d2dc414b6ea6b",
+        "android_client_info": {
+          "package_name": "com.example.grape"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "294130839282-rq598hf2p3n20lmcv6tp61gn6iciib2j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC46NeNcGO1JUN5ik8ZqL-erRzYMr_SfXk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "294130839282-rq598hf2p3n20lmcv6tp61gn6iciib2j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
