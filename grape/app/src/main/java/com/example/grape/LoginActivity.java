@@ -2,7 +2,9 @@ package com.example.grape;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        new hideNavigationBar(getWindow().getDecorView());
 
         login=findViewById(R.id.btn_log);
         join=findViewById(R.id.btn_join);
@@ -33,8 +37,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
 
     }
 }

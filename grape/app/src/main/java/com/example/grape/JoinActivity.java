@@ -32,6 +32,8 @@ public class JoinActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.join);
 
+        new hideNavigationBar(getWindow().getDecorView());
+
         FirebaseApp.initializeApp(this);
 
         etEmail = findViewById(R.id.et_email);

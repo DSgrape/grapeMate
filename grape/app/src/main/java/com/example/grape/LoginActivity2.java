@@ -30,6 +30,8 @@ public class LoginActivity2  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login2);
 
+        new hideNavigationBar(getWindow().getDecorView());
+
         join = findViewById(R.id.btn_join);
         join.setOnClickListener(new View.OnClickListener() {
             @Override

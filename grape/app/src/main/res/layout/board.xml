@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="wrap_content"
+    android:layout_margin="5dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="\u003c귀가\u003e"
+        android:textSize="30dp"
+        android:fontFamily="@font/jalnan"
+        android:textColor="#af7ed7"/>
+    <TextView
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:layout_marginLeft="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="419역 후문aaaaaaaaaaaaaaaaaaaa"
+        android:textSize="30dp"
+        android:fontFamily="@font/jalnan"
+        android:textColor="#af7ed7"
+        android:layout_marginRight="10dp"/>
+
+</LinearLayout>
