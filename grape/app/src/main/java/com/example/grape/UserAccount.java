@@ -10,6 +10,9 @@ public class UserAccount {
     private int grade = -1;          // 회원 등급 0:owner 1:준회원 2:정회원
     private String location;    // 위치
     private String phoneNumber;
+    private String studentCardPhoto;   // 학생증 사진
+    private String profile;     // 프로필 사진
+    private int sticker = 0;        // 스티커 수 초기값 0
 
     public UserAccount() { }    // firebase realtime database 사용 시에 필수
 
@@ -39,6 +42,12 @@ public class UserAccount {
 
     public String getPhoneNumber() { return phoneNumber; }
 
+    public String getStudentCardPhoto() { return studentCardPhoto; }
+
+    public String getProfile() { return profile; }
+
+    public int getSticker() { return sticker; }
+
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
@@ -64,4 +73,10 @@ public class UserAccount {
     }
 
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+
+    public void setStudentCardPhoto(String studentCardPhoto) { this.studentCardPhoto = studentCardPhoto; }
+
+    public void setProfile(String profile) { this.profile = profile; }
+
+    public void setSticker(int sticker) { this.sticker = sticker; }
 }
