@@ -64,11 +64,32 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.add(R.id.content_layout, fragment, tag);
         } else {
             fragmentTransaction.show(fragment);
+            Log.d("체크","체크");
         }
 
         fragmentTransaction.setPrimaryNavigationFragment(fragment);
         fragmentTransaction.setReorderingAllowed(true);
         fragmentTransaction.commitNow();
 
+    }
+
+    public void AddPost(){
+        Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
+        if (currentFragment != null) {
+            fragmentTransaction.hide(currentFragment);
+        }
+        Fragment fragment=fragmentManager.findFragmentByTag("ap");
+        if (fragment == null) {
+            fragment=new addPost();
+            fragmentTransaction.add(R.id.content_layout, fragment, "ap");
+        } else {
+            fragmentTransaction.remove(fragment);
+            fragment=new addPost();
+            fragmentTransaction.add(R.id.content_layout, fragment, "ap");
+        }
+
+        fragmentTransaction.setPrimaryNavigationFragment(fragment);
+        fragmentTransaction.setReorderingAllowed(true);
+        fragmentTransaction.commitNow();
     }
 }
