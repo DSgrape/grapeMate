@@ -3,13 +3,13 @@
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
             <corners android:radius="60dp"/>
-            <solid android:color="@color/purple_500"/>
+            <solid android:color="#644A7A"/>
         </shape>
     </item>
     <item android:state_pressed="false">
         <shape android:shape="rectangle">
             <corners android:radius="60dp"/>
-            <solid android:color="@color/purple_200"/>
+            <solid android:color="#af7ed7"/>
         </shape>
     </item>
 </selector>

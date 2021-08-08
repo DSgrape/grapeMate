@@ -2,27 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f6f4f5 "
     android:orientation="vertical">
 
     <TextView
+        android:fontFamily="@font/jalnan"
         android:layout_marginTop="45dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="포도메이트"
-        android:textColor="@color/purple_200"
-        android:textSize="80dp"
+        android:textColor="#af7ed7"
+        android:textSize="70dp"
         android:textStyle="bold" />
 
     <ImageView
-        android:layout_width="310dp"
-        android:layout_height="310dp"
+        android:layout_width="330dp"
+        android:layout_height="330dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/ic_launcher_foreground" />
+        android:src="@drawable/logo" />
 
     <Button
+        android:fontFamily="@font/jalnan"
         android:id="@+id/btn_log"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,10 +34,11 @@
         android:backgroundTint="#00FFFFFF"
         android:paddingBottom="0dp"
         android:text="LOGIN"
-        android:textColor="@color/purple_200"
+        android:textColor="#af7ed7 "
         android:textSize="65dp"
         android:textStyle="bold" />
     <Button
+        android:fontFamily="@font/jalnan"
         android:id="@+id/btn_join"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,7 +47,7 @@
         android:backgroundTint="#00FFFFFF"
         android:paddingTop="0dp"
         android:text="JOIN"
-        android:textColor="#A1BB86FC"
+        android:textColor="#bd99e1 "
         android:textSize="60dp"
         android:textStyle="bold" />
 

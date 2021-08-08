@@ -5,10 +5,10 @@
     <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
         <stroke
             android:width="5dp"
-            android:color="#7C4DFF" />
+            android:color="#bd99e1" />
         <corners android:radius="10dp"/>
         <solid
-            android:color="#FFFFFF" />
+            android:color="#f6f4f5 " />
     </shape>
 </item>
 
