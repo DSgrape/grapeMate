@@ -74,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void AddPost(){
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+
         Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
         if (currentFragment != null) {
             fragmentTransaction.hide(currentFragment);
