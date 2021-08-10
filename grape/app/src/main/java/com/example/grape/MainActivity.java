@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView mBottomNV;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    private String MainTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +52,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Fragment fragment = fragmentManager.findFragmentByTag(tag);
-;
+
         if (fragment == null) {
             if (id == R.id.navigation_1) {
                 fragment = new GPS_Fragment();
             } else if (id == R.id.navigation_2){
+                MainTag=tag;
                 fragment = new Main_Fragment();
             }else {
                 fragment = new Mypage_Fragment();
@@ -84,11 +86,43 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment=fragmentManager.findFragmentByTag("ap");
         if (fragment == null) {
             fragment=new addPost();
+            Log.d("체크","체크4");
             fragmentTransaction.add(R.id.content_layout, fragment, "ap");
         } else {
+            Log.d("체크","체크5");
             fragmentTransaction.remove(fragment);
             fragment=new addPost();
             fragmentTransaction.add(R.id.content_layout, fragment, "ap");
+        }
+
+        fragmentTransaction.setPrimaryNavigationFragment(fragment);
+        fragmentTransaction.setReorderingAllowed(true);
+        fragmentTransaction.commitNow();
+    }
+
+    public void toMain(){
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+
+        Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
+        if (currentFragment != null) {
+            fragmentTransaction.hide(currentFragment);
+        }
+
+        Fragment fragment=fragmentManager.findFragmentByTag("ap");
+        if (fragment != null) {
+            fragmentTransaction.remove(fragment);
+            Log.d("체크","체크1");
+        }
+
+        fragment=fragmentManager.findFragmentByTag(MainTag);
+        if (fragment == null) {
+            fragment=new Main_Fragment();
+            fragmentTransaction.add(R.id.content_layout, fragment, MainTag);
+            Log.d("체크","체크2");
+        } else {
+            fragmentTransaction.show(fragment);
+            Log.d("체크","체크3");
         }
 
         fragmentTransaction.setPrimaryNavigationFragment(fragment);

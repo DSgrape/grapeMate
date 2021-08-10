@@ -34,6 +34,7 @@
         android:layout_height="3dp"
         android:background="#af7ed7" />
     <ScrollView
+        android:scrollbarThumbVertical="@color/scroll"
         android:scrollbarSize="10dp"
         android:layout_weight="9"
         android:layout_width="match_parent"
@@ -48,7 +49,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:layout_marginBottom="20dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginLeft="30dp"
                 android:orientation="horizontal">
@@ -60,6 +60,7 @@
                     android:textSize="30dp"
                     android:text="제목"/>
                 <EditText
+                    android:id="@+id/et_title"
                     android:singleLine="true"
                     android:scrollbars="horizontal"
                     android:paddingTop="5dp"
@@ -75,6 +76,30 @@
                     android:layout_height="wrap_content"/>
             </LinearLayout>
             <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#bd99e1"
+                    android:fontFamily="@font/jalnan"
+                    android:textSize="30dp"
+                    android:text="카테고리"/>
+             <Spinner
+                 android:textAlignment="center"
+                 android:gravity="center"
+                 android:layout_marginLeft="5dp"
+                 android:id="@+id/spin"
+                 android:layout_gravity="center"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="30dp"
@@ -88,6 +113,7 @@
                     android:textSize="30dp"
                     android:text="내용"/>
                 <EditText
+                    android:id="@+id/et_content"
                     android:padding="10dp"
                     android:layout_marginBottom="20dp"
                     android:gravity="top"
@@ -117,19 +143,20 @@
                     android:textSize="30dp"
                     android:text="마감\n날짜"/>
                 <CalendarView
+                    android:id="@+id/cal"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
     <LinearLayout
-
         android:layout_margin="10dp"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal">
         <Button
+            android:id="@+id/btn_cen"
             android:textSize="20dp"
             android:textColor="@color/white"
             android:fontFamily="@font/jalnan"
@@ -141,6 +168,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <Button
+            android:id="@+id/btn_ok"
             android:textSize="20dp"
             android:textColor="@color/white"
             android:fontFamily="@font/jalnan"
