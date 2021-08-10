@@ -34,7 +34,6 @@
         android:layout_height="3dp"
         android:background="#af7ed7" />
     <ScrollView
-        android:scrollbarThumbVertical="#bd99e1"
         android:scrollbarSize="10dp"
         android:layout_weight="9"
         android:layout_width="match_parent"
