@@ -15,7 +15,6 @@ import java.util.ArrayList;
 public class boardAdapter extends RecyclerView.Adapter<boardAdapter.ViewHolder> {
     public static ArrayList<board> items=new ArrayList<>();
     private Context context;
-
     public boardAdapter(ArrayList<board> items, Context context) {
         this.items = items;
         this.context = context;
@@ -44,6 +43,7 @@ public class boardAdapter extends RecyclerView.Adapter<boardAdapter.ViewHolder> 
     class ViewHolder extends RecyclerView.ViewHolder{
         private TextView type;
         private TextView title;
+        private board data;
         public ViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
             type = itemView.findViewById(R.id.tv_type);
@@ -52,14 +52,15 @@ public class boardAdapter extends RecyclerView.Adapter<boardAdapter.ViewHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast t=Toast.makeText(context,"글로 이동",Toast.LENGTH_SHORT);
-                    t.show();
+                    MainActivity main=(MainActivity)context;
+                    main.ShowPost(data.getId());
                 }
             });
 
         }
 
         void setItem(board data){
+            this.data=data;
             type.setText("\u003c"+data.getPostType()+"\u003e");
             title.setText(data.getTitle());
 

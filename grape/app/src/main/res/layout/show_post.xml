@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#f6f4f5 "
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_marginTop="15dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#00000000"
+            android:src="@drawable/back2"
+            android:layout_marginLeft="20dp"/>
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/jalnan"
+            android:textColor="#af7ed7 "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="포도메이트"
+            android:textSize="55dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#af7ed7" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="10dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/show_post_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\u003c귀가\u003e"
+                    android:textSize="25dp"
+                    android:fontFamily="@font/jalnan"
+                    android:textColor="#af7ed7"/>
+                <TextView
+                    android:id="@+id/show_post_title"
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="419역 후문aaaaaaaaaaaaaaaaaaaa"
+                    android:textSize="25dp"
+                    android:fontFamily="@font/jalnan"
+                    android:textColor="#af7ed7" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/show_post_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:fontFamily="@font/jalnan"
+                android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaanbbb"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/show_post_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="이름"
+                android:textColor="#bd99e1"
+                android:fontFamily="@font/jalnan"
+                android:textSize="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/show_post_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2021년 10월 11일까지"
+                    android:textColor="#bd99e1"
+                    android:fontFamily="@font/jalnan"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"/>
+                <Button
+                    android:id="@+id/chating"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="72dp"
+                    android:fontFamily="@font/jalnan"
+                    android:textColor="@color/white"
+                    android:background="@drawable/btn_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:textSize="15dp"
+                    android:text="채팅하기"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#af7ed7" />
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="댓글"
+                android:textSize="30dp"
+                android:fontFamily="@font/jalnan"
+                android:textColor="#af7ed7"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/show_post_recycle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+    </ScrollView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#af7ed7" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/et_show_post"
+            android:fontFamily="@font/jalnan"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="10dp"
+            android:layout_width="wrap_content"
+            android:textSize="20dp"
+            android:layout_height="match_parent"
+            android:layout_weight="9"
+            android:background="@drawable/edit_text2"/>
+        <ImageButton
+            android:id="@+id/btn_show_post"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/send2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#00000000"/>
+    </LinearLayout>
+</LinearLayout>
