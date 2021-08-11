@@ -3,8 +3,9 @@ package com.example.grape;
 import java.util.HashMap;
 
 public class board {
-    String id;          //Uid
-    String wirteId;
+    String id;          // 유저 Uid
+    String wirteId;     // 글 작성자 이메일
+    String nickname;    // 글 작성자 닉네임
     String postType;    // 글 주제
     String title;   // 글 제목
     String postContent;    // 글 내용
@@ -12,9 +13,11 @@ public class board {
     String createAt;       // 작성시간
 
     public board(){}
-    public board(String id, String wirteId, String postType, String title, String postContent, String endDay, String createAt) {
+
+    public board(String id, String wirteId, String nickname, String postType, String title, String postContent, String endDay, String createAt) {
         this.id = id;
         this.wirteId = wirteId;
+        this.nickname = nickname;
         this.postType = postType;
         this.title = title;
         this.postContent = postContent;
@@ -36,6 +39,8 @@ public class board {
 
     public String getCreateAt() { return createAt; }
 
+    public String getNickname() { return nickname; }
+
     public void setId(String id) { this.id = id; }
 
     public void setWirteId(String wirteId) { this.wirteId = wirteId; }
@@ -49,5 +54,7 @@ public class board {
     public void setEndDay(String endDay) { this.endDay = endDay; }
 
     public void setCreateAt(String createAt) { this.createAt = createAt; }
+
+    public void setNickname(String nickname) { this.nickname = nickname; }
 }
 

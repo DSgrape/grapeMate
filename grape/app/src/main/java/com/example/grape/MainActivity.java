@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void BottomNavigate(int id) {  //BottomNavigation 페이지 변경
+    private void BottomNavigate(int id) {  //BottomNavigation 페이지 변경, 하단바
         String tag = String.valueOf(id);
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -75,15 +75,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // 글쓰기
     public void AddPost(){
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
         Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
+
+        // 현재 fragment 감추기
         if (currentFragment != null) {
             fragmentTransaction.hide(currentFragment);
         }
-        Fragment fragment=fragmentManager.findFragmentByTag("ap");
+
+        Fragment fragment = fragmentManager.findFragmentByTag("ap");
+
         if (fragment == null) {
             fragment=new addPost();
             Log.d("체크","체크4");
@@ -91,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.d("체크","체크5");
             fragmentTransaction.remove(fragment);
-            fragment=new addPost();
+            fragment = new addPost();
             fragmentTransaction.add(R.id.content_layout, fragment, "ap");
         }
 
@@ -101,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void toMain(){
+
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -109,15 +115,15 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.hide(currentFragment);
         }
 
-        Fragment fragment=fragmentManager.findFragmentByTag("ap");
+        Fragment fragment = fragmentManager.findFragmentByTag("ap");
         if (fragment != null) {
             fragmentTransaction.remove(fragment);
             Log.d("체크","체크1");
         }
 
-        fragment=fragmentManager.findFragmentByTag(MainTag);
+        fragment = fragmentManager.findFragmentByTag(MainTag);
         if (fragment == null) {
-            fragment=new Main_Fragment();
+            fragment = new Main_Fragment();
             fragmentTransaction.add(R.id.content_layout, fragment, MainTag);
             Log.d("체크","체크2");
         } else {

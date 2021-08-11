@@ -112,7 +112,6 @@ public class JoinActivity extends AppCompatActivity {
 
                                     UserAccount account = new UserAccount();
                                     // account에 토큰, 이메일, 비밀번호, 등급, 닉네임, 위치, 전화번호 넣음
-                                    /** 잊지말고 사진을 넣읍시다 **/
                                     account.setIdToken(firebaseUser.getUid());  //Uid : 로그인하면 나오는 거
                                     account.setEmailId(firebaseUser.getEmail());
                                     account.setPassword(strPwd);
@@ -131,6 +130,8 @@ public class JoinActivity extends AppCompatActivity {
                                     databaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
 
                                     Toast.makeText(JoinActivity.this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(JoinActivity.this, LoginActivity.class);
+                                    startActivity(intent);
                                 } else {
                                     Toast.makeText(JoinActivity.this, "회원가입에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                                 }

@@ -46,8 +46,8 @@ public class boardAdapter extends RecyclerView.Adapter<boardAdapter.ViewHolder> 
         private TextView title;
         public ViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
-            type=itemView.findViewById(R.id.tv_type);
-            title=itemView.findViewById(R.id.tv_title);
+            type = itemView.findViewById(R.id.tv_type);
+            title = itemView.findViewById(R.id.tv_title);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -62,6 +62,8 @@ public class boardAdapter extends RecyclerView.Adapter<boardAdapter.ViewHolder> 
         void setItem(board data){
             type.setText("\u003c"+data.getPostType()+"\u003e");
             title.setText(data.getTitle());
+
+            // 정보 넘겨야합니다
         }
     }
 }

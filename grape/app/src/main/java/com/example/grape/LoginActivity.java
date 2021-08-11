@@ -9,6 +9,9 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class LoginActivity extends AppCompatActivity {
     private Button login;
     private Button join;
@@ -20,8 +23,14 @@ public class LoginActivity extends AppCompatActivity {
 
         new hideNavigationBar(getWindow().getDecorView());
 
-        login=findViewById(R.id.btn_log);
-        join=findViewById(R.id.btn_join);
+        // 최근에 로그인한 사람은 로그인 안하도록
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+        login = findViewById(R.id.btn_log);
+        join = findViewById(R.id.btn_join);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

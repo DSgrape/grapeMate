@@ -57,14 +57,14 @@ public class Main_Fragment extends Fragment {
 
 
         // 임시 아이템 추가
-        adapter.items.add(new board("id", "writeId", "운동", "운동같이할사람", "운동 같이 하실래요?",
+        adapter.items.add(new board("id", "writeId", "닉네임", "운동", "운동같이할사람", "운동 같이 하실래요?",
                 "endDay", "createAt"));
 
         databaseRef = FirebaseDatabase.getInstance().getReference("grapeMate/post");
 
         // 데이터 불러오기
         // https://firebase.google.com/docs/database/admin/retrieve-data?hl=ko
-        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // 데이터 변경
@@ -81,6 +81,7 @@ public class Main_Fragment extends Fragment {
 
         // 데이터 변경
         // 데이터 삭제
+
         adapter = new boardAdapter(item, getContext());
         recyclerView.setAdapter(adapter);
 

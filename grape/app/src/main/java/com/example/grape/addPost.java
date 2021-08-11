@@ -18,64 +18,86 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
 
 public class addPost extends Fragment {
-    private Button ok;
-    private Button cen;
+    private Button btnOk;
+    private Button btnCancel;
     private Spinner spin;
     private CalendarView cal;
-    private String cate;
+    private String postType;
     private EditText title;
     private EditText content;
     private String date;
+    private String emailId;
+    private String Uid;
+    private String nickname;
+
+    private DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
+
+
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
-        View v = inflater.inflate(R.layout.add_post, container, false);
-        title=v.findViewById(R.id.et_title);
-        content=v.findViewById(R.id.et_content);
 
-        //스피너
-        spin=v.findViewById(R.id.spin);
-        String[] category={"귀가","운동","음식","공부","기타"};
+        setHasOptionsMenu(true);
+
+        View v = inflater.inflate(R.layout.add_post, container, false);
+
+        title = v.findViewById(R.id.et_title);
+        content = v.findViewById(R.id.et_content);
+
+        // 스피너
+        spin = v.findViewById(R.id.spin);
+        String[] category={ "귀가", "운동", "음식", "공부", "기타" };
+
         ArrayAdapter adapter= new ArrayAdapter(getContext(),R.layout.spinner_item,category);
         spin.setAdapter(adapter);
+
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     switch (position){
-                        case 0: cate=category[0]; break;
-                        case 1: cate=category[1]; break;
-                        case 2: cate=category[2]; break;
-                        case 3: cate=category[3]; break;
-                        case 4: cate=category[4]; break;
-                        default: cate="오류"; break;
+                        case 0: postType = category[0]; break;  // 귀가
+                        case 1: postType = category[1]; break;  // 운동
+                        case 2: postType = category[2]; break;  // 음식
+                        case 3: postType = category[3]; break;  // 공부
+                        case 4: postType = category[4]; break;  // 기타
+                        default: postType = "오류"; break;
                 }
             }
 
+            // 기본 - 선택된 것이 없을 때
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 spin.setSelection(0);
-                cate=category[0];
+                postType = category[0];
             }
 
         });
 
-        cal=v.findViewById(R.id.cal);
+        // 마감기한 선택 - calendarView
+        cal = v.findViewById(R.id.cal);
         cal.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                date=Integer.toString(year)+"/"+Integer.toString(month+1)+"/"+Integer.toString(dayOfMonth);
+                date = Integer.toString(year)+"/"+Integer.toString(month+1)+"/"+Integer.toString(dayOfMonth);
                 Log.d("체크",date);
             }
         });
 
-        //취소버튼->메인으로
-        cen=v.findViewById(R.id.btn_cen);
-        cen.setOnClickListener(new View.OnClickListener() {
+        // 취소버튼->메인으로
+        btnCancel = v.findViewById(R.id.btn_cen);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(),"글쓰기를 취소했습니다.",Toast.LENGTH_SHORT).show();
@@ -83,27 +105,57 @@ public class addPost extends Fragment {
             }
         });
 
-        //확인버튼->메인으로
-        //정보 등록 필요
-        ok=v.findViewById(R.id.btn_ok);
-        ok.setOnClickListener(new View.OnClickListener() {
+        // 확인버튼
+        btnOk=v.findViewById(R.id.btn_ok);
+        btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(title.getText().toString().equals("")){
+                if(title.getText().toString().equals("")) {
                     Toast.makeText(getContext(),"제목을 입력해주세요.",Toast.LENGTH_SHORT).show();
-                }else if(content.getText().toString().equals("")){
+                } else if(content.getText().toString().equals("")) {
                     Toast.makeText(getContext(),"내용을 입력해주세요.",Toast.LENGTH_SHORT).show();
-                }else if(date==null){
+                } else if(date==null) {
                     Toast.makeText(getContext(),"날짜를 선택해주세요.",Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
                     //db에 저장
-                    Log.d("체크",cate);
+                    Log.d("체크", postType);
                     Log.d("체크", title.getText().toString());
                     Log.d("체크", content.getText().toString());
-                    Log.d("체크",date);
+                    Log.d("체크", date);
 
-                    //메인으로 이동
-                    ((MainActivity)getActivity()).toMain();
+                    // Database
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                    // Uid 가져오기 -> board id
+                    DatabaseReference ref = databaseRef.child("grapeMate/UserAccount").child(user.getUid());
+                    ref.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            // emailId -> writeId
+                            if(snapshot.child("emailId").exists()) {
+                                emailId = String.valueOf(snapshot.child("emailId").getValue());
+                            }
+                            //nickname
+                            if(snapshot.child("nickname").exists()) {
+                                nickname = String.valueOf(snapshot.child("nickname").getValue());
+                            }
+                            Uid = user.getUid();
+
+                            if (title.getText().toString() == "") {
+                                Toast.makeText(getContext(), "제목을 입력하세요", Toast.LENGTH_SHORT).show();
+                            } else if (content.getText().toString() == ""){
+                                Toast.makeText(getContext(), "내용을 입력하세요", Toast.LENGTH_SHORT).show();
+                            } else if(Uid != null && emailId != null) {
+                                // 글을 정상적으로 작성했을 때
+                                savePost(new board(Uid, emailId, nickname, postType, title.getText().toString(), content.getText().toString(), date, String.valueOf(ServerValue.TIMESTAMP)));
+
+                                //메인으로 이동
+                                ((MainActivity)getActivity()).toMain();
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) { }
+                    });
                 }
             }
         });
@@ -114,5 +166,11 @@ public class addPost extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    // 데이터베이스에 글 저장하는 함수
+    public void savePost(board b) {
+            // 키값을 임의의 문자열로 지정하고 싶으면 push() 사용
+            databaseRef.child("grapeMate/post").push().setValue(b);
     }
 }

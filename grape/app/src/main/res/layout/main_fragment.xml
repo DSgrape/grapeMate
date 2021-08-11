@@ -44,6 +44,7 @@
         android:orientation="horizontal"
         android:layout_margin="5dp">
         <Button
+            android:id="@+id/btn_homecoming"
             android:fontFamily="@font/jalnan"
             android:textColor="@color/white"
             android:layout_weight="1"
@@ -54,6 +55,7 @@
             android:textStyle="bold"
             android:text="귀가"/>
         <Button
+            android:id="@+id/btn_exercise"
             android:fontFamily="@font/jalnan"
             android:textColor="@color/white"
             android:layout_marginLeft="8dp"
@@ -65,6 +67,7 @@
             android:textStyle="bold"
             android:text="운동"/>
         <Button
+            android:id="@+id/btn_food"
             android:fontFamily="@font/jalnan"
             android:textColor="@color/white"
             android:layout_marginLeft="8dp"
@@ -76,6 +79,7 @@
             android:textStyle="bold"
             android:text="음식"/>
         <Button
+            android:id="@+id/btn_study"
             android:fontFamily="@font/jalnan"
             android:textColor="@color/white"
             android:layout_marginLeft="8dp"
@@ -87,6 +91,7 @@
             android:textStyle="bold"
             android:text="공부"/>
         <Button
+            android:id="@+id/btn_etc"
             android:fontFamily="@font/jalnan"
             android:textColor="@color/white"
             android:layout_marginLeft="8dp"
