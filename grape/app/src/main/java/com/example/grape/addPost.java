@@ -27,6 +27,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class addPost extends Fragment {
     private Button btnOk;
     private Button btnCancel;
@@ -114,7 +118,7 @@ public class addPost extends Fragment {
                     Toast.makeText(getContext(),"제목을 입력해주세요.",Toast.LENGTH_SHORT).show();
                 } else if(content.getText().toString().equals("")) {
                     Toast.makeText(getContext(),"내용을 입력해주세요.",Toast.LENGTH_SHORT).show();
-                } else if(date==null) {
+                } else if(date == null) {
                     Toast.makeText(getContext(),"날짜를 선택해주세요.",Toast.LENGTH_SHORT).show();
                 } else {
                     //db에 저장
@@ -147,7 +151,12 @@ public class addPost extends Fragment {
                                 Toast.makeText(getContext(), "내용을 입력하세요", Toast.LENGTH_SHORT).show();
                             } else if(Uid != null && emailId != null) {
                                 // 글을 정상적으로 작성했을 때
-                                savePost(new board(Uid, emailId, nickname, postType, title.getText().toString(), content.getText().toString(), date, String.valueOf(ServerValue.TIMESTAMP)));
+                                Date todayDate = Calendar.getInstance().getTime();
+                                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                                String todayString = formatter.format(todayDate);
+                                Log.e("print", todayString);
+
+                                savePost(new board(Uid, emailId, nickname, postType, title.getText().toString(), content.getText().toString(), date, todayString));
 
                                 //메인으로 이동
                                 ((MainActivity)getActivity()).toMain();

@@ -94,7 +94,7 @@ public class Main_Fragment extends Fragment {
     }
 
     private void loadBoardList(DataSnapshot dataSnapshot) {
-        Log.e("print", "동작안함");
+        item.clear();
         for(DataSnapshot snapshot : dataSnapshot.getChildren()){
             board b = snapshot.getValue(board.class);
             Log.e("print", b.id);
