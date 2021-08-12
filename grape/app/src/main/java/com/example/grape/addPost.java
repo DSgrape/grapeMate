@@ -158,7 +158,7 @@ public class addPost extends Fragment {
                                 String todayString = formatter.format(todayDate);
                                 Log.e("print", todayString);
 
-                                savePost(new board(Uid, emailId, nickname, postType, title.getText().toString(), content.getText().toString(), date, todayString));
+                                savePost(Uid, emailId, nickname, postType, title.getText().toString(), content.getText().toString(), date, todayString);
 
                                 //메인으로 이동
                                 ((MainActivity)getActivity()).toMain();
@@ -180,8 +180,10 @@ public class addPost extends Fragment {
     }
 
     // 데이터베이스에 글 저장하는 함수
-    public void savePost(board b) {
-            // 키값을 임의의 문자열로 지정하고 싶으면 push() 사용
-            databaseRef.child("grapeMate/post").push().setValue(b);
+    public void savePost(String Uid, String emailId, String nickname, String postType, String title, String content, String date, String todayString) {
+        // 키값을 임의의 문자열로 지정하고 싶으면 push() 사용
+        String key = databaseRef.child("posts").push().getKey();
+        board b = new board(key, Uid, emailId, nickname, postType, title, content, date, todayString);
+        databaseRef.child("grapeMate/post").child(key).setValue(b);
     }
 }

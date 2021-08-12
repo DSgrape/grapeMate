@@ -57,7 +57,7 @@ public class Main_Fragment extends Fragment {
 
 
         // 임시 아이템 추가
-        adapter.items.add(new board("id", "writeId", "닉네임", "운동", "운동같이할사람", "운동 같이 하실래요?",
+        adapter.items.add(new board("key", "id", "writeId", "닉네임", "운동", "운동같이할사람", "운동 같이 하실래요?",
                 "endDay", "createAt"));
 
         databaseRef = FirebaseDatabase.getInstance().getReference("grapeMate/post");
@@ -95,9 +95,10 @@ public class Main_Fragment extends Fragment {
 
     private void loadBoardList(DataSnapshot dataSnapshot) {
         item.clear();
+
         for(DataSnapshot snapshot : dataSnapshot.getChildren()){
             board b = snapshot.getValue(board.class);
-            Log.e("print", b.id);
+            Log.e("key", b.getPid());
             item.add(b);
         }
 

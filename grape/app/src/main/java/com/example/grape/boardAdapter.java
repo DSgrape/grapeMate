@@ -1,6 +1,7 @@
 package com.example.grape;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,7 @@ public class boardAdapter extends RecyclerView.Adapter<boardAdapter.ViewHolder> 
         private TextView type;
         private TextView title;
         private board data;
+
         public ViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
             type = itemView.findViewById(R.id.tv_type);
@@ -52,19 +54,17 @@ public class boardAdapter extends RecyclerView.Adapter<boardAdapter.ViewHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MainActivity main=(MainActivity)context;
-                    main.ShowPost(data.getId());
+                    MainActivity main = (MainActivity)context;
+                    main.ShowPost(data.getPid());
                 }
             });
 
         }
 
         void setItem(board data){
-            this.data=data;
+            this.data = data;
             type.setText("\u003c"+data.getPostType()+"\u003e");
             title.setText(data.getTitle());
-
-            // 정보 넘겨야합니다
         }
     }
 }

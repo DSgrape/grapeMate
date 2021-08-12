@@ -3,8 +3,9 @@ package com.example.grape;
 import java.util.HashMap;
 
 public class board {
+    String pid;         // 글 토큰
     String id;          // 유저 Uid
-    String wirteId;     // 글 작성자 이메일
+    String writeId;     // 글 작성자 이메일
     String nickname;    // 글 작성자 닉네임
     String postType;    // 글 주제
     String title;   // 글 제목
@@ -14,9 +15,10 @@ public class board {
 
     public board(){}
 
-    public board(String id, String wirteId, String nickname, String postType, String title, String postContent, String endDay, String createAt) {
+    public board(String pid, String id, String writeId, String nickname, String postType, String title, String postContent, String endDay, String createAt) {
+        this.pid = pid;
         this.id = id;
-        this.wirteId = wirteId;
+        this.writeId = writeId;
         this.nickname = nickname;
         this.postType = postType;
         this.title = title;
@@ -25,9 +27,11 @@ public class board {
         this.createAt = createAt;
     }
 
+    public String getPid() { return pid; }
+
     public String getId() { return id; }
 
-    public String getWirteId() { return wirteId; }
+    public String getWirteId() { return writeId; }
 
     public String getPostType() { return postType; }
 
@@ -41,9 +45,11 @@ public class board {
 
     public String getNickname() { return nickname; }
 
+    public void setPid(String pid) { this.pid = pid; }
+
     public void setId(String id) { this.id = id; }
 
-    public void setWirteId(String wirteId) { this.wirteId = wirteId; }
+    public void setWirteId(String wirteId) { this.writeId = wirteId; }
 
     public void setTitle(String title){this.title=title;}
 

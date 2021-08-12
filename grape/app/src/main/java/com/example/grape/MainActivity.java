@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //글보기
-    public void ShowPost(String id){
+    public void ShowPost(String postToken){
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -152,8 +152,8 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.hide(currentFragment);
         }
 
-        Bundle bundle=new Bundle();
-        bundle.putString("id",id);
+        Bundle bundle = new Bundle();
+        bundle.putString("postToken",postToken);
 
         Fragment fragment = fragmentManager.findFragmentByTag("sp");
 
