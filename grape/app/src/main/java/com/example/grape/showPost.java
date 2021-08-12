@@ -32,9 +32,9 @@ public class showPost extends Fragment {
     TextView content;
     TextView name;
     TextView date;
-    Button chating;//체팅버튼
-    EditText et_showPost;//댓글쓰기
-    Button btn_showPost;//댓글쓰기
+    Button chatting;// 채팅버튼
+    EditText et_showPost; //댓글쓰기
+    Button btn_showPost; //댓글쓰기
     private LinearLayoutManager layoutManager;
     private commentAdapter adapter;
 
