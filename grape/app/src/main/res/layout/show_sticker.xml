@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#f6f4f5 "
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:background="#00000000"
+            android:src="@drawable/back2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="35dp"
+            android:fontFamily="@font/jalnan"
+            android:text="내 스티커"
+            android:textColor="#af7ed7 "
+            android:textSize="55dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#af7ed7" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/jalnan"
+        android:gravity="center"
+        android:text="♥x10 = ●x1"
+        android:textColor="#af7ed7 "
+        android:textSize="35dp" />
+
+    <ImageView
+        android:id="@+id/sticker_pan"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        app:srcCompat="@drawable/gae0" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/jalnan"
+        android:gravity="center"
+        android:text="총 하트 개수"
+        android:textColor="#af7ed7 "
+        android:textSize="35dp" />
+
+    <TextView
+        android:id="@+id/sticker_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/jalnan"
+        android:gravity="center"
+        android:text="0개"
+        android:textColor="#006f12"
+        android:textSize="35dp" />
+
+
+</LinearLayout>

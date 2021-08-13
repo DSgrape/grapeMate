@@ -8,7 +8,7 @@ public class UserAccount {
     private String password;    // 비밀번호
     private String nickname;    // 닉네임
     private int grade = -1;          // 회원 등급 0:owner 1:준회원 2:정회원
-    private String location;    // 위치
+    private String school;    // 위치
     private String phoneNumber;
     private String studentCardPhoto;   // 학생증 사진
     private String profile;     // 프로필 사진
@@ -36,8 +36,8 @@ public class UserAccount {
         return grade;
     }
 
-    public String getLocation() {
-        return location;
+    public String getSchool() {
+        return school;
     }
 
     public String getPhoneNumber() { return phoneNumber; }
@@ -68,9 +68,7 @@ public class UserAccount {
         this.grade = grade;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+    public void setSchool(String school) { this.school = school;   }
 
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 

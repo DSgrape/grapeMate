@@ -113,14 +113,14 @@ public class JoinActivity extends AppCompatActivity {
                                     Log.e("print", firebaseUser!=null?"불러옴":"못불러옴");
 
                                     UserAccount account = new UserAccount();
-                                    // account에 토큰, 이메일, 비밀번호, 등급, 닉네임, 위치, 전화번호 넣음
+                                    // account에 토큰, 이메일, 비밀번호, 등급, 닉네임, 학교,  넣음
                                     account.setIdToken(firebaseUser.getUid());  //Uid : 로그인하면 나오는 거
                                     account.setEmailId(firebaseUser.getEmail());
                                     account.setPassword(strPwd);
                                     account.setGrade(1);
                                     account.setNickname(strNickname);
                                     account.setPhoneNumber(strPhoneNumber);
-                                    account.setLocation("기본선호위치");
+                                    account.setSchool("덕성");
                                     account.setStudentCardPhoto(imgUrl);
                                     // 기본 프로필 사진
                                     account.setProfile("https://firebasestorage.googleapis.com/v0/b/grape-3cabc.appspot.com/o/user.png?alt=media&token=4e337b01-bbc3-4c3a-9beb-657f2ff0fa2e");

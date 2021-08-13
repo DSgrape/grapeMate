@@ -48,7 +48,7 @@ public class Main_Fragment extends Fragment {
             }
         });
 
-        RecyclerView recyclerView=v.findViewById(R.id.recycle_main);
+        RecyclerView recyclerView = v.findViewById(R.id.recycle_main);
 
         layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setReverseLayout(true);

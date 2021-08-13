@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -76,12 +77,10 @@ public class showPost extends Fragment {
                 content.setText(String.valueOf(snapshot.child("postContent").getValue()));
                 category.setText(String.valueOf(snapshot.child("postType").getValue()));
                 date.setText(String.valueOf(snapshot.child("endDay").getValue())+"까지");
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
@@ -90,8 +89,10 @@ public class showPost extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         adapter = new commentAdapter();
+
         adapter.items.add(new comment("이름1","내용1"));
         adapter.items.add(new comment("이름2","내용2"));
+
         recyclerView.setAdapter(adapter);
 
         //왼쪽 화살표 버튼
