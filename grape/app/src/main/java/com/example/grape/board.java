@@ -3,19 +3,20 @@ package com.example.grape;
 import java.util.HashMap;
 
 public class board {
-    String pid;         // 글 토큰
-    String id;          // 유저 Uid
-    String writeId;     // 글 작성자 이메일
-    String nickname;    // 글 작성자 닉네임
-    String postType;    // 글 주제
-    String title;   // 글 제목
-    String postContent;    // 글 내용
-    String endDay;     // 마감기한
-    String createAt;       // 작성시간
+    private String pid;         // 글 토큰
+    private String id;          // 유저 Uid
+    private String writeId;     // 글 작성자 이메일
+    private String nickname;    // 글 작성자 닉네임
+    private String postType;    // 글 주제
+    private String title;   // 글 제목
+    private String postContent;    // 글 내용
+    private int hearts;     // 하트 수
+    private String endDay;     // 마감기한
+    private String createAt;       // 작성시간
 
     public board(){}
 
-    public board(String pid, String id, String writeId, String nickname, String postType, String title, String postContent, String endDay, String createAt) {
+    public board(String pid, String id, String writeId, String nickname, String postType, String title, String postContent, int hearts, String endDay, String createAt) {
         this.pid = pid;
         this.id = id;
         this.writeId = writeId;
@@ -23,6 +24,7 @@ public class board {
         this.postType = postType;
         this.title = title;
         this.postContent = postContent;
+        this.hearts = hearts;
         this.endDay = endDay;
         this.createAt = createAt;
     }
@@ -31,13 +33,15 @@ public class board {
 
     public String getId() { return id; }
 
-    public String getWirteId() { return writeId; }
-
     public String getPostType() { return postType; }
 
     public String getTitle(){return title;}
 
     public String getPostContent() { return postContent; }
+
+    public String getWriteId() { return writeId; }
+
+    public int getHearts() { return hearts; }
 
     public String getEndDay() { return endDay; }
 
@@ -49,13 +53,15 @@ public class board {
 
     public void setId(String id) { this.id = id; }
 
-    public void setWirteId(String wirteId) { this.writeId = wirteId; }
+    public void setWriteId(String wirteId) { this.writeId = wirteId; }
 
     public void setTitle(String title){this.title=title;}
 
     public void setPostType(String postType) { this.postType = postType; }
 
     public void setPostContent(String postContent) { this.postContent = postContent; }
+
+    public void setHearts(int hearts) { this.hearts = hearts; }
 
     public void setEndDay(String endDay) { this.endDay = endDay; }
 
