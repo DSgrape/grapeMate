@@ -71,7 +71,10 @@ public class showSticker extends Fragment {
                         stickerPan.setImageResource(R.drawable.gae5);
                         stickerNumber.setText("5개");
                         break;
-                    //case 6: stickerPan.setImageResource(R.drawable.);
+                    case 6:
+                        stickerPan.setImageResource(R.drawable.gae6);
+                        stickerNumber.setText("6개");
+                        break;
                 }
 
             }
