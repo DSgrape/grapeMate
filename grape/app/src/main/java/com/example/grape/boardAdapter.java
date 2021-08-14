@@ -22,13 +22,17 @@ public class boardAdapter extends RecyclerView.Adapter<boardAdapter.ViewHolder> 
         this.context = context;
     }
 
+    public static void setItems(ArrayList<board> items) {
+        boardAdapter.items = items;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View itemView = inflater.inflate(R.layout.board, parent, false);
-        return new ViewHolder(itemView,context);
+        return new ViewHolder(itemView, context);
     }
 
     @Override
@@ -42,7 +46,7 @@ public class boardAdapter extends RecyclerView.Adapter<boardAdapter.ViewHolder> 
         return items.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
         private TextView type;
         private TextView title;
         private board data;
@@ -55,16 +59,16 @@ public class boardAdapter extends RecyclerView.Adapter<boardAdapter.ViewHolder> 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MainActivity main = (MainActivity)context;
+                    MainActivity main = (MainActivity) context;
                     main.ShowPost(data.getPostId());
                 }
             });
 
         }
 
-        void setItem(board data){
+        void setItem(board data) {
             this.data = data;
-            type.setText("\u003c"+data.getPostType()+"\u003e");
+            type.setText("\u003c" + data.getPostType() + "\u003e");
             title.setText(data.getTitle());
         }
     }
