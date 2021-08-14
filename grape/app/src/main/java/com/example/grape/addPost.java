@@ -182,7 +182,7 @@ public class addPost extends Fragment {
     // 데이터베이스에 글 저장하는 함수
     public void savePost(String Uid, String emailId, String nickname, String postType, String title, String content, String date, String todayString) {
         // 키값을 임의의 문자열로 지정하고 싶으면 push() 사용
-        String key = databaseRef.child("posts").push().getKey();
+        String key = databaseRef.child("grapeMate/post").push().getKey();
         board b = new board(key, Uid, emailId, nickname, postType, title, content, 0, date, todayString);
         databaseRef.child("grapeMate/post").child(key).setValue(b);
     }

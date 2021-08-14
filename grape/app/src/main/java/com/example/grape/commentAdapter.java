@@ -9,17 +9,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.w3c.dom.Comment;
+
 import java.util.ArrayList;
 
 public class commentAdapter extends RecyclerView.Adapter<commentAdapter.ViewHolder> {
-    public static ArrayList<comment> items=new ArrayList<>();
+    public static ArrayList<comment> items = new ArrayList<>();
     private Context context;
-    /*
+
     public commentAdapter(ArrayList<comment> items, Context context) {
         this.items = items;
         this.context = context;
     }
-    */
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -30,7 +32,7 @@ public class commentAdapter extends RecyclerView.Adapter<commentAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull commentAdapter.ViewHolder holder, int position) {
         comment item = items.get(position);
         holder.setItem(item);
     }
@@ -41,18 +43,19 @@ public class commentAdapter extends RecyclerView.Adapter<commentAdapter.ViewHold
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView name;
-        private TextView Comment;
+        private TextView nickname;
+        private TextView content;
         public ViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
-            name = itemView.findViewById(R.id.commnet_name);
-            Comment = itemView.findViewById(R.id.tv_comment);
-
+            nickname = itemView.findViewById(R.id.commnet_name);// 닉네임
+            content = itemView.findViewById(R.id.tv_comment);   // 내용
+            //작성시간 createAt
         }
 
         void setItem(comment data){
-            name.setText(data.getName());
-            Comment.setText(data.getContent());
+            nickname.setText(data.getNickname());
+            content.setText(data.getContent());
+            // 작성시간 createAt 필요
         }
     }
 }

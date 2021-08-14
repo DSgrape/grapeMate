@@ -25,6 +25,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
 public class showPost extends Fragment {
     ImageButton back;
     String postToken;
@@ -34,10 +39,19 @@ public class showPost extends Fragment {
     TextView name;
     TextView date;
     Button chatting;// 채팅버튼
-    EditText et_showPost; //댓글쓰기
-    Button btnShowPost; //댓글쓰기
+    EditText etShowPost; //댓글쓰기
+    ImageButton btnShowPost; //댓글쓰기
+
+    // 댓글작성자Id / 댓글Id / 글Id / 닉네임 / 댓글내용 / 작성시간
+    private String writeId, postId, nickname, comment, createAt;
+
+    private ArrayList<comment> item = new ArrayList<>();
+
     private LinearLayoutManager layoutManager;
     private commentAdapter adapter;
+
+    private DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference userRef;
 
     @Nullable
     @Override
@@ -50,15 +64,14 @@ public class showPost extends Fragment {
         postToken = bundle.getString("postToken");
         Log.e("토큰", postToken);
 
-        // 현재 로그인한 사용자 불러오기
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        DatabaseReference mref = FirebaseDatabase.getInstance().getReference();
 
         // database 연결
-        DatabaseReference userRef = mref.child("grapeMate/UserAccount").child(user.getUid());
+        DatabaseReference postRef = databaseRef.child("grapeMate/post").child(postToken);
+        DatabaseReference commentRef = FirebaseDatabase.getInstance().getReference("grapeMate/comment");
 
-        DatabaseReference postRef = mref.child("grapeMate/post").child(postToken);
+        // 현재 로그인한 사용자 불러오기
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        userRef = databaseRef.child("grapeMate/UserAccount").child(user.getUid());
 
 
         Log.d("체크",postToken);
@@ -84,16 +97,55 @@ public class showPost extends Fragment {
             }
         });
 
+        commentRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // postToken과 comment child의 postId 가 같은 댓글만 표시하는거임
+                loadBoardList(snapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         //댓글 리사이클러뷰
         RecyclerView recyclerView = v.findViewById(R.id.show_post_recycle);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new commentAdapter();
+
 
         adapter.items.add(new comment("commentId", "postId", "writeId","이름1","내용1", "createAt" ));
         adapter.items.add(new comment("commentId", "postId", "writeId","이름2","내용2", "createAt" ));
 
+        adapter = new commentAdapter(item, getContext());
         recyclerView.setAdapter(adapter);
+
+
+        btnShowPost = v.findViewById(R.id.btn_show_post);
+        // 댓글 저장
+        btnShowPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // 로그인한 사용자 writeId, nickname 가져오기
+                writeId = user.getUid();
+                // postId
+                postId = postToken;
+                // 댓글 내용
+                etShowPost = v.findViewById(R.id.et_show_post);
+                comment = etShowPost.getText().toString();
+                // 작성날짜
+                Date todayDate = Calendar.getInstance().getTime();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+                createAt = formatter.format(todayDate);
+
+                saveComment(postId, writeId, comment, createAt);
+            }
+        });
+
+
 
         //왼쪽 화살표 버튼
         back = v.findViewById(R.id.btn_back);
@@ -107,9 +159,52 @@ public class showPost extends Fragment {
         return v;
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    private void loadBoardList(DataSnapshot dataSnapshot) {
+        item.clear();
+
+        for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+
+            if(String.valueOf(snapshot.child("postId").getValue()).equals(postToken)) {
+                String commentId = String.valueOf(snapshot.child("commentId").getValue());     // comment Id
+                String postId = String.valueOf(snapshot.child("postId").getValue());  // 글 id
+                String writeId = String.valueOf(snapshot.child("writeId").getValue());  // 댓글 단 사람 id
+                String nickname = String.valueOf(snapshot.child("nickname").getValue());    // name
+                String content = String.valueOf(snapshot.child("content").getValue()); // content
+                String createAt = String.valueOf(snapshot.child("createAt").getValue());    // 댓글 작성시간
+                comment c = new comment(commentId, postId, writeId, nickname,content, createAt);
+                Log.e("key2", c.getCommentId());
+                item.add(c);
+            }
+        }
+
+        adapter.notifyDataSetChanged(); // 변경사항 나타내기
+    }
+
+    // 데이터베이스에 댓글 저장하는 함수
+    public void saveComment(String postId, String writeId, String content, String createAt) {
+        // 키값을 임의의 문자열로 지정하고 싶으면 push() 사용
+        String key = databaseRef.child("grapeMate/comment").push().getKey();
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                nickname = String.valueOf(snapshot.child("nickname").getValue());
+                comment c = new comment(key, postId, writeId, nickname, content, createAt);
+                etShowPost.setText("");
+                databaseRef.child("grapeMate/comment").child(key).setValue(c);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "댓글 입력에 실패했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
 }

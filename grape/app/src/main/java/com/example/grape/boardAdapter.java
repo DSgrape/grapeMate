@@ -14,8 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class boardAdapter extends RecyclerView.Adapter<boardAdapter.ViewHolder> {
-    public static ArrayList<board> items=new ArrayList<>();
+    public static ArrayList<board> items = new ArrayList<>();
     private Context context;
+
     public boardAdapter(ArrayList<board> items, Context context) {
         this.items = items;
         this.context = context;
