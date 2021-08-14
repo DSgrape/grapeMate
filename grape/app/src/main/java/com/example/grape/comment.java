@@ -4,15 +4,15 @@ public class comment {
     private String commentId;     // comment Id
     private String postId;  // 글 id
     private String writeId;  // 댓글 단 사람 id
-    private String name;    // name
+    private String nickname;    // name
     private String content; // content
     private String createAt;    // 댓글 작성시간
 
-    public comment(String commentId, String postId, String writeId, String name, String content, String createAt) {
+    public comment(String commentId, String postId, String writeId, String nickname, String content, String createAt) {
         this.commentId = commentId;
         this.postId = postId;
         this.writeId = writeId;
-        this.name = name;
+        this.nickname = nickname;
         this.content = content;
         this.createAt = createAt;
     }
@@ -29,8 +29,8 @@ public class comment {
         return writeId;
     }
 
-    public String getName() {
-        return name;
+    public String getNickname() {
+        return nickname;
     }
 
     public String getContent() {
@@ -53,8 +53,8 @@ public class comment {
         this.writeId = writeId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public void setContent(String content) {
