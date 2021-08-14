@@ -164,7 +164,6 @@ public class showPost extends Fragment {
                         if (snapshot.child("sticker").exists()) {
                             s = Integer.parseInt(String.valueOf(snapshot.child("sticker").getValue()));
                         }
-                        Log.e("print", "불러옴");
                         if (snapshot.child(user.getUid()).exists()) {
                             heart = Integer.parseInt(String.valueOf(snapshot.child(user.getUid()).getValue()));
                         } else {
