@@ -92,6 +92,7 @@ public class Main_Fragment extends Fragment {
                 if (state == 0) {
                     loadBoardList(snapshot);
                 } else {
+                    loadBoardList(snapshot);
                     loadSpecificBoardList();
                 }
             }
@@ -174,7 +175,8 @@ public class Main_Fragment extends Fragment {
                     }
                 }
                 recyclerView.setAdapter(adapter_homecoming);
-                adapter_homecoming.notifyDataSetChanged(); // 변경사항 나타내기
+                if(adapter_study != null)
+                    adapter_homecoming.notifyDataSetChanged(); // 변경사항 나타내기
                 break;
             case 2:
                 item_exercise.clear();
@@ -189,7 +191,8 @@ public class Main_Fragment extends Fragment {
                     }
                 }
                 recyclerView.setAdapter(adapter_exercise);
-                adapter_exercise.notifyDataSetChanged(); // 변경사항 나타내기
+                if(adapter_study != null)
+                    adapter_exercise.notifyDataSetChanged(); // 변경사항 나타내기
                 break;
             case 3:
                 item_food.clear();
@@ -205,9 +208,11 @@ public class Main_Fragment extends Fragment {
                     }
                 }
                 recyclerView.setAdapter(adapter_food);
-                adapter_food.notifyDataSetChanged(); // 변경사항 나타내기
+                if(adapter_study != null)
+                    adapter_food.notifyDataSetChanged(); // 변경사항 나타내기
                 break;
             case 4:
+
                 item_study.clear();
                 for (board b : item) {
                     if (b.getPostType().equals("공부")) {
@@ -220,7 +225,9 @@ public class Main_Fragment extends Fragment {
                     }
                 }
                 recyclerView.setAdapter(adapter_study);
-                adapter_study.notifyDataSetChanged(); // 변경사항 나타내기
+                if(adapter_study != null)
+                    adapter_study.notifyDataSetChanged(); // 변경사항 나타내기
+
                 break;
             case 5:
                 item_etc.clear();
@@ -237,7 +244,8 @@ public class Main_Fragment extends Fragment {
                     }
                 }
                 recyclerView.setAdapter(adapter_etc);
-                adapter_etc.notifyDataSetChanged(); // 변경사항 나타내기
+                if(adapter_study != null)
+                    adapter_etc.notifyDataSetChanged(); // 변경사항 나타내기
                 break;
         }
 
