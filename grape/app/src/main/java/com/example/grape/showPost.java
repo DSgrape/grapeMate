@@ -42,7 +42,8 @@ public class showPost extends Fragment {
     EditText etShowPost; //댓글쓰기
     ImageButton btnShowPost; //댓글쓰기
     private String Uid;
-    int s;
+
+    Integer s = null;
 
     private static int heart = 0;   //false
     private static ImageButton btnHeart;
@@ -94,9 +95,29 @@ public class showPost extends Fragment {
                 content.setText(String.valueOf(snapshot.child("postContent").getValue()));
                 category.setText(String.valueOf(snapshot.child("postType").getValue()));
                 date.setText(String.valueOf(snapshot.child("endDay").getValue()) + "까지");
-                Uid = String.valueOf(snapshot.child("id").getValue());
+
                 // 글쓴이 불러오기
+                Uid = String.valueOf(snapshot.child("id").getValue());
+                Log.e("uid",Uid);
                 postUserRef = databaseRef.child("grapeMate/UserAccount").child(Uid);
+
+                // 글쓴이 하트 수 높이기
+                postUserRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        // 유저 하트 수 바꾸기
+                        Log.e("print", "실행");
+                        if (snapshot.child("sticker").exists() && s==null) {
+                            s = Integer.parseInt(String.valueOf(snapshot.child("sticker").getValue()));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                // 로그인한 사용자가 좋아요한 이력이 있는지 확인
                 if (snapshot.child(user.getUid()).exists()) {
                     heart = Integer.parseInt(String.valueOf(snapshot.child(user.getUid()).getValue()));
                     if(heart==1) {
@@ -105,14 +126,11 @@ public class showPost extends Fragment {
                 } else {
                     postRef.child(user.getUid()).setValue(0);
                 }
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
 
         //댓글 리사이클러뷰
         RecyclerView recyclerView = v.findViewById(R.id.show_post_recycle);
@@ -160,10 +178,6 @@ public class showPost extends Fragment {
                 userRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        // 유저 하트 수 바꾸기
-                        if (snapshot.child("sticker").exists()) {
-                            s = Integer.parseInt(String.valueOf(snapshot.child("sticker").getValue()));
-                        }
                         if (snapshot.child(user.getUid()).exists()) {
                             heart = Integer.parseInt(String.valueOf(snapshot.child(user.getUid()).getValue()));
                         } else {
@@ -173,18 +187,24 @@ public class showPost extends Fragment {
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) { }
                 });
+
                 if (heart == 1) {
                     //좋아요 취소
                     heart = 0;
                     btnHeart.setImageResource(R.drawable.heart4);
-                    s -= 1;
+                    // 먼저 s 값을 불러와야함
+                    Log.e("좋아요 취소", String.valueOf(s));
+                    s = s - 1;
+
                     postUserRef.child("sticker").setValue(s);
                     postRef.child(user.getUid()).setValue(0);
                 } else {
                     // 좋아요
                     heart = 1;
                     btnHeart.setImageResource(R.drawable.fullheart);
-                    s += 1;
+                    Log.e("좋아요", String.valueOf(s));
+                    s = s + 1;
+
                     postUserRef.child("sticker").setValue(s);
                     postRef.child(user.getUid()).setValue(1);
                 }
