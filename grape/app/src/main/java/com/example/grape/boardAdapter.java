@@ -55,7 +55,7 @@ public class boardAdapter extends RecyclerView.Adapter<boardAdapter.ViewHolder> 
                 @Override
                 public void onClick(View v) {
                     MainActivity main = (MainActivity)context;
-                    main.ShowPost(data.getPid());
+                    main.ShowPost(data.getPostId());
                 }
             });
 

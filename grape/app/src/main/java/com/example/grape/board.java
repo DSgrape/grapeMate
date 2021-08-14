@@ -3,7 +3,7 @@ package com.example.grape;
 import java.util.HashMap;
 
 public class board {
-    private String pid;         // 글 토큰
+    private String postId;         // 글 토큰
     private String id;          // 유저 Uid
     private String writeId;     // 글 작성자 이메일
     private String nickname;    // 글 작성자 닉네임
@@ -17,7 +17,7 @@ public class board {
     public board(){}
 
     public board(String pid, String id, String writeId, String nickname, String postType, String title, String postContent, int hearts, String endDay, String createAt) {
-        this.pid = pid;
+        this.postId = pid;
         this.id = id;
         this.writeId = writeId;
         this.nickname = nickname;
@@ -29,7 +29,7 @@ public class board {
         this.createAt = createAt;
     }
 
-    public String getPid() { return pid; }
+    public String getPostId() { return postId; }
 
     public String getId() { return id; }
 
@@ -49,7 +49,7 @@ public class board {
 
     public String getNickname() { return nickname; }
 
-    public void setPid(String pid) { this.pid = pid; }
+    public void setPostId(String pid) { this.postId = pid; }
 
     public void setId(String id) { this.id = id; }
 

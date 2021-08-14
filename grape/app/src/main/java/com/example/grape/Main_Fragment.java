@@ -98,7 +98,7 @@ public class Main_Fragment extends Fragment {
 
         for(DataSnapshot snapshot : dataSnapshot.getChildren()){
             board b = snapshot.getValue(board.class);
-            Log.e("key", b.getPid());
+            Log.e("key", b.getPostId());
             item.add(b);
         }
 

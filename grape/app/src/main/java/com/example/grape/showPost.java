@@ -35,7 +35,7 @@ public class showPost extends Fragment {
     TextView date;
     Button chatting;// 채팅버튼
     EditText et_showPost; //댓글쓰기
-    Button btn_showPost; //댓글쓰기
+    Button btnShowPost; //댓글쓰기
     private LinearLayoutManager layoutManager;
     private commentAdapter adapter;
 
@@ -90,8 +90,8 @@ public class showPost extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new commentAdapter();
 
-        adapter.items.add(new comment("이름1","내용1"));
-        adapter.items.add(new comment("이름2","내용2"));
+        adapter.items.add(new comment("commentId", "postId", "writeId","이름1","내용1", "createAt" ));
+        adapter.items.add(new comment("commentId", "postId", "writeId","이름2","내용2", "createAt" ));
 
         recyclerView.setAdapter(adapter);
 
