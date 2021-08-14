@@ -38,9 +38,14 @@ public class showPost extends Fragment {
     TextView content;
     TextView name;
     TextView date;
-    Button chatting;// 채팅버튼
+    ImageButton btnChat, btnMap;// 채팅버튼
     EditText etShowPost; //댓글쓰기
     ImageButton btnShowPost; //댓글쓰기
+    private String Uid;
+    int s;
+
+    private static int heart = 0;   //false
+    private static ImageButton btnHeart;
 
     // 댓글작성자Id / 댓글Id / 글Id / 닉네임 / 댓글내용 / 작성시간
     private String writeId, postId, nickname, comment, createAt;
@@ -51,7 +56,7 @@ public class showPost extends Fragment {
     private commentAdapter adapter;
 
     private DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference userRef;
+    DatabaseReference userRef, postUserRef;
 
     @Nullable
     @Override
@@ -73,8 +78,7 @@ public class showPost extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         userRef = databaseRef.child("grapeMate/UserAccount").child(user.getUid());
 
-
-        Log.d("체크",postToken);
+        Log.d("체크", postToken);
 
         category = v.findViewById(R.id.show_post_category);
         title = v.findViewById(R.id.show_post_title);
@@ -89,7 +93,19 @@ public class showPost extends Fragment {
                 title.setText(String.valueOf(snapshot.child("title").getValue()));
                 content.setText(String.valueOf(snapshot.child("postContent").getValue()));
                 category.setText(String.valueOf(snapshot.child("postType").getValue()));
-                date.setText(String.valueOf(snapshot.child("endDay").getValue())+"까지");
+                date.setText(String.valueOf(snapshot.child("endDay").getValue()) + "까지");
+                Uid = String.valueOf(snapshot.child("id").getValue());
+                // 글쓴이 불러오기
+                postUserRef = databaseRef.child("grapeMate/UserAccount").child(Uid);
+                if (snapshot.child(user.getUid()).exists()) {
+                    heart = Integer.parseInt(String.valueOf(snapshot.child(user.getUid()).getValue()));
+                    if(heart==1) {
+                        btnHeart.setImageResource(R.drawable.fullheart);
+                    }
+                } else {
+                    postRef.child(user.getUid()).setValue(0);
+                }
+
             }
 
             @Override
@@ -97,18 +113,6 @@ public class showPost extends Fragment {
             }
         });
 
-        commentRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // postToken과 comment child의 postId 가 같은 댓글만 표시하는거임
-                loadBoardList(snapshot);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         //댓글 리사이클러뷰
         RecyclerView recyclerView = v.findViewById(R.id.show_post_recycle);
@@ -116,8 +120,8 @@ public class showPost extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        adapter.items.add(new comment("commentId", "postId", "writeId","이름1","내용1", "createAt" ));
-        adapter.items.add(new comment("commentId", "postId", "writeId","이름2","내용2", "createAt" ));
+        adapter.items.add(new comment("commentId", "postId", "writeId", "이름1", "내용1", "createAt"));
+        adapter.items.add(new comment("commentId", "postId", "writeId", "이름2", "내용2", "createAt"));
 
         adapter = new commentAdapter(item, getContext());
         recyclerView.setAdapter(adapter);
@@ -145,6 +149,49 @@ public class showPost extends Fragment {
             }
         });
 
+        //heart, map, chat
+        btnHeart = v.findViewById(R.id.btn_heart);
+        btnMap = v.findViewById(R.id.btn_map);
+        btnChat = v.findViewById(R.id.btn_chat);
+
+        btnHeart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        // 유저 하트 수 바꾸기
+                        if (snapshot.child("sticker").exists()) {
+                            s = Integer.parseInt(String.valueOf(snapshot.child("sticker").getValue()));
+                        }
+                        Log.e("print", "불러옴");
+                        if (snapshot.child(user.getUid()).exists()) {
+                            heart = Integer.parseInt(String.valueOf(snapshot.child(user.getUid()).getValue()));
+                        } else {
+                            heart = 0;
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) { }
+                });
+                if (heart == 1) {
+                    //좋아요 취소
+                    heart = 0;
+                    btnHeart.setImageResource(R.drawable.heart4);
+                    s -= 1;
+                    postUserRef.child("sticker").setValue(s);
+                    postRef.child(user.getUid()).setValue(0);
+                } else {
+                    // 좋아요
+                    heart = 1;
+                    btnHeart.setImageResource(R.drawable.fullheart);
+                    s += 1;
+                    postUserRef.child("sticker").setValue(s);
+                    postRef.child(user.getUid()).setValue(1);
+                }
+            }
+        });
+
 
 
         //왼쪽 화살표 버튼
@@ -152,7 +199,7 @@ public class showPost extends Fragment {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).toMain();
+                ((MainActivity) getActivity()).toMain();
             }
         });
 
@@ -168,16 +215,16 @@ public class showPost extends Fragment {
     private void loadBoardList(DataSnapshot dataSnapshot) {
         item.clear();
 
-        for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-            if(String.valueOf(snapshot.child("postId").getValue()).equals(postToken)) {
+            if (String.valueOf(snapshot.child("postId").getValue()).equals(postToken)) {
                 String commentId = String.valueOf(snapshot.child("commentId").getValue());     // comment Id
                 String postId = String.valueOf(snapshot.child("postId").getValue());  // 글 id
                 String writeId = String.valueOf(snapshot.child("writeId").getValue());  // 댓글 단 사람 id
                 String nickname = String.valueOf(snapshot.child("nickname").getValue());    // name
                 String content = String.valueOf(snapshot.child("content").getValue()); // content
                 String createAt = String.valueOf(snapshot.child("createAt").getValue());    // 댓글 작성시간
-                comment c = new comment(commentId, postId, writeId, nickname,content, createAt);
+                comment c = new comment(commentId, postId, writeId, nickname, content, createAt);
                 Log.e("key2", c.getCommentId());
                 item.add(c);
             }
