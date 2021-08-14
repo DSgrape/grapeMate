@@ -1,6 +1,7 @@
 package com.example.grape;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ public class showSticker extends Fragment {
 
     private ImageView stickerPan;
     private TextView stickerNumber;
-    private int stickerCount = 0;
+    private int heartCount = 0;
     private ImageButton back;
 
     @Nullable
@@ -52,44 +53,36 @@ public class showSticker extends Fragment {
         DatabaseReference mref = FirebaseDatabase.getInstance().getReference();
         DatabaseReference ref = mref.child("grapeMate/UserAccount").child(user.getUid());
 
+        // 스티커 사진, 개수 조절
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if(snapshot.child("sticker").exists()) {
-                    stickerCount = Integer.parseInt(String.valueOf(snapshot.child("sticker").getValue()));
+                if (snapshot.child("sticker").exists()) {
+                    heartCount = Integer.parseInt(String.valueOf(snapshot.child("sticker").getValue()));
                 }
-                switch(stickerCount) {
-                    case 0:
-                        stickerPan.setImageResource(R.drawable.gae0);
-                        stickerNumber.setText("0개");
-                        break;
-                    case 1:
-                        stickerPan.setImageResource(R.drawable.gae1);
-                        stickerNumber.setText("1개");
-                        break;
-                    case 2:
-                        stickerPan.setImageResource(R.drawable.gae2);
-                        stickerNumber.setText("2개");
-                        break;
-                    case 3:
-                        stickerPan.setImageResource(R.drawable.gae3);
-                        stickerNumber.setText("3개");
-                        break;
-                    case 4:
-                        stickerPan.setImageResource(R.drawable.gae4);
-                        stickerNumber.setText("4개");
-                        break;
-                    case 5:
-                        stickerPan.setImageResource(R.drawable.gae5);
-                        stickerNumber.setText("5개");
-                        break;
-                    case 6:
-                        stickerPan.setImageResource(R.drawable.gae6);
-                        stickerNumber.setText("6개");
-                        break;
+                if (heartCount >= 0 && heartCount < 10) {
+                    stickerPan.setImageResource(R.drawable.gae0);
+                    stickerNumber.setText(heartCount+"개");
+                } else if (heartCount >= 10 && heartCount < 20) {
+                    stickerPan.setImageResource(R.drawable.gae1);
+                    stickerNumber.setText(heartCount+"개");
+                } else if (heartCount >= 20 && heartCount < 30) {
+                    stickerPan.setImageResource(R.drawable.gae2);
+                    stickerNumber.setText(heartCount+"개");
+                } else if (heartCount >= 30 & heartCount < 40) {
+                    stickerPan.setImageResource(R.drawable.gae3);
+                    stickerNumber.setText(heartCount+"개");
+                } else if (heartCount >= 40 && heartCount < 50) {
+                    stickerPan.setImageResource(R.drawable.gae4);
+                    stickerNumber.setText(heartCount+"개");
+                } else if (heartCount >= 50 && heartCount < 60) {
+                    stickerPan.setImageResource(R.drawable.gae5);
+                    stickerNumber.setText(heartCount+"개");
+                } else if (heartCount >= 60) {
+                    stickerPan.setImageResource(R.drawable.gae6);
+                    stickerNumber.setText(heartCount+"개");
                 }
-
             }
 
             @Override

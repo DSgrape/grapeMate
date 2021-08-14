@@ -38,6 +38,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.0.1'
     implementation 'com.google.firebase:firebase-common-ktx:20.0.0'
     implementation 'com.google.firebase:firebase-storage:20.0.0'
+    implementation 'com.squareup.picasso:picasso:2.8'
 
     //구글 맵 사용
     implementation 'com.google.android.gms:play-services-location:16.0.0'
