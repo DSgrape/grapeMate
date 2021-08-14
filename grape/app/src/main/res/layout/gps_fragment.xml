@@ -26,7 +26,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:src="@drawable/heart3"/>
+            android:src="@drawable/now3"/>
     </LinearLayout>
 
     <View
@@ -44,17 +44,9 @@
             android:layout_height="match_parent"
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.MapFragment" />
-        <!--용도 물어보기!!
+        <!--
         <fragment
-        android:name="com.google.android.gms.maps.SupportMapFragment" />
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            app:backgroundTint="#bd99e1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:src="@drawable/plus"
-            android:layout_margin="16dp" /-->
+        android:name="com.google.android.gms.maps.SupportMapFragment" /-->
 
     </FrameLayout>
 

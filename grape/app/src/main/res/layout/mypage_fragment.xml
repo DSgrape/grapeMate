@@ -3,8 +3,108 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f6f4f5 "
     android:orientation="vertical">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_gravity="center"
+            android:fontFamily="@font/jalnan"
+            android:textColor="#af7ed7 "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="포도메이트"
+            android:textSize="55dp"
+            android:textStyle="bold" />
+
+    </FrameLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#af7ed7" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_mypage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/person"
+            app:civ_border_width="2dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            app:civ_border_color="#af7ed7"
+            android:layout_gravity="center|left" />
+
+        <TextView
+            android:id="@+id/tv_mypage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이름"
+            android:layout_marginRight="20dp"
+            android:textColor="#af7ed7"
+            android:fontFamily="@font/jalnan"
+            android:layout_gravity="center|right"
+            android:textSize="40dp"/>
+
+    </FrameLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#af7ed7" />
+    <TextView
+        android:id="@+id/myPost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#af7ed7"
+        android:fontFamily="@font/jalnan"
+        android:text="●   내가 쓴 글"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"
+        android:textSize="30dp"/>
+    <TextView
+        android:id="@+id/myChat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#af7ed7"
+        android:fontFamily="@font/jalnan"
+        android:text="●   채팅"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"
+        android:textSize="30dp"/>
+    <TextView
+        android:id="@+id/mySticker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#af7ed7"
+        android:fontFamily="@font/jalnan"
+        android:text="●   내 스티커 보기"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"
+        android:textSize="30dp"/>
+    <TextView
+        android:id="@+id/myProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#af7ed7"
+        android:fontFamily="@font/jalnan"
+        android:text="●   개인 정보 설정"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"
+        android:textSize="30dp"/>
 
 
 </LinearLayout>

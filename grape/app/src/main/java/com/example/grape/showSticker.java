@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,11 +26,23 @@ public class showSticker extends Fragment {
     private ImageView stickerPan;
     private TextView stickerNumber;
     private int stickerCount = 0;
+    private ImageButton back;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        View v = inflater.inflate(R.layout.show_post, container, false);
+        View v = inflater.inflate(R.layout.show_sticker, container, false);
+
+        //뒤로가기
+        back=v.findViewById(R.id.back_sticker);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).toMyPage();
+            }
+        });
+
 
         stickerPan = v.findViewById(R.id.sticker_pan);
         stickerNumber = v.findViewById(R.id.sticker_num);

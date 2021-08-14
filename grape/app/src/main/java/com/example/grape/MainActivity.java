@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     private String MainTag;
+    private String MyPageTag;
     private long backKeyPressedTime = 0;
 
     @Override
@@ -57,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.hide(currentFragment);
         }
 
+        remove("ap");
+        remove("sp");
+        remove("smp");
+        remove("smc");
+        remove("sms");
+        remove("profile");
+
         Fragment fragment = fragmentManager.findFragmentByTag(tag);
 
         if (fragment == null) {
@@ -66,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 MainTag=tag;
                 fragment = new Main_Fragment();
             }else {
+                MyPageTag=tag;
                 fragment = new Mypage_Fragment();
             }
 
@@ -124,6 +133,10 @@ public class MainActivity extends AppCompatActivity {
 
         remove("ap");
         remove("sp");
+        remove("smp");
+        remove("smc");
+        remove("sms");
+        remove("profile");
 
         Fragment fragment = fragmentManager.findFragmentByTag(MainTag);
         if (fragment == null) {
@@ -173,6 +186,153 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.setReorderingAllowed(true);
         fragmentTransaction.addToBackStack(null);//뒤로가기 눌렀을 떄 이전 프래그먼트로 이동가능
         fragmentTransaction.commit();
+    }
+
+    // 내가 쓴 글로
+    public void showMyPost(){
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+
+        Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
+
+        // 현재 fragment 감추기
+        if (currentFragment != null) {
+            fragmentTransaction.hide(currentFragment);
+        }
+
+        Fragment fragment = fragmentManager.findFragmentByTag("smp");
+
+        if (fragment == null) {
+            fragment=new myPost();
+            fragmentTransaction.add(R.id.content_layout, fragment, "smp");
+        } else {
+            fragmentTransaction.remove(fragment);
+            fragment = new myPost();
+            fragmentTransaction.add(R.id.content_layout, fragment, "smp");
+        }
+
+        fragmentTransaction.setPrimaryNavigationFragment(fragment);
+        fragmentTransaction.setReorderingAllowed(true);
+        fragmentTransaction.addToBackStack(null);//뒤로가기 눌렀을 떄 이전 프래그먼트로 이동가능
+        fragmentTransaction.commit();
+    }
+
+    // 내 채팅으로
+    public void showMyChat(){
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+
+        Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
+
+        // 현재 fragment 감추기
+        if (currentFragment != null) {
+            fragmentTransaction.hide(currentFragment);
+        }
+
+        Fragment fragment = fragmentManager.findFragmentByTag("smc");
+
+        if (fragment == null) {
+            fragment=new myChat();
+            fragmentTransaction.add(R.id.content_layout, fragment, "smc");
+        } else {
+            fragmentTransaction.remove(fragment);
+            fragment = new myChat();
+            fragmentTransaction.add(R.id.content_layout, fragment, "smc");
+        }
+
+        fragmentTransaction.setPrimaryNavigationFragment(fragment);
+        fragmentTransaction.setReorderingAllowed(true);
+        fragmentTransaction.addToBackStack(null);//뒤로가기 눌렀을 떄 이전 프래그먼트로 이동가능
+        fragmentTransaction.commit();
+    }
+
+    // 내 스티커으로
+    public void showMySticker(){
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+
+        Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
+
+        // 현재 fragment 감추기
+        if (currentFragment != null) {
+            fragmentTransaction.hide(currentFragment);
+        }
+
+        Fragment fragment = fragmentManager.findFragmentByTag("sms");
+
+        if (fragment == null) {
+            fragment=new showSticker();
+            fragmentTransaction.add(R.id.content_layout, fragment, "sms");
+        } else {
+            fragmentTransaction.remove(fragment);
+            fragment = new showSticker();
+            fragmentTransaction.add(R.id.content_layout, fragment, "sms");
+        }
+
+        fragmentTransaction.setPrimaryNavigationFragment(fragment);
+        fragmentTransaction.setReorderingAllowed(true);
+        fragmentTransaction.addToBackStack(null);//뒤로가기 눌렀을 떄 이전 프래그먼트로 이동가능
+        fragmentTransaction.commit();
+    }
+
+    // 개인 정보 설정
+    public void showMyProfile(){
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+
+        Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
+
+        // 현재 fragment 감추기
+        if (currentFragment != null) {
+            fragmentTransaction.hide(currentFragment);
+        }
+
+        Fragment fragment = fragmentManager.findFragmentByTag("profile");
+
+        if (fragment == null) {
+            fragment=new editInfo();
+            fragmentTransaction.add(R.id.content_layout, fragment, "profile");
+        } else {
+            fragmentTransaction.remove(fragment);
+            fragment = new editInfo();
+            fragmentTransaction.add(R.id.content_layout, fragment, "profile");
+        }
+
+        fragmentTransaction.setPrimaryNavigationFragment(fragment);
+        fragmentTransaction.setReorderingAllowed(true);
+        fragmentTransaction.addToBackStack(null);//뒤로가기 눌렀을 떄 이전 프래그먼트로 이동가능
+        fragmentTransaction.commit();
+    }
+
+    //마이페이로
+    public void toMyPage(){
+
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+
+        Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
+        if (currentFragment != null) {
+            fragmentTransaction.hide(currentFragment);
+        }
+
+        remove("ap");
+        remove("sp");
+        remove("smp");
+        remove("smc");
+        remove("sms");
+        remove("profile");
+
+        Fragment fragment = fragmentManager.findFragmentByTag(MyPageTag);
+        if (fragment == null) {
+            fragment = new Main_Fragment();
+            fragmentTransaction.add(R.id.content_layout, fragment, MyPageTag);
+        } else {
+            fragmentTransaction.show(fragment);
+        }
+
+        fragmentTransaction.setPrimaryNavigationFragment(fragment);
+        fragmentTransaction.setReorderingAllowed(true);
+        fragmentTransaction.commitNow();
     }
 
     //프래그먼트 트랜젝션 삭제

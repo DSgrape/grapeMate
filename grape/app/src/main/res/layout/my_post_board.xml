@@ -9,12 +9,15 @@
         android:id="@+id/myPost_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:fontFamily="@font/jalnan"
         android:text="\u003c귀가\u003e"
         android:textColor="#af7ed7"
         android:textSize="34sp" />
 
     <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:id="@+id/myPost_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,4 +26,10 @@
         android:text="419 wwwwwwwwwwwwwwwwwwwww"
         android:textColor="#af7ed7"
         android:textSize="24sp" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#af7ed7" />
 </LinearLayout>
