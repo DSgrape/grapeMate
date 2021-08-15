@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import java.util.ArrayList;
 
 public class boardAdapter extends RecyclerView.Adapter<boardAdapter.ViewHolder> {
@@ -60,7 +61,7 @@ public class boardAdapter extends RecyclerView.Adapter<boardAdapter.ViewHolder> 
                 @Override
                 public void onClick(View v) {
                     MainActivity main = (MainActivity) context;
-                    main.ShowPost(data.getPostId());
+                    main.ShowPost(data.getPostId(), data.getId());
                 }
             });
 

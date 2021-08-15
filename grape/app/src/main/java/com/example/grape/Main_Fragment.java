@@ -77,7 +77,7 @@ public class Main_Fragment extends Fragment {
         btnEtc = v.findViewById(R.id.btn_etc);
 
         // 임시 아이템 추가
-        adapter.items.add(new board("key", "id", "writeId", "닉네임", "운동", "운동같이할사람", "운동 같이 하실래요?", 0,
+        adapter.items.add(new board("key", "id", "writeId", "닉네임", "운동", "운동같이할사람", "운동 같이 하실래요?",
                 "endDay", "createAt"));
 
         databaseRef = FirebaseDatabase.getInstance().getReference("grapeMate/post");
@@ -160,6 +160,7 @@ public class Main_Fragment extends Fragment {
 
     // 특정 카테고리 선택
     private void loadSpecificBoardList() {
+        item.clear();
 
         switch (state) {
             case 1:
@@ -255,12 +256,21 @@ public class Main_Fragment extends Fragment {
         item.clear();
 
         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-            board b = snapshot.getValue(board.class);
-            Log.e("key", b.getPostId());
+
+            String postId = String.valueOf(snapshot.child("postId").getValue());         // 글 토큰
+            String id = String.valueOf(snapshot.child("id").getValue());         // 유저 id
+            String writeId = String.valueOf(snapshot.child("writeId").getValue());     // 글 작성자 이메일
+            String nickname = String.valueOf(snapshot.child("nickname").getValue());    // 글 작성자 닉네임
+            String postType = String.valueOf(snapshot.child("postType").getValue());    // 글 주제
+            String title = String.valueOf(snapshot.child("title").getValue());   // 글 제목
+            String postContent = String.valueOf(snapshot.child("postContent").getValue());    // 글 내용
+            String endDay = String.valueOf(snapshot.child("endDay").getValue());     // 마감기한
+            String createAt = String.valueOf(snapshot.child("createAt").getValue());       // 작성시간
+            board b = new board(postId, id, writeId, nickname, postType, title, postContent, endDay, createAt);
+
             item.add(b);
         }
         recyclerView.setAdapter(adapter);
-
         adapter.notifyDataSetChanged(); // 변경사항 나타내기
     }
 }

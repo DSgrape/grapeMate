@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,10 +30,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class showPost extends Fragment {
     ImageButton back;
-    String postToken;
+    String postToken, postUid;
     TextView category;
     TextView title;
     TextView content;
@@ -41,12 +44,11 @@ public class showPost extends Fragment {
     ImageButton btnChat, btnMap;// 채팅버튼
     EditText etShowPost; //댓글쓰기
     ImageButton btnShowPost; //댓글쓰기
-    private String Uid;
 
-    Integer s = null;
+    int heart = 10;
 
-    private static int heart = 0;   //false
-    private static ImageButton btnHeart;
+    private int isHeart = 0;   //false
+    private ImageButton btnHeart;
 
     // 댓글작성자Id / 댓글Id / 글Id / 닉네임 / 댓글내용 / 작성시간
     private String writeId, postId, nickname, comment, createAt;
@@ -67,17 +69,25 @@ public class showPost extends Fragment {
 
         //boardAdapter->MainActivity->(Bundle)->here
         Bundle bundle = getArguments();
+        postUid = bundle.getString("Uid");
         postToken = bundle.getString("postToken");
+        heart = bundle.getInt("sticker");
+
         Log.e("토큰", postToken);
+        Log.e("id", postUid);
+        Log.e("sticker", String.valueOf(heart));
 
 
         // database 연결
         DatabaseReference postRef = databaseRef.child("grapeMate/post").child(postToken);
         DatabaseReference commentRef = FirebaseDatabase.getInstance().getReference("grapeMate/comment");
 
+
         // 현재 로그인한 사용자 불러오기
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         userRef = databaseRef.child("grapeMate/UserAccount").child(user.getUid());
+        postUserRef = databaseRef.child("grapeMate/UserAccount").child(postUid);
+
 
         Log.d("체크", postToken);
 
@@ -87,7 +97,37 @@ public class showPost extends Fragment {
         name = v.findViewById(R.id.show_post_name);
         date = v.findViewById(R.id.show_post_date);
 
-        postRef.addValueEventListener(new ValueEventListener() {
+        // 글쓴이 하트 수 높이기
+        postUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // 유저 하트 수 바꾸기
+                if (snapshot.child("sticker").exists()) {
+                    Log.e("print", "글쓴이 하트 개수 바꾸기");
+                    heart = Integer.parseInt(String.valueOf(snapshot.child("sticker").getValue()));
+                    Log.e("print", String.valueOf(heart));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "하트 개수 불러오기 실패", Toast.LENGTH_SHORT).show();
+            }
+        });
+        commentRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // postToken과 comment child의 postId 가 같은 댓글만 표시하는거임
+                loadBoardList(snapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        postRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 name.setText(String.valueOf(snapshot.child("nickname").getValue()));
@@ -96,37 +136,19 @@ public class showPost extends Fragment {
                 category.setText(String.valueOf(snapshot.child("postType").getValue()));
                 date.setText(String.valueOf(snapshot.child("endDay").getValue()) + "까지");
 
-                // 글쓴이 불러오기
-                Uid = String.valueOf(snapshot.child("id").getValue());
-                Log.e("uid",Uid);
-                postUserRef = databaseRef.child("grapeMate/UserAccount").child(Uid);
-
-                // 글쓴이 하트 수 높이기
-                postUserRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        // 유저 하트 수 바꾸기
-                        Log.e("print", "실행");
-                        if (snapshot.child("sticker").exists() && s==null) {
-                            s = Integer.parseInt(String.valueOf(snapshot.child("sticker").getValue()));
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                // 135~144아님
                 // 로그인한 사용자가 좋아요한 이력이 있는지 확인
                 if (snapshot.child(user.getUid()).exists()) {
-                    heart = Integer.parseInt(String.valueOf(snapshot.child(user.getUid()).getValue()));
-                    if(heart==1) {
+                    isHeart = Integer.parseInt(String.valueOf(snapshot.child(user.getUid()).getValue()));
+                    Log.e("isHeart", String.valueOf(isHeart));
+                    if (isHeart == 1) {
                         btnHeart.setImageResource(R.drawable.fullheart);
                     }
                 } else {
                     postRef.child(user.getUid()).setValue(0);
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
@@ -175,42 +197,38 @@ public class showPost extends Fragment {
         btnHeart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.child(user.getUid()).exists()) {
-                            heart = Integer.parseInt(String.valueOf(snapshot.child(user.getUid()).getValue()));
-                        } else {
-                            heart = 0;
-                        }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) { }
-                });
 
-                if (heart == 1) {
+
+
+                if (isHeart == 1) {
                     //좋아요 취소
-                    heart = 0;
+                    isHeart = 0;
                     btnHeart.setImageResource(R.drawable.heart4);
                     // 먼저 s 값을 불러와야함
-                    Log.e("좋아요 취소", String.valueOf(s));
-                    s = s - 1;
+                    Log.e("좋아요 취소", String.valueOf(heart));
 
-                    postUserRef.child("sticker").setValue(s);
                     postRef.child(user.getUid()).setValue(0);
+                    //postUserRef.child("sticker").setValue(heart);       //여기문제
+
+                    heart -= 1;
+
+                    //saveHeart();
+
+                    Log.e("좋아요 취소 완료", String.valueOf(heart));
                 } else {
                     // 좋아요
-                    heart = 1;
+                    isHeart= 1;
                     btnHeart.setImageResource(R.drawable.fullheart);
-                    Log.e("좋아요", String.valueOf(s));
-                    s = s + 1;
-
-                    postUserRef.child("sticker").setValue(s);
+                    Log.e("좋아요", String.valueOf(heart));
                     postRef.child(user.getUid()).setValue(1);
+                    //postUserRef.child("sticker").setValue(heart);
+                    heart +=1;
+
+                    //saveHeart();
+                    Log.e("좋아요 완료", String.valueOf(heart));
                 }
             }
         });
-
 
 
         //왼쪽 화살표 버튼
@@ -223,6 +241,12 @@ public class showPost extends Fragment {
         });
 
         return v;
+    }
+
+    private void saveHeart() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("sticker", heart);
+        postUserRef.updateChildren(map);
     }
 
 
@@ -244,7 +268,7 @@ public class showPost extends Fragment {
                 String content = String.valueOf(snapshot.child("content").getValue()); // content
                 String createAt = String.valueOf(snapshot.child("createAt").getValue());    // 댓글 작성시간
                 comment c = new comment(commentId, postId, writeId, nickname, content, createAt);
-                Log.e("key2", c.getCommentId());
+
                 item.add(c);
             }
         }

@@ -183,7 +183,7 @@ public class addPost extends Fragment {
     public void savePost(String Uid, String emailId, String nickname, String postType, String title, String content, String date, String todayString) {
         // 키값을 임의의 문자열로 지정하고 싶으면 push() 사용
         String key = databaseRef.child("grapeMate/post").push().getKey();
-        board b = new board(key, Uid, emailId, nickname, postType, title, content, 0, date, todayString);
+        board b = new board(key, Uid, emailId, nickname, postType, title, content, date, todayString);
         databaseRef.child("grapeMate/post").child(key).setValue(b);
     }
 }

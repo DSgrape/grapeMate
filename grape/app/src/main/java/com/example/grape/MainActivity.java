@@ -17,6 +17,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -154,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //글보기
-    public void ShowPost(String postToken){
+    public void ShowPost(String postToken, String Uid){
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -167,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
         bundle.putString("postToken",postToken);
+        bundle.putString("Uid", Uid);
 
         Fragment fragment = fragmentManager.findFragmentByTag("sp");
 
@@ -194,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction = fragmentManager.beginTransaction();
 
         Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
+
 
         // 현재 fragment 감추기
         if (currentFragment != null) {
