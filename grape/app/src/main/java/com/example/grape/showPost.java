@@ -114,6 +114,7 @@ public class showPost extends Fragment {
                 Toast.makeText(getContext(), "하트 개수 불러오기 실패", Toast.LENGTH_SHORT).show();
             }
         });
+
         commentRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -213,7 +214,6 @@ public class showPost extends Fragment {
                     heart -= 1;
 
                     //saveHeart();
-
                     Log.e("좋아요 취소 완료", String.valueOf(heart));
                 } else {
                     // 좋아요
