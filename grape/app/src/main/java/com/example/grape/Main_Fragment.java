@@ -160,7 +160,7 @@ public class Main_Fragment extends Fragment {
 
     // 특정 카테고리 선택
     private void loadSpecificBoardList() {
-        item.clear();
+
 
         switch (state) {
             case 1:
