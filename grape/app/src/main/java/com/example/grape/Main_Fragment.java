@@ -46,7 +46,7 @@ public class Main_Fragment extends Fragment {
     private ArrayList<board> item_study = new ArrayList<>();
     private ArrayList<board> item_etc = new ArrayList<>();
 
-    private Button btnHomeComing, btnExercise, btnFood, btnStudy, btnEtc;
+    private Button btnHomeComing, btnExercise, btnFood, btnStudy, btnEtc, btnAll;
     private int state = 0;  //카테고리별로 1,2,3,4,5 기본 0
 
     @Nullable
@@ -75,6 +75,7 @@ public class Main_Fragment extends Fragment {
         btnFood = v.findViewById(R.id.btn_food);
         btnStudy = v.findViewById(R.id.btn_study);
         btnEtc = v.findViewById(R.id.btn_etc);
+        btnAll = v.findViewById(R.id.btn_all);
 
         // 임시 아이템 추가
         adapter.items.add(new board("key", "id", "writeId", "닉네임", "운동", "운동같이할사람", "운동 같이 하실래요?",
@@ -109,6 +110,15 @@ public class Main_Fragment extends Fragment {
 
         adapter = new boardAdapter(item, getContext());
         recyclerView.setAdapter(adapter);
+        
+        //전체
+        btnAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                state = 0;
+                loadSpecificBoardList();
+            }
+        });
 
         // 귀가
         btnHomeComing.setOnClickListener(new View.OnClickListener() {
@@ -163,6 +173,13 @@ public class Main_Fragment extends Fragment {
 
 
         switch (state) {
+            case 0:
+                adapter.setItems(item);
+                recyclerView.setAdapter(adapter);
+                if(adapter != null) {
+                    adapter.notifyDataSetChanged();
+                }
+                break;
             case 1:
                 item_homecoming.clear();
                 for (board b : item) {
