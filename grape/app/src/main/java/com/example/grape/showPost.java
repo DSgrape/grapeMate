@@ -210,11 +210,9 @@ public class showPost extends Fragment implements OnBackPressedListener {
                     Log.e("좋아요 취소", String.valueOf(heart));
 
                     postRef.child(user.getUid()).setValue(0);
-                    //postUserRef.child("sticker").setValue(heart);       //여기문제
 
                     heart -= 1;
 
-                    //saveHeart();
                     Log.e("좋아요 취소 완료", String.valueOf(heart));
                 } else {
                     // 좋아요
@@ -222,10 +220,9 @@ public class showPost extends Fragment implements OnBackPressedListener {
                     btnHeart.setImageResource(R.drawable.fullheart);
                     Log.e("좋아요", String.valueOf(heart));
                     postRef.child(user.getUid()).setValue(1);
-                    //postUserRef.child("sticker").setValue(heart);
+
                     heart +=1;
 
-                    //saveHeart();
                     Log.e("좋아요 완료", String.valueOf(heart));
                 }
             }
@@ -262,11 +259,6 @@ public class showPost extends Fragment implements OnBackPressedListener {
         ((MainActivity)getActivity()).setOnBackPressedListener(this);
     }
 
-    private void saveHeart() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("sticker", heart);
-        postUserRef.updateChildren(map);
-    }
 
 
     @Override

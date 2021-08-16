@@ -25,6 +25,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView mBottomNV;
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private String MyPageTag;
     private long backKeyPressedTime = 0;
     private OnBackPressedListener listener;
+    private String postUid = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commitNow();
     }
 
-    public void toMain2(int number){
+    public void toMain2(int num){
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -177,6 +181,14 @@ public class MainActivity extends AppCompatActivity {
         remove("smc");
         remove("sms");
         remove("profile");
+
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference postUserRef = databaseRef.child("grapeMate/UserAccount").child(postUid);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("sticker", num);
+        postUserRef.updateChildren(map);
+        //postUserRef.child("sticker").setValue(heart);
 
         Fragment fragment = fragmentManager.findFragmentByTag(MainTag);
         if (fragment == null) {
@@ -205,9 +217,10 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.hide(currentFragment);
         }
 
+        postUid = Uid;
         Bundle bundle = new Bundle();
         bundle.putString("postToken",postToken);
-        bundle.putString("Uid", Uid);
+        bundle.putString("Uid", postUid);
 
         Fragment fragment = fragmentManager.findFragmentByTag("sp");
 
