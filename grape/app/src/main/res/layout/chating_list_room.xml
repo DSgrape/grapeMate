@@ -6,35 +6,45 @@
     android:layout_margin="5dp"
     android:orientation="vertical">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:orientation="horizontal">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_chat"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/person"
-            app:civ_border_width="2dp"
+        <TextView
             android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#af7ed7"
+            android:fontFamily="@font/jalnan"
+            android:textSize="30dp"
+            android:singleLine="true"
+            android:text="이름"
             android:layout_marginRight="20dp"
-            app:civ_border_color="#af7ed7"
-            android:layout_gravity="center|left" />
+            android:layout_gravity="center|left"/>
+
+        <View
+            android:layout_width="4dp"
+            android:layout_gravity=""
+            android:layout_height="40dp"
+            android:background="#af7ed7"/>
 
         <TextView
             android:id="@+id/tv_chat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="이름"
+            android:text="가취가욥~"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
             android:textColor="#af7ed7"
             android:fontFamily="@font/jalnan"
             android:layout_gravity="center|right"
             android:textSize="30dp"/>
 
-    </FrameLayout>
+    </LinearLayout>
 
     <View
         android:id="@+id/view"
