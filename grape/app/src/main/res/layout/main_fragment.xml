@@ -49,9 +49,21 @@
         android:orientation="horizontal"
         android:layout_margin="5dp">
         <Button
+            android:id="@+id/btn_all"
+            android:fontFamily="@font/jalnan"
+            android:textColor="@color/white"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/btn_choice"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="전체"/>
+        <Button
             android:id="@+id/btn_homecoming"
             android:fontFamily="@font/jalnan"
             android:textColor="@color/white"
+            android:layout_marginLeft="8dp"
             android:background="@drawable/btn_choice"
             android:layout_width="70dp"
             android:layout_height="30dp"
@@ -101,26 +113,17 @@
             android:layout_height="30dp"
             android:textSize="20dp"
             android:textStyle="bold"
+            android:layout_marginRight="20dp"
             android:text="기타"/>
-        <Button
-            android:id="@+id/btn_all"
-            android:fontFamily="@font/jalnan"
-            android:textColor="@color/white"
-            android:layout_marginLeft="8dp"
-            android:background="@drawable/btn_choice"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:text="전체"/>
+
     </LinearLayout>
 </HorizontalScrollView>
+
 
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="#af7ed7" />
-
 
     <FrameLayout
         android:layout_width="match_parent"
