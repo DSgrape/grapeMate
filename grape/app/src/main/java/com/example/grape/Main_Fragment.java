@@ -110,6 +110,15 @@ public class Main_Fragment extends Fragment {
 
         adapter = new boardAdapter(item, getContext());
         recyclerView.setAdapter(adapter);
+        
+        //전체
+        btnAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                state = 0;
+                loadSpecificBoardList();
+            }
+        });
 
         btnAll.setOnClickListener(new View.OnClickListener() {
             @Override
