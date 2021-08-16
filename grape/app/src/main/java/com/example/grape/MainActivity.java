@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private String MainTag;
     private String MyPageTag;
     private long backKeyPressedTime = 0;
+    private OnBackPressedListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +130,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void toMain(){
+
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+
+        Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
+        if (currentFragment != null) {
+            fragmentTransaction.hide(currentFragment);
+        }
+
+        remove("ap");
+        remove("sp");
+        remove("smp");
+        remove("smc");
+        remove("sms");
+        remove("profile");
+
+        Fragment fragment = fragmentManager.findFragmentByTag(MainTag);
+        if (fragment == null) {
+            fragment = new Main_Fragment();
+            fragmentTransaction.add(R.id.content_layout, fragment, MainTag);
+            Log.d("체크","체크2");
+        } else {
+            fragmentTransaction.show(fragment);
+            Log.d("체크","체크3");
+        }
+
+        fragmentTransaction.setPrimaryNavigationFragment(fragment);
+        fragmentTransaction.setReorderingAllowed(true);
+        fragmentTransaction.commitNow();
+    }
+
+    public void toMain2(int number){
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -389,20 +422,28 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void setOnBackPressedListener(OnBackPressedListener listener){
+        this.listener=listener;
+    }
+
     //두번 눌러 종료
     @Override
     public void onBackPressed(){
-        Toast t = Toast.makeText(this,"뒤로가기 버튼을 한번 더 누르시면 종료됩니다.",Toast.LENGTH_SHORT);
-        if(getSupportFragmentManager().getBackStackEntryCount()==0){
-            if(System.currentTimeMillis()>backKeyPressedTime+2000){
-                backKeyPressedTime = System.currentTimeMillis();
-                t.show();
+        if(listener!=null){
+            listener.onBackPressed();
+        }else{
+            Toast t = Toast.makeText(this,"뒤로가기 버튼을 한번 더 누르시면 종료됩니다.",Toast.LENGTH_SHORT);
+            if(getSupportFragmentManager().getBackStackEntryCount()==0){
+                if(System.currentTimeMillis()>backKeyPressedTime+2000){
+                    backKeyPressedTime = System.currentTimeMillis();
+                    t.show();
+                }else {
+                    t.cancel();
+                    finish();
+                }
             }else {
-                t.cancel();
-                finish();
+                super.onBackPressed();
             }
-        }else {
-            super.onBackPressed();
         }
     }
 
