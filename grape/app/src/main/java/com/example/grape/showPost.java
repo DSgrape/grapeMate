@@ -1,5 +1,6 @@
 package com.example.grape;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,7 +34,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class showPost extends Fragment {
+public class showPost extends Fragment implements OnBackPressedListener {
     ImageButton back;
     String postToken, postUid;
     TextView category;
@@ -243,11 +244,22 @@ public class showPost extends Fragment {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).toMain();
+                ((MainActivity) getActivity()).toMain2(heart);
             }
         });
 
         return v;
+    }
+    //백 버튼 눌렀을 때
+    @Override
+    public void onBackPressed(){
+        ((MainActivity) getActivity()).toMain2(heart);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((MainActivity)getActivity()).setOnBackPressedListener(this);
     }
 
     private void saveHeart() {
