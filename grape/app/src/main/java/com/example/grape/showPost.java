@@ -243,7 +243,7 @@ public class showPost extends Fragment implements OnBackPressedListener {
         btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).toChatting(name.getText().toString(), category.getText().toString(), title.getText().toString());
+                ((MainActivity) getActivity()).toChatting(name.getText().toString(), category.getText().toString(), title.getText().toString(), postToken);
             }
         });
 
@@ -284,11 +284,11 @@ public class showPost extends Fragment implements OnBackPressedListener {
 
             if (String.valueOf(snapshot.child("postId").getValue()).equals(postToken)) {
                 String commentId = String.valueOf(snapshot.child("commentId").getValue());     // comment Id
-                String postId = String.valueOf(snapshot.child("postId").getValue());  // 글 id
-                String writeId = String.valueOf(snapshot.child("writeId").getValue());  // 댓글 단 사람 id
-                String nickname = String.valueOf(snapshot.child("nickname").getValue());    // name
+                postId = String.valueOf(snapshot.child("postId").getValue());  // 글 id
+                writeId = String.valueOf(snapshot.child("writeId").getValue());  // 댓글 단 사람 id
+                nickname = String.valueOf(snapshot.child("nickname").getValue());    // name
                 String content = String.valueOf(snapshot.child("content").getValue()); // content
-                String createAt = String.valueOf(snapshot.child("createAt").getValue());    // 댓글 작성시간
+                createAt = String.valueOf(snapshot.child("createAt").getValue());    // 댓글 작성시간
                 comment c = new comment(commentId, postId, writeId, nickname, content, createAt);
 
                 item.add(c);

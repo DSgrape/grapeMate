@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class ChattingRoom {
     private String chatId;
+    private String destinationId;
     private String image;     // 프로필 사진
     private String chatName;  // 채팅 상대
     private String postId;
@@ -12,10 +13,8 @@ public class ChattingRoom {
     private String title;
     private String uid;         // 보낸 사람 id
     private String message;     // 메시지
-    private String timestamp;   // 시간
-    private Map<String, Boolean> users = new HashMap<>();    //유저 아이디
 
-    public ChattingRoom(String chatId, String image, String chatName, String postId, String category, String title, String uid, String message, String timestamp, Map<String, Boolean> users) {
+    public ChattingRoom(String chatId, String uid, String destinationId, String image, String chatName, String postId, String category, String title, String message) {
         this.chatId = chatId;
         this.image = image;
         this.chatName = chatName;
@@ -24,8 +23,8 @@ public class ChattingRoom {
         this.title = title;
         this.uid = uid;
         this.message = message;
-        this.timestamp = timestamp;
-        this.users = users;
+
+        this.destinationId = destinationId;
     }
 
     public String getChatName() {
@@ -35,6 +34,8 @@ public class ChattingRoom {
     public String getImage() {
         return image;
     }
+
+    public String getDestinationId() { return destinationId; }
 
     public String getPostId() { return postId; }
 
@@ -47,10 +48,6 @@ public class ChattingRoom {
     public String getUid() { return uid; }
 
     public String getMessage() { return message; }
-
-    public String getTimestamp() { return timestamp; }
-
-    public Map<String, Boolean> getUsers() { return users; }
 
     public void setChatName(String chatName) {
         this.chatName = chatName;

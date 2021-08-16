@@ -362,7 +362,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // 채팅으로
-    public void toChatting(String ChatName, String category, String title){
+    public void toChatting(String ChatName, String category, String title, String postId){
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -377,6 +377,7 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString("ChatName",ChatName);
         bundle.putString("category", category);
         bundle.putString("title", title);
+        bundle.putString("postId", postId);
 
         Fragment fragment = fragmentManager.findFragmentByTag("Chatting");
 

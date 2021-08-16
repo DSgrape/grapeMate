@@ -49,9 +49,10 @@ public class Chatting extends Fragment {
 
     DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("grapeMate/chat");
 
-    String message, uid, destinationUid;
+    String message, uid, firstDestinationUid, postId;
     String chatRoomUid;
 
+    boolean isMe = false;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,15 +69,35 @@ public class Chatting extends Fragment {
         type = v.findViewById(R.id.tv_chat_type);
         title = v.findViewById(R.id.tv_chat_title);
 
+        // bundle : 글종류 / 제목 / postId
         type.setText(bundle.getString("category"));
         title.setText(bundle.getString("title"));
+        postId = bundle.getString("postId");
 
         etSendMessage = v.findViewById(R.id.et_send_message);
         btnSendMessage = v.findViewById(R.id.btn_send_message);
 
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         // destinationUid 받아와야함
-        destinationUid = "test1";
+        firstDestinationUid = "test1";
+        FirebaseDatabase.getInstance().getReference("grapeMate/post").
+                child(postId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // 글쓴이 ID 받아옴
+                firstDestinationUid = snapshot.child("id").getValue().toString();
+                if(uid == firstDestinationUid) {
+                    // 글쓴이가 채팅방 들어왔을 때
+                    // 글쓴이가 채팅방 확인하는 방법 -> 채팅룸에서 들어왔을 때
+                    isMe = true;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         //채팅 내용 리사이클러뷰
         recyclerView = v.findViewById(R.id.chatting_recycle);
@@ -87,21 +108,26 @@ public class Chatting extends Fragment {
         Map<String, Boolean> users2 = new HashMap<String, Boolean>();
         users.put("채팅러1", true);
         users2.put("채팅러2", true);
-        adapter.items.add(new chat("chatKey",  new chat.Comment(), "timestamp", new chat.Users("uid", "destinationUid")));
-        adapter.items.add(new chat("chatKey", new chat.Comment(), "timestamp", new chat.Users("uid", "destinationUid2")));
+        adapter.items.add(new chat("chatKey", "postId", new chat.Comment(), "timestamp", new chat.Users("uid", "destinationUid")));
+        adapter.items.add(new chat("chatKey", "postId", new chat.Comment(), "timestamp", new chat.Users("uid", "destinationUid2")));
 
         btnSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 chat c = new chat();
-                c.setUsers(new chat.Users(uid, destinationUid));
+                c.setUsers(new chat.Users(uid, firstDestinationUid));
+                c.setPostId(postId);
                 if(chatRoomUid == null) {
                     // 채팅방이 없을 때
+                    Log.e("실행", "실행");
                     btnSendMessage.setEnabled(false);
                     databaseRef.child("chatroom").push().setValue(c).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             checkChatRoom();
+                            // 채팅방이 있을 때
+
+                            Toast.makeText(getContext(),"채팅방이 생성되었습니다.", Toast.LENGTH_SHORT).show();
                         }
                     });
                 } else {
@@ -183,7 +209,24 @@ public class Chatting extends Fragment {
                 for(DataSnapshot item : snapshot.getChildren()) {
                     Log.e("실행", "실행");
                     chat c = item.getValue(chat.class);
-                    if(c.users.destinationUid.equals(destinationUid) || c.users.destinationUid.equals(uid)) {
+                    if(c.users.destinationUid.equals(c.users.uid)) {
+                        Toast.makeText(getContext(), "본인과는 대화할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                        ((MainActivity)getActivity()).showMyChat();
+                    }
+                    Log.e("postId",postId);
+                    Log.e("postId",c.getPostId());
+                    Log.e("id", firstDestinationUid);
+                    Log.e("id", c.users.destinationUid);
+                    Log.e("uid", uid);
+                    Log.e("uid", c.users.uid);
+                    if((((c.users.destinationUid.equals(firstDestinationUid) && c.users.uid.equals(uid))
+                            || (c.users.destinationUid.equals(uid) && c.users.uid.equals(firstDestinationUid)))
+                            && postId.equals(c.getPostId()))) {
+                        if(isMe) {
+                            //가져올때 너랑 나를 바꿔야함
+                            c.users.destinationUid = c.users.uid;
+                            c.users.uid = uid;
+                        }
                         chatRoomUid  = item.getKey();
                         btnSendMessage.setEnabled(true);
 

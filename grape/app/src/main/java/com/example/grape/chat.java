@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class chat {
     private String chatId;      // 채팅방 고유키
-    //private String postId;      // 글 id
+    private String postId;      // 글 id
     private String timestamp;   // 시간
     private Comment comments = new Comment();
     Users users = new Users();    //유저 아이디
@@ -35,7 +35,7 @@ public class chat {
 
     public chat() {}
 
-    public chat(String chatId, Comment comments, String timestamp, Users users) {
+    public chat(String chatId, String postId, Comment comments, String timestamp, Users users) {
         this.chatId = chatId;
         this.comments = comments;
         this.timestamp = timestamp;
@@ -43,6 +43,8 @@ public class chat {
     }
 
     public String getChatId() { return chatId; }
+
+    public String getPostId() { return postId; }
 
     public Users getUsers() { return users; }
 
@@ -55,6 +57,8 @@ public class chat {
     public void setComments(Comment comments) { this.comments = comments; }
 
     public void setUsers(Users users) { this.users = users; }
+
+    public void setPostId(String postId) { this.postId = postId; }
 
     public void setTimestamp(String timestamp) { this.timestamp = timestamp; }
 }

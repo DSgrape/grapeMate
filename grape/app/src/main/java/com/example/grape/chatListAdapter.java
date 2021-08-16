@@ -53,13 +53,12 @@ public class chatListAdapter extends RecyclerView.Adapter<chatListAdapter.ViewHo
         public ViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
             name = itemView.findViewById(R.id.tv_chat);// 닉네임
-            image = itemView.findViewById(R.id.iv_chat);   //프로필사진
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     MainActivity main = (MainActivity) context;
-                    main.toChatting(data.getChatName(), data.getCategory(), data.getTitle());
+                    main.toChatting(data.getChatName(), data.getCategory(), data.getTitle(), data.getPostId());
                 }
             });
 

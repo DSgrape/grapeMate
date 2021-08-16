@@ -50,8 +50,7 @@ public class myChat extends Fragment {
         Map<String, Boolean> user2 = new HashMap<>();
         user1.put("유저1", true);
         user2.put("유저1", true);
-        adapter.items.add(new ChattingRoom("chatId", "image", "chatName", "postId", "category", "title", "uid",
-                "message", "timestamp", user1));
+        adapter.items.add(new ChattingRoom("chatId", "uid","destinationId","image", "chatName", "postId", "category", "title", "message"));
         recyclerView.setAdapter(adapter);
 
         return v;
