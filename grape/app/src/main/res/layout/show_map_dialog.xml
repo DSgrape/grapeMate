@@ -14,15 +14,6 @@
             android:id="@+id/map_dialog"
             android:name="com.google.android.gms.maps.MapFragment" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/map_fab"
-            app:backgroundTint="#bd99e1"
-            android:theme="@style/ButtonTransparent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|top"
-            android:src="@drawable/now2"
-            android:layout_margin="16dp" />
 
     </FrameLayout>
     <LinearLayout
@@ -31,17 +22,6 @@
         android:orientation="horizontal"
         android:layout_weight="1">
         <Button
-            android:textSize="20dp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/jalnan"
-            android:background="@drawable/btn_no"
-            android:id="@+id/No"
-            android:text="취소"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-        <Button
-            android:layout_marginLeft="3dp"
             android:textSize="20dp"
             android:fontFamily="@font/jalnan"
             android:textColor="@color/white"

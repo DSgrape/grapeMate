@@ -106,10 +106,12 @@ public class addPost extends Fragment {
         btn_loc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MapDialog mapDialog=new MapDialog(getContext(), new MapDialogClickListener() {
+                MapDialog mapDialog=new MapDialog(getContext(), (MainActivity)getActivity(), new MapDialogClickListener() {
                     @Override
                     public void onPositiveClick() {
                         //위치 넘기기
+                        btn_loc.setText("위치 설정 완료");
+                        Toast.makeText(getContext(),"위치가 설정되었습니다.",Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

@@ -3,6 +3,7 @@ package com.example.grape;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -34,7 +37,11 @@ public class GPS_Fragment extends Fragment implements OnMapReadyCallback {
     private MapView mapView = null;
     private GoogleMap mMap;
     private ImageButton myloc;
-    FusedLocationProviderClient locationClient = null;
+    private FusedLocationProviderClient locationClient = null;
+    private double X,Y;
+    private String Title;
+    private String snippet;
+    private long backKeyPressedTime = 0;
 
     @Nullable
     @Override
@@ -43,6 +50,8 @@ public class GPS_Fragment extends Fragment implements OnMapReadyCallback {
         View v = inflater.inflate(R.layout.gps_fragment, container, false);
 
         String[] REQUIRED_PERMISSIONS={Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION};
+
+        Toast.makeText(getContext(),"마커를 두번 연속 클릭하면\n해당 포스트로 이동합니다.",Toast.LENGTH_SHORT).show();
 
         myloc=v.findViewById(R.id.myloc);
         myloc.setOnClickListener(new View.OnClickListener() {
@@ -102,12 +111,37 @@ public class GPS_Fragment extends Fragment implements OnMapReadyCallback {
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.6512,127.0161),15f));
 
-        //마커 생성
-        MarkerOptions makerOptions = new MarkerOptions();
-        makerOptions
-                .position(new LatLng(37.6512, 127.0161))
-                .title("마커"); // 타이틀.
+        for(int i=0;i<1;i++) {
+            X=37.6512; Y=127.0161;
+            Title="카테고리";
+            snippet="제목";
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(X, Y))
+                    .title(Title)//여기에 카테고리+제목표시하고
+                    .snippet(snippet)//아이디를 받을 장소가 안보여서 그냥 여기 포스트아이디 넣고 받을까?
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin60602)));
+        }
 
-        mMap.addMarker(makerOptions);
+        //실험적인 마커 추가 나중에 지워야함
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(X+10, Y+10))
+                .title(Title+"2")
+                .snippet(snippet+"2")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin60602)));
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Log.d("체크",marker.getTitle());
+                if(System.currentTimeMillis()>backKeyPressedTime+500){
+                    backKeyPressedTime = System.currentTimeMillis();
+                }else {
+                    Log.d("체크","포스트로");
+                    //((MainActivity)getActivity()).ShowPost(Id,id);
+                }
+                return false;
+            }
+        });
+
     }
 }

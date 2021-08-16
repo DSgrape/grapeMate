@@ -17,6 +17,9 @@
         <item name="windowNoTitle">true</item>
 
     </style>
-
+    <!--플로팅-->
+    <style name="ButtonTransparent">
+        <item name="colorAccent">@android:color/transparent</item>
+    </style>
 
 </resources>

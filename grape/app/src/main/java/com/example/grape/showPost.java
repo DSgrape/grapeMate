@@ -228,6 +228,22 @@ public class showPost extends Fragment implements OnBackPressedListener {
             }
         });
 
+        btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowMapDialog mapDialog=new ShowMapDialog(getContext(), new MapDialogClickListener() {
+                    @Override
+                    public void onPositiveClick() { }
+
+                    @Override
+                    public void onNegativeClick() { }
+                });
+                mapDialog.setCanceledOnTouchOutside(true);//다이얼로그 외부 터치시 꺼짐
+                mapDialog.setCancelable(true);//뒤로가기 버튼으로 취소
+                mapDialog.show();
+            }
+        });
+
         //채팅으로
         btnChat.setOnClickListener(new View.OnClickListener() {
             @Override

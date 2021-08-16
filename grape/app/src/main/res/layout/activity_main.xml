@@ -25,6 +25,7 @@
         android:background="#f6f4f5 "
         app:itemIconTint="@drawable/button"
         app:labelVisibilityMode="unlabeled"
+        app:itemIconSize="50dp"
         app:menu="@menu/bottom" />
 
 
