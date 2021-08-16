@@ -1,11 +1,15 @@
 package com.example.grape;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +23,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -45,6 +55,7 @@ public class addPost extends Fragment {
     private String emailId;
     private String Uid;
     private String nickname;
+    private Button btn_loc;
 
     private DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
 
@@ -89,6 +100,27 @@ public class addPost extends Fragment {
                 postType = category[0];
             }
 
+        });
+
+        btn_loc=v.findViewById(R.id.btn_setloc);
+        btn_loc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MapDialog mapDialog=new MapDialog(getContext(), new MapDialogClickListener() {
+                    @Override
+                    public void onPositiveClick() {
+                        //위치 넘기기
+                    }
+
+                    @Override
+                    public void onNegativeClick() {
+                        Toast.makeText(getContext(),"위치 설정이 취소되었습니다.",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                mapDialog.setCanceledOnTouchOutside(false);//다이얼로그 외부 터치시 꺼짐
+                mapDialog.setCancelable(true);//뒤로가기 버튼으로 취소
+                mapDialog.show();
+            }
         });
 
         // 마감기한 선택 - calendarView
@@ -186,4 +218,5 @@ public class addPost extends Fragment {
         board b = new board(key, Uid, emailId, nickname, postType, title, content, date, todayString);
         databaseRef.child("grapeMate/post").child(key).setValue(b);
     }
+
 }
