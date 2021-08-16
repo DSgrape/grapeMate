@@ -14,6 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class myChat extends Fragment {
     ImageButton back;
     private RecyclerView recyclerView;
@@ -42,7 +45,13 @@ public class myChat extends Fragment {
 
 
         adapter = new chatListAdapter();
-        adapter.items.add(new ChattingRoom("x","이름"));
+        // 채팅 상대
+        Map<String, Boolean> user1 = new HashMap<>();
+        Map<String, Boolean> user2 = new HashMap<>();
+        user1.put("유저1", true);
+        user2.put("유저1", true);
+        adapter.items.add(new ChattingRoom("chatId", "image", "chatName", "postId", "category", "title", "uid",
+                "message", "timestamp", user1));
         recyclerView.setAdapter(adapter);
 
         return v;

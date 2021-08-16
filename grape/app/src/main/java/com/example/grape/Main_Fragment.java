@@ -23,8 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
 
 public class Main_Fragment extends Fragment {
@@ -112,14 +110,6 @@ public class Main_Fragment extends Fragment {
         recyclerView.setAdapter(adapter);
         
         //전체
-        btnAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                state = 0;
-                loadSpecificBoardList();
-            }
-        });
-
         btnAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

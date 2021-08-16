@@ -1,12 +1,10 @@
 package com.example.grape;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -20,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,8 +28,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class showPost extends Fragment implements OnBackPressedListener {
     ImageButton back;
@@ -169,7 +164,7 @@ public class showPost extends Fragment implements OnBackPressedListener {
         recyclerView.setAdapter(adapter);
 
 
-        btnShowPost = v.findViewById(R.id.btn_show_post);
+        btnShowPost = v.findViewById(R.id.btn_send_message);
         // 댓글 저장
         btnShowPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,7 +175,7 @@ public class showPost extends Fragment implements OnBackPressedListener {
                 // postId
                 postId = postToken;
                 // 댓글 내용
-                etShowPost = v.findViewById(R.id.et_show_post);
+                etShowPost = v.findViewById(R.id.et_send_message);
                 comment = etShowPost.getText().toString();
                 // 작성날짜
                 Date todayDate = Calendar.getInstance().getTime();
@@ -248,7 +243,7 @@ public class showPost extends Fragment implements OnBackPressedListener {
         btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).toChatting(name.getText().toString());
+                ((MainActivity) getActivity()).toChatting(name.getText().toString(), category.getText().toString(), title.getText().toString());
             }
         });
 

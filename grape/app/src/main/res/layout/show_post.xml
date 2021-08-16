@@ -176,7 +176,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <EditText
-            android:id="@+id/et_show_post"
+            android:id="@+id/et_send_message"
             android:fontFamily="@font/jalnan"
             android:layout_marginLeft="10dp"
             android:paddingTop="5dp"
@@ -189,7 +189,7 @@
             android:layout_weight="9"
             android:background="@drawable/edit_text2"/>
         <ImageButton
-            android:id="@+id/btn_show_post"
+            android:id="@+id/btn_send_message"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"

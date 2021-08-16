@@ -362,7 +362,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // 채팅으로
-    public void toChatting(String ChatName){
+    public void toChatting(String ChatName, String category, String title){
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -375,6 +375,8 @@ public class MainActivity extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
         bundle.putString("ChatName",ChatName);
+        bundle.putString("category", category);
+        bundle.putString("title", title);
 
         Fragment fragment = fragmentManager.findFragmentByTag("Chatting");
 
@@ -391,7 +393,7 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentTransaction.setPrimaryNavigationFragment(fragment);
         fragmentTransaction.setReorderingAllowed(true);
-        fragmentTransaction.addToBackStack(null);//뒤로가기 눌렀을 떄 이전 프래그먼트로 이동가능
+        fragmentTransaction.addToBackStack(null);//뒤로가기 눌렀을 때 이전 프래그먼트로 이동가능
         fragmentTransaction.commit();
     }
 

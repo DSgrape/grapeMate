@@ -24,11 +24,11 @@ public class LoginActivity extends AppCompatActivity {
         new hideNavigationBar(getWindow().getDecorView());
 
         // 최근에 로그인한 사람은 로그인 안하도록
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user != null) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        if(user != null) {
+//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//            startActivity(intent);
+//        }
         login = findViewById(R.id.btn_log);
         join = findViewById(R.id.btn_join);
         login.setOnClickListener(new View.OnClickListener() {

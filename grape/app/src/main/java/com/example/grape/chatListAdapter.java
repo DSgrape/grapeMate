@@ -9,6 +9,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 public class chatListAdapter extends RecyclerView.Adapter<chatListAdapter.ViewHolder> {
@@ -54,7 +59,24 @@ public class chatListAdapter extends RecyclerView.Adapter<chatListAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     MainActivity main = (MainActivity) context;
-                    main.toChatting(data.getChatName());
+                    main.toChatting(data.getChatName(), data.getCategory(), data.getTitle());
+                }
+            });
+
+            FirebaseDatabase.getInstance().getReference().child("grapeMate/UserAccount").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    items.clear();
+                    for(DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                        //items.add(dataSnapshot.getValue(chat.class));
+                        // users 안에 아이디 가져와야함
+                    }
+                    notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
                 }
             });
         }

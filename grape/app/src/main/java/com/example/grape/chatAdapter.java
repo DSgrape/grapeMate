@@ -13,17 +13,21 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class chatAdapter extends RecyclerView.Adapter<chatAdapter.ViewHolder> {
     public static ArrayList<chat> items = new ArrayList<>();
     private Context context;
-    /*
-        public chatListAdapter(ArrayList<ChattingRoom> items, Context context) {
+
+
+        public chatAdapter(ArrayList<chat> items, Context context) {
             this.items = items;
             this.context = context;
         }
-    */
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,6 +52,7 @@ public class chatAdapter extends RecyclerView.Adapter<chatAdapter.ViewHolder> {
         private TextView chatContent;
         private FrameLayout layout;
         private Context context;
+        private chat data;
 
         public ViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
@@ -58,16 +63,22 @@ public class chatAdapter extends RecyclerView.Adapter<chatAdapter.ViewHolder> {
         }
 
         void setItem(chat data){
-            if(data.getType()==0) {
+            this.data = data;
+
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            if(data.getComments().uid.equals(uid)) {
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.FILL_PARENT);
                 params.gravity = Gravity.RIGHT;
                 params.rightMargin=15;
+                params.topMargin=20;
+                params.bottomMargin=20;
 
                 chatContent.setLayoutParams(params);
-                chatContent.setText(data.getChatContent());
-            }else if(data.getType()==1){
+                //메시지
+                chatContent.setText(data.getComments().message);
+            } else {
                 chatContent.setBackgroundDrawable(ContextCompat.getDrawable(context,R.drawable.yourchat));
-                chatContent.setText(data.getChatContent());
+                chatContent.setText(data.getComments().message);
             }
         }
     }
