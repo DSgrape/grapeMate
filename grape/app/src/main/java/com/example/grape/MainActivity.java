@@ -238,6 +238,8 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.hide(currentFragment);
         }
 
+        remove("Chatting");
+
         Fragment fragment = fragmentManager.findFragmentByTag("smc");
 
         if (fragment == null) {
@@ -305,6 +307,40 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.remove(fragment);
             fragment = new editInfo();
             fragmentTransaction.add(R.id.content_layout, fragment, "profile");
+        }
+
+        fragmentTransaction.setPrimaryNavigationFragment(fragment);
+        fragmentTransaction.setReorderingAllowed(true);
+        fragmentTransaction.addToBackStack(null);//뒤로가기 눌렀을 떄 이전 프래그먼트로 이동가능
+        fragmentTransaction.commit();
+    }
+
+    // 채팅으로
+    public void toChatting(String ChatName){
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+
+        Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
+
+        // 현재 fragment 감추기
+        if (currentFragment != null) {
+            fragmentTransaction.hide(currentFragment);
+        }
+
+        Bundle bundle = new Bundle();
+        bundle.putString("ChatName",ChatName);
+
+        Fragment fragment = fragmentManager.findFragmentByTag("Chatting");
+
+        if (fragment == null) {
+            fragment=new Chatting();
+            fragment.setArguments(bundle);
+            fragmentTransaction.add(R.id.content_layout, fragment, "Chatting");
+        } else {
+            fragmentTransaction.remove(fragment);
+            fragment = new Chatting();
+            fragment.setArguments(bundle);
+            fragmentTransaction.add(R.id.content_layout, fragment, "Chatting");
         }
 
         fragmentTransaction.setPrimaryNavigationFragment(fragment);

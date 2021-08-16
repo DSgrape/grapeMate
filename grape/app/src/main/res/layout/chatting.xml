@@ -9,7 +9,7 @@
         android:layout_marginTop="20dp">
 
         <ImageButton
-            android:id="@+id/btn_back"
+            android:id="@+id/back_chatting"
             android:layout_marginTop="10dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -17,6 +17,7 @@
             android:src="@drawable/back2"
             android:layout_marginLeft="20dp"/>
         <TextView
+            android:id="@+id/ChatName"
             android:layout_gravity="center"
             android:fontFamily="@font/jalnan"
             android:textColor="#af7ed7 "
@@ -73,7 +74,7 @@
         android:background="#af7ed7" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/show_post_recycle"
+        android:id="@+id/chatting_recycle"
         android:layout_weight="9"
         android:layout_margin="5dp"
         android:layout_width="match_parent"

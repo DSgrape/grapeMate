@@ -230,6 +230,13 @@ public class showPost extends Fragment {
             }
         });
 
+        //채팅으로
+        btnChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).toChatting(name.getText().toString());
+            }
+        });
 
         //왼쪽 화살표 버튼
         back = v.findViewById(R.id.btn_back);
