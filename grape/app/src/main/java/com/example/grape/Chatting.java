@@ -53,6 +53,7 @@ public class Chatting extends Fragment {
     String chatRoomUid;
 
     boolean isMe = false;
+    boolean not = false;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -211,7 +212,7 @@ public class Chatting extends Fragment {
                     chat c = item.getValue(chat.class);
                     if(c.users.destinationUid.equals(c.users.uid)) {
                         Toast.makeText(getContext(), "본인과는 대화할 수 없습니다.", Toast.LENGTH_SHORT).show();
-                        ((MainActivity)getActivity()).showMyChat();
+                        not = true;
                     }
                     Log.e("postId",postId);
                     Log.e("postId",c.getPostId());
@@ -243,7 +244,14 @@ public class Chatting extends Fragment {
                             }
                         });
                         recyclerView.setAdapter(adapter);
+                        if(chatRoomUid != null) {
+                            not = false;
+                            break;
+                        }
                     }
+                }
+                if(not) {
+                    ((MainActivity)getActivity()).showMyChat();
                 }
             }
 
