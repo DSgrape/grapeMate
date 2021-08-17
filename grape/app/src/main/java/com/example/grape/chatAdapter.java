@@ -77,6 +77,14 @@ public class chatAdapter extends RecyclerView.Adapter<chatAdapter.ViewHolder> {
                 //메시지
                 chatContent.setText(data.getComments().message);
             } else {
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.FILL_PARENT);
+                params.gravity = Gravity.LEFT;
+                params.rightMargin=15;
+                params.topMargin=20;
+                params.bottomMargin=20;
+                params.leftMargin=10;
+
+                chatContent.setLayoutParams(params);
                 chatContent.setBackgroundDrawable(ContextCompat.getDrawable(context,R.drawable.yourchat));
                 chatContent.setText(data.getComments().message);
             }

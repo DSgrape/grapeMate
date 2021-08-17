@@ -27,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +39,7 @@ public class Chatting extends Fragment {
     TextView chatName;
     TextView title;
     TextView type;
+    TextView tv_nickname;
 
     EditText etSendMessage;
     ImageButton btnSendMessage;
@@ -49,7 +52,7 @@ public class Chatting extends Fragment {
 
     DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("grapeMate/chat");
 
-    String message;
+    String nickname;
     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     String postId;
     String firstDestinationUid = "";
@@ -72,46 +75,51 @@ public class Chatting extends Fragment {
         //카테고리, 제목
         type = v.findViewById(R.id.tv_chat_type);
         title = v.findViewById(R.id.tv_chat_title);
+        tv_nickname = v.findViewById(R.id.ChatName);
 
         // bundle : 글종류 / 제목 / postId
         type.setText(bundle.getString("category"));
         title.setText(bundle.getString("title"));
         postId = bundle.getString("postId");
+
+        Log.e("postId",postId);
         // destinationUid 받아와야함
-//        FirebaseDatabase.getInstance().getReference("grapeMate/post").
-//                child(postId).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                // 글쓴이 ID 받아옴
-//                firstDestinationUid = snapshot.child("id").getValue().toString();
-//
-//                Log.e("firstDestinationUid", firstDestinationUid);
-//                Log.e("firstDestinationUid2", uid);
-//                if(uid == firstDestinationUid) {
-//                    // 글쓴이가 채팅방 들어왔을 때
-//                    // 글쓴이가 채팅방 확인하는 방법 -> 채팅룸에서 들어왔을 때
-//                    isMe = true;
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        FirebaseDatabase.getInstance().getReference("grapeMate/post").
+                child(postId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // 글쓴이 ID 받아옴
+                firstDestinationUid = snapshot.child("id").getValue().toString();
+                nickname = snapshot.child("nickname").getValue().toString();
+                tv_nickname.setText(nickname);
+
+                Log.e("nickname", nickname);
+                Log.e("firstDestinationUid", firstDestinationUid);
+                Log.e("firstDestinationUid2", uid);
+
+                if(uid.equals(firstDestinationUid)) {
+                    // 글쓴이가 채팅방 들어왔을 때
+                    // 글쓴이가 채팅방 확인하는 방법 -> 채팅룸에서 들어왔을 때
+                    isMe = true;
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
         etSendMessage = v.findViewById(R.id.et_send_message);
         btnSendMessage = v.findViewById(R.id.btn_send_message);
 
-        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-
-
         //채팅 내용 리사이클러뷰
         recyclerView = v.findViewById(R.id.chatting_recycle);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+
 
         Map<String, Boolean> users = new HashMap<String, Boolean>();
         Map<String, Boolean> users2 = new HashMap<String, Boolean>();
@@ -126,6 +134,7 @@ public class Chatting extends Fragment {
                 chat c = new chat();
                 c.setUsers(new chat.Users(uid, firstDestinationUid));
                 c.setPostId(postId);
+
                 if(chatRoomUid == null) {
                     // 채팅방이 없을 때
                     Log.e("실행", "실행");
@@ -145,7 +154,12 @@ public class Chatting extends Fragment {
                     comments.uid = uid;
                     comments.message = etSendMessage.getText().toString();
                     databaseRef.child("chatroom").child(chatRoomUid).child("comments").push().setValue(comments);
+
+                    checkChatRoom();
+                    adapter.notifyDataSetChanged(); // 변경사항 나타내기
+                    recyclerView.setAdapter(adapter);
                     etSendMessage.setText("");
+
                 }
 
             }
@@ -193,6 +207,7 @@ public class Chatting extends Fragment {
         // 기존에 만들어진 채팅방이 있는지 검사
         checkChatRoom();
 
+
         return v;
     }
 
@@ -207,8 +222,9 @@ public class Chatting extends Fragment {
             items.add(c);
         }
         adapter = new chatAdapter(items, getContext());
-        recyclerView.setAdapter(adapter);
+
         adapter.notifyDataSetChanged(); // 변경사항 나타내기
+        recyclerView.setAdapter(adapter);
     }
 
     void checkChatRoom() {
@@ -218,10 +234,13 @@ public class Chatting extends Fragment {
                 for(DataSnapshot item : snapshot.getChildren()) {
                     Log.e("실행", "실행");
                     chat c = item.getValue(chat.class);
+
                     if(c.users.destinationUid.equals(c.users.uid)) {
                         Toast.makeText(getContext(), "본인과는 대화할 수 없습니다.", Toast.LENGTH_SHORT).show();
                         not = true;
                     }
+
+
                     Log.e("postId",postId);
                     Log.e("postId",c.getPostId());
                     Log.e("id", firstDestinationUid);
@@ -230,30 +249,28 @@ public class Chatting extends Fragment {
                     Log.e("uid", c.users.uid);
                     Log.e("isMe", String.valueOf(isMe));
 
-                    if((((c.users.destinationUid.equals(firstDestinationUid) && c.users.uid.equals(uid))
-                            || (c.users.destinationUid.equals(uid) && c.users.uid.equals(firstDestinationUid)))
-                            && postId.equals(c.getPostId()))) {
+                    //(((c.users.destinationUid.equals(firstDestinationUid) && c.users.uid.equals(uid))
+                    //                            || (c.users.destinationUid.equals(uid) && c.users.uid.equals(firstDestinationUid)))
+                    //                            && postId.equals(c.getPostId()))
+                    if(true) {
                         if(isMe) {
+                            Log.e("안에 실행됨", c.users.uid);
                             //가져올때 너랑 나를 바꿔야함
                             c.users.destinationUid = c.users.uid;
                             c.users.uid = uid;
                         }
+
                         chatRoomUid  = item.getKey();
                         btnSendMessage.setEnabled(true);
 
-                        FirebaseDatabase.getInstance().getReference().child("grapeMate/chat/chatroom").child(chatRoomUid).
-                                child("comments").addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                loadChatList(snapshot);
-                            }
+                        loadChatList(snapshot.child(chatRoomUid).child("comments"));
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
 
-                            }
-                        });
+                        adapter.notifyDataSetChanged();
                         recyclerView.setAdapter(adapter);
+                        recyclerView.smoothScrollToPosition(adapter.getItemCount());
+                        isMe = false;
+                        adapter.notifyDataSetChanged(); // 변경사항 나타내기
                         if(chatRoomUid != null) {
                             not = false;
                             break;
@@ -262,6 +279,7 @@ public class Chatting extends Fragment {
                 }
                 if(not) {
                     ((MainActivity)getActivity()).showMyChat();
+                    not = false;
                 }
             }
 

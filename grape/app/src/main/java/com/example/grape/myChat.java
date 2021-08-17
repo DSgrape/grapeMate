@@ -87,70 +87,50 @@ public class myChat extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 chattingRooms.clear();
+
+
                 for (DataSnapshot item : snapshot.getChildren()) {
                     Log.e("실행", "실행");
 
 
-                    chatRoomUid = item.getKey();
+
                     postId = item.child("postId").getValue().toString();
-                    // 글쓴 사람한테 연락 -> 상대 닉네임 가져오기
-                    FirebaseDatabase.getInstance().getReference("grapeMate/post").
-                            child(postId).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                            Log.e("실행되나?", snapshot.getKey());
-                            category = snapshot.child("postType").getValue().toString();
-                            title = snapshot.child("title").getValue().toString();
+                    Log.e("실행되나?2", postId);
 
-
-                        }
-
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
 
                     Log.e("세팅", "setting");
 
-                    FirebaseDatabase.getInstance().getReference().child("grapeMate/chat/chatroom").child(chatRoomUid).
-                            child("users").addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.child("uid").getValue().toString().equals(uid) || dataSnapshot.child("destinationUid").getValue().toString().equals(uid)) {
+                    chatRoomUid = item.getKey();
 
-                                if (dataSnapshot.child("destinationUid").getValue().toString().equals(uid)) {
-                                    // 내가 만든 채팅방이 아닌 경우 -> 주객전도해야함
-                                    destinationUid = dataSnapshot.child("uid").getValue().toString();
-                                } else {
-                                    // 내가 만든 채팅방인 경우
-                                    destinationUid = dataSnapshot.child("destinationUid").getValue().toString();
-                                }
-                                //Log.e("destinationUid", destinationUid);
-                                if (destinationUid != null) {
+                    @NonNull DataSnapshot dataSnapshot = snapshot.child(chatRoomUid).child("users");
 
-                                    ChattingRoom chattingRoom = new ChattingRoom(chatRoomUid, postId, new ChattingRoom.Users(uid, destinationUid));
-                                    chattingRoom.setCategory(category);
-                                    chattingRoom.setTitle(title);
+                    if (dataSnapshot.child("uid").getValue().toString().equals(uid) || dataSnapshot.child("destinationUid").getValue().toString().equals(uid)) {
 
-                                    chattingRooms.add(chattingRoom);
-                                    destinationUid = null;
-                                }
-
-                            }
-                            adapter = new chatListAdapter(chattingRooms, getContext());
-                            recyclerView.setAdapter(adapter);
-                            adapter.notifyDataSetChanged(); // 변경사항 나타내기
-
+                        if (dataSnapshot.child("destinationUid").getValue().toString().equals(uid)) {
+                            // 내가 만든 채팅방이 아닌 경우 -> 주객전도해야함
+                            destinationUid = dataSnapshot.child("uid").getValue().toString();
+                        } else {
+                            // 내가 만든 채팅방인 경우
+                            destinationUid = dataSnapshot.child("destinationUid").getValue().toString();
                         }
+                        //Log.e("destinationUid", destinationUid);
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
+                    }
+
+                    if (destinationUid != null) {
+
+                        ChattingRoom chattingRoom = new ChattingRoom(chatRoomUid, postId, new ChattingRoom.Users(uid, destinationUid));
+
+                        chattingRooms.add(chattingRoom);
+                        Log.e("1", chatRoomUid+ postId);
+                        destinationUid = null;
+                    }
+
+                    adapter = new chatListAdapter(chattingRooms, getContext());
+                    recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged(); // 변경사항 나타내기
 
                 }
 
@@ -165,22 +145,3 @@ public class myChat extends Fragment {
 
     }
 }
-
-//                                            FirebaseDatabase.getInstance().getReference("grapeMate/UserAccount").
-//                                                    child(destinationUid).addValueEventListener(new ValueEventListener() {
-//                                                @Override
-//                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                                    if (snapshot.child("nickname").getValue() != null)
-//                                                        chattingRoom.setNickname(snapshot.child("nickname").getValue().toString());
-//
-//
-//
-//
-//
-//                                                }
-//
-//                                                @Override
-//                                                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                                                }
-//                                            });

@@ -70,8 +70,25 @@ public class chatListAdapter extends RecyclerView.Adapter<chatListAdapter.ViewHo
 
         void setItem(ChattingRoom data){
             this.data = data;
+            // 글쓴 사람한테 연락 -> 상대 닉네임 가져오기
+            FirebaseDatabase.getInstance().getReference("grapeMate/post").
+                    child(data.getPostId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-            chat.setText("\u003c" + data.getCategory() + "\u003e " + data.getTitle());  //<카테고리>타이틀
+                    Log.e("실행되나?", snapshot.getKey());
+                    data.setCategory(snapshot.child("postType").getValue().toString());
+                    data.setTitle(snapshot.child("title").getValue().toString());
+
+                    chat.setText("\u003c" + data.getCategory() + "\u003e " + data.getTitle());  //<카테고리>타이틀
+
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
         }
     }
 }
