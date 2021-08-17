@@ -69,7 +69,6 @@ public class Chatting extends Fragment {
 
 
         ChatName=v.findViewById(R.id.ChatName);
-        ChatName=v.findViewById(R.id.show_post_name);
         ChatName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
