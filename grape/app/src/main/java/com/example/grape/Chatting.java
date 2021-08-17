@@ -49,7 +49,10 @@ public class Chatting extends Fragment {
 
     DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("grapeMate/chat");
 
-    String message, uid, firstDestinationUid, postId;
+    String message;
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    String postId;
+    String firstDestinationUid = "";
     String chatRoomUid;
 
     boolean isMe = false;
@@ -74,31 +77,36 @@ public class Chatting extends Fragment {
         type.setText(bundle.getString("category"));
         title.setText(bundle.getString("title"));
         postId = bundle.getString("postId");
+        // destinationUid 받아와야함
+//        FirebaseDatabase.getInstance().getReference("grapeMate/post").
+//                child(postId).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                // 글쓴이 ID 받아옴
+//                firstDestinationUid = snapshot.child("id").getValue().toString();
+//
+//                Log.e("firstDestinationUid", firstDestinationUid);
+//                Log.e("firstDestinationUid2", uid);
+//                if(uid == firstDestinationUid) {
+//                    // 글쓴이가 채팅방 들어왔을 때
+//                    // 글쓴이가 채팅방 확인하는 방법 -> 채팅룸에서 들어왔을 때
+//                    isMe = true;
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+
 
         etSendMessage = v.findViewById(R.id.et_send_message);
         btnSendMessage = v.findViewById(R.id.btn_send_message);
 
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        // destinationUid 받아와야함
-        firstDestinationUid = "test1";
-        FirebaseDatabase.getInstance().getReference("grapeMate/post").
-                child(postId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // 글쓴이 ID 받아옴
-                firstDestinationUid = snapshot.child("id").getValue().toString();
-                if(uid == firstDestinationUid) {
-                    // 글쓴이가 채팅방 들어왔을 때
-                    // 글쓴이가 채팅방 확인하는 방법 -> 채팅룸에서 들어왔을 때
-                    isMe = true;
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
 
         //채팅 내용 리사이클러뷰
         recyclerView = v.findViewById(R.id.chatting_recycle);
@@ -220,6 +228,8 @@ public class Chatting extends Fragment {
                     Log.e("id", c.users.destinationUid);
                     Log.e("uid", uid);
                     Log.e("uid", c.users.uid);
+                    Log.e("isMe", String.valueOf(isMe));
+
                     if((((c.users.destinationUid.equals(firstDestinationUid) && c.users.uid.equals(uid))
                             || (c.users.destinationUid.equals(uid) && c.users.uid.equals(firstDestinationUid)))
                             && postId.equals(c.getPostId()))) {

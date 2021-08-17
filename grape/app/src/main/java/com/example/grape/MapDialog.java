@@ -64,7 +64,7 @@ public class MapDialog extends Dialog implements OnMapReadyCallback {
             int hasCoarseLocationPermission=ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
             if(hasFineLocationPermission== PackageManager.PERMISSION_GRANTED&&hasCoarseLocationPermission==PackageManager.PERMISSION_GRANTED){
 
-                locationClient= LocationServices.getFusedLocationProviderClient(getContext());
+                locationClient = LocationServices.getFusedLocationProviderClient(getContext());
                 locationClient.getLastLocation().addOnSuccessListener(location -> {
                     if(location==null){
                         Toast.makeText(getContext(),"위치 확인 실패\n위치 기능 사용을 확인해주세요",Toast.LENGTH_SHORT).show();

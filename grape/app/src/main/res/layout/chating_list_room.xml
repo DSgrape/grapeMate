@@ -13,16 +13,17 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_marginLeft="20dp"
+            android:id="@+id/tv_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#af7ed7"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:fontFamily="@font/jalnan"
-            android:textSize="30dp"
             android:singleLine="true"
             android:text="이름"
-            android:layout_marginRight="20dp"
-            android:layout_gravity="center|left"/>
+            android:textColor="#af7ed7"
+            android:textSize="30dp" />
 
         <View
             android:layout_width="4dp"

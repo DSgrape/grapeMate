@@ -4,32 +4,64 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ChattingRoom {
-    private String chatId;
-    private String uid;         // 보낸 사람 id
-    private String destinationId;
-    private String chatName;  // 채팅 상대
-    private String postId;
+    private String chatId;      // 채팅방 고유키
+    private String postId;      // 글 id
+    private String timestamp;   // 시간
+    private Comment comments = new Comment();
+    Users users = new Users();    //유저 아이디
+    private String nickname;
     private String category;
     private String title;
 
-    public ChattingRoom(String chatId, String uid, String destinationId, String chatName, String postId, String category, String title) {
+    public static class Comment {
+        public String uid;
+        public String message;
+
+        public Comment() {}
+        public Comment(String uid, String message) {
+            this.uid = uid;
+            this.message = message;
+        }
+    }
+    public static class Users {
+        public String uid;
+        public String destinationUid;
+
+        public Users() {}
+        public Users(String uid, String destinaionUid) {
+            this.uid = uid;
+            this.destinationUid = destinaionUid;
+        }
+    }
+
+    public ChattingRoom() {}
+
+    // myChat에서 필요한 정보
+
+    public ChattingRoom(String chatId, String postId, Users users) {
         this.chatId = chatId;
-        this.chatName = chatName;
         this.postId = postId;
+        this.users = users;
+    }
+
+    public ChattingRoom(String chatId, String postId, Users users, String nickname, String category, String title) {
+        this.chatId = chatId;
+        this.postId = postId;
+        this.users = users;
+        this.nickname = nickname;
         this.category = category;
         this.title = title;
-        this.uid = uid;
-
-        this.destinationId = destinationId;
     }
 
-    public String getChatName() {
-        return chatName;
+    public ChattingRoom(String chatId, String postId, String timestamp, Comment comments, Users users) {
+        this.chatId = chatId;
+        this.postId = postId;
+        this.timestamp = timestamp;
+        this.comments = comments;
+        this.users = users;
     }
 
-    public String getDestinationId() { return destinationId; }
-
-    public String getPostId() { return postId; }
+    public String getNickname() { return nickname; }
 
     public String getCategory() { return category; }
 
@@ -37,14 +69,25 @@ public class ChattingRoom {
 
     public String getChatId() { return chatId; }
 
-    public String getUid() { return uid; }
+    public String getPostId() { return postId; }
 
+    public String getTimestamp() { return timestamp; }
 
-    public void setChatName(String chatName) {
-        this.chatName = chatName;
-    }
+    public Comment getComments() { return comments; }
+
+    public Users getUsers() { return users; }
+
+    public void setChatId(String chatId) { this.chatId = chatId; }
 
     public void setPostId(String postId) { this.postId = postId; }
+
+    public void setTimestamp(String timestamp) { this.timestamp = timestamp; }
+
+    public void setComments(Comment comments) { this.comments = comments; }
+
+    public void setUsers(Users users) { this.users = users; }
+
+    public void setNickname(String nickname) { this.nickname = nickname; }
 
     public void setCategory(String category) { this.category = category; }
 
