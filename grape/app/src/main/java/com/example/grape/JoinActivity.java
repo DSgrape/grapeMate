@@ -13,15 +13,20 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListPopupWindow;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -38,6 +43,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.lang.reflect.Field;
+
+import static java.security.AccessController.getContext;
 
 public class JoinActivity extends AppCompatActivity {
 
@@ -47,6 +55,7 @@ public class JoinActivity extends AppCompatActivity {
     private Button btnRegister;
     private ImageButton btnPhoto;
     private String imgUrl = "";
+    private Spinner spin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +63,12 @@ public class JoinActivity extends AppCompatActivity {
         setContentView(R.layout.join);
 
         new hideNavigationBar(getWindow().getDecorView());
+
+        //스피너 하단바 오류개선
+        View decorView = getWindow().getDecorView();
+        decorView.setOnSystemUiVisibilityChangeListener(
+                visibility -> decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+        );
 
         FirebaseApp.initializeApp(this);
 
@@ -67,6 +82,38 @@ public class JoinActivity extends AppCompatActivity {
 
         mfbAuth = FirebaseAuth.getInstance();
         databaseRef = FirebaseDatabase.getInstance().getReference("grapeMate");
+
+
+        // 스피너
+        spin = findViewById(R.id.info_spin);
+        String[] category={ "덕성여대", "성신여대" };
+
+        ArrayAdapter adapter= new ArrayAdapter(this,R.layout.spinner_item,category);
+        spin.setAdapter(adapter);
+
+        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0: break;
+                    case 1: break;
+                    case 2:  break;
+                    case 3: break;
+                    case 4:  break;
+                    default: break;
+                }
+            }
+
+            // 기본 - 선택된 것이 없을 때
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                spin.setSelection(0);
+
+            }
+
+        });
+
 
         btnPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,14 +257,16 @@ public class JoinActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-    private void hideKeyboard() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-        //Find the currently focused view, so we can grab the correct window token from it.
-        View view = getCurrentFocus();
-        //If no view currently has focus, create a new one, just so we can grab a window token from it
-        if (view == null) {
-            view = new View(this);
-        }
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        private void hideKeyboard() {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+            //Find the currently focused view, so we can grab the correct window token from it.
+            View view = getCurrentFocus();
+            //If no view currently has focus, create a new one, just so we can grab a window token from it
+            if (view == null) {
+                view = new View(this);
+            }
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+
 }

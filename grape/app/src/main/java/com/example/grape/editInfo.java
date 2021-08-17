@@ -32,7 +32,7 @@ public class editInfo extends Fragment {
                 ((MainActivity)getActivity()).toMyPage();
             }
         });
-
+/*
         // 스피너
         spin = v.findViewById(R.id.info_spin);
         String[] category={ "덕성여대", "성신여대" };
@@ -61,7 +61,7 @@ public class editInfo extends Fragment {
             }
 
         });
-
+*/
         return v;
     }
     @Override
