@@ -51,8 +51,8 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:fontFamily="@font/jalnan"
         android:text="> 기본 정보"
         android:textColor="#af7ed7"
@@ -62,6 +62,7 @@
     <TableLayout
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -188,8 +189,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical">
         <TableLayout
             android:layout_marginLeft="15dp"
@@ -206,7 +207,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="10dp"
                     android:fontFamily="@font/jalnan"
                     android:text="> 알림"
                     android:textColor="#af7ed7"
@@ -268,7 +269,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <!--LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -316,7 +317,7 @@
                 android:gravity="center"
                 android:textAlignment="center" />
         </LinearLayout>
-    </LinearLayout>
+    </LinearLayout-->
 
 
         <View

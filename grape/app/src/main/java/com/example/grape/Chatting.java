@@ -40,6 +40,7 @@ public class Chatting extends Fragment {
     TextView title;
     TextView type;
     TextView tv_nickname;
+    TextView ChatName;
 
     EditText etSendMessage;
     ImageButton btnSendMessage;
@@ -65,6 +66,18 @@ public class Chatting extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         View v = inflater.inflate(R.layout.chatting, container, false);
+
+
+        ChatName=v.findViewById(R.id.ChatName);
+        ChatName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProDialog proDialog=new ProDialog(getContext());
+                proDialog.setCanceledOnTouchOutside(true);
+                proDialog.setCancelable(true);
+                proDialog.show();
+            }
+        });
 
 
         //번들로 채팅 대상 이름받기

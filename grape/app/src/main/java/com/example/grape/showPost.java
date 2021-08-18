@@ -40,6 +40,7 @@ public class showPost extends Fragment implements OnBackPressedListener {
     ImageButton btnChat, btnMap;// 채팅버튼
     EditText etShowPost; //댓글쓰기
     ImageButton btnShowPost; //댓글쓰기
+    TextView showProfile;
 
     int heart = 10;
 
@@ -257,6 +258,17 @@ public class showPost extends Fragment implements OnBackPressedListener {
                 mapDialog.setCancelable(true);//뒤로가기 버튼으로 취소
                 mapDialog.show();
 
+            }
+        });
+
+        showProfile=v.findViewById(R.id.show_post_name);
+        showProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProDialog proDialog=new ProDialog(getContext());
+                proDialog.setCanceledOnTouchOutside(true);
+                proDialog.setCancelable(true);
+                proDialog.show();
             }
         });
 
