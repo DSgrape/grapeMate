@@ -44,6 +44,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 
 import static java.security.AccessController.getContext;
 
@@ -56,6 +57,7 @@ public class JoinActivity extends AppCompatActivity {
     private ImageButton btnPhoto;
     private String imgUrl = "";
     private Spinner spin;
+    String mySchool = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,9 +88,10 @@ public class JoinActivity extends AppCompatActivity {
 
         // 스피너
         spin = findViewById(R.id.info_spin);
-        String[] category={ "덕성여대", "성신여대" };
+        String[] school = { "덕성여자대학교", "동덕여자대학교", "서울여자대학교", "성신여자대학교", "숙명여자대학교", "이화여자대학교" };
 
-        ArrayAdapter adapter= new ArrayAdapter(this,R.layout.spinner_item,category);
+
+        ArrayAdapter adapter= new ArrayAdapter(this,R.layout.spinner_item,school);
         spin.setAdapter(adapter);
 
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -96,11 +99,24 @@ public class JoinActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
-                    case 0: break;
-                    case 1: break;
-                    case 2:  break;
-                    case 3: break;
-                    case 4:  break;
+                    case 0:
+                        mySchool = school[0];
+                        break;
+                    case 1:
+                        mySchool = school[1];
+                        break;
+                    case 2:
+                        mySchool = school[2];
+                        break;
+                    case 3:
+                        mySchool = school[3];
+                        break;
+                    case 4:
+                        mySchool = school[4];
+                        break;
+                    case 5:
+                        mySchool = school[5];
+                        break;
                     default: break;
                 }
             }
@@ -167,8 +183,8 @@ public class JoinActivity extends AppCompatActivity {
                                     account.setGrade(1);
                                     account.setNickname(strNickname);
                                     account.setPhoneNumber(strPhoneNumber);
-                                    account.setSchool("덕성");
                                     account.setStudentCardPhoto(imgUrl);
+                                    account.setSchool(mySchool);
                                     // 기본 프로필 사진
                                     account.setProfile("https://firebasestorage.googleapis.com/v0/b/grape-3cabc.appspot.com/o/user.png?alt=media&token=4e337b01-bbc3-4c3a-9beb-657f2ff0fa2e");
 
