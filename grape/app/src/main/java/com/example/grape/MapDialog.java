@@ -76,9 +76,9 @@ public class MapDialog extends Dialog implements OnMapReadyCallback {
                     }
                 });
 
-            }else {//권한이 허용되지 않았을 경우
+            }else {     //권한이 허용되지 않았을 경우
                 if(ActivityCompat.shouldShowRequestPermissionRationale(mainActivity,Manifest.permission.ACCESS_FINE_LOCATION)){
-                    //거부된 적 있을 떄
+                    //거부된 적 있을 때
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setMessage("위치권한이 필요한 기능입니다.");
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -92,7 +92,7 @@ public class MapDialog extends Dialog implements OnMapReadyCallback {
                     alertDialog.show();
 
 
-                }else{//처음 권한 물을 떄
+                }else{      //처음 권한 물을 때
                     ActivityCompat.requestPermissions(mainActivity,REQUIRED_PERMISSIONS,100);
                 }
             }

@@ -199,7 +199,7 @@ public class addPost extends Fragment {
                                 Toast.makeText(getContext(), "제목을 입력하세요", Toast.LENGTH_SHORT).show();
                             } else if (content.getText().toString() == ""){
                                 Toast.makeText(getContext(), "내용을 입력하세요", Toast.LENGTH_SHORT).show();
-                            } else if(Uid != null && emailId != null) {
+                            } else if(Uid != null && emailId != null && content != null) {
                                 // 글을 정상적으로 작성했을 때
                                 Date todayDate = Calendar.getInstance().getTime();
                                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");

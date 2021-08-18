@@ -97,8 +97,6 @@ public class myChat extends Fragment {
                     postId = item.child("postId").getValue().toString();
 
                     Log.e("실행되나?2", postId);
-
-
                     Log.e("세팅", "setting");
 
                     chatRoomUid = item.getKey();

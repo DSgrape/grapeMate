@@ -26,9 +26,9 @@ public class chat {
         public String destinationUid;
 
         public Users() {}
-        public Users(String uid, String destinaionUid) {
+        public Users(String uid, String destinationUid) {
             this.uid = uid;
-            this.destinationUid = destinaionUid;
+            this.destinationUid = destinationUid;
         }
     }
 

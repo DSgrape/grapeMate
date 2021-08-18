@@ -56,6 +56,7 @@ public class chatListAdapter extends RecyclerView.Adapter<chatListAdapter.ViewHo
         public ViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
             chat = itemView.findViewById(R.id.tv_chat);
+            name = itemView.findViewById(R.id.tv_nickname);
 
             //클릭 이벤트
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +81,8 @@ public class chatListAdapter extends RecyclerView.Adapter<chatListAdapter.ViewHo
                     data.setCategory(snapshot.child("postType").getValue().toString());
                     data.setTitle(snapshot.child("title").getValue().toString());
 
-                    chat.setText("\u003c" + data.getCategory() + "\u003e " + data.getTitle());  //<카테고리>타이틀
+                    name.setText("\u003c" + data.getCategory() + "\u003e ");
+                    chat.setText(data.getTitle());  //<카테고리>타이틀
 
                 }
                 @Override

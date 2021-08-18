@@ -262,9 +262,6 @@ public class Chatting extends Fragment {
                     Log.e("uid", c.users.uid);
                     Log.e("isMe", String.valueOf(isMe));
 
-                    //(((c.users.destinationUid.equals(firstDestinationUid) && c.users.uid.equals(uid))
-                    //                            || (c.users.destinationUid.equals(uid) && c.users.uid.equals(firstDestinationUid)))
-                    //                            && postId.equals(c.getPostId()))
                     if(postId.equals(c.getPostId())) {
                         if(isMe) {
                             Log.e("안에 실행됨", c.users.uid);

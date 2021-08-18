@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentTransaction.setPrimaryNavigationFragment(fragment);
         fragmentTransaction.setReorderingAllowed(true);
-        fragmentTransaction.commitNow();
+        fragmentTransaction.commitAllowingStateLoss();
 
     }
 
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentTransaction.setPrimaryNavigationFragment(fragment);
         fragmentTransaction.setReorderingAllowed(true);
-        fragmentTransaction.addToBackStack(null);//뒤로가기 눌렀을 떄 이전 프래그먼트로 이동가능
+        fragmentTransaction.addToBackStack(null);//뒤로가기 눌렀을 때 이전 프래그먼트로 이동가능
         fragmentTransaction.commit();
     }
 
@@ -274,7 +274,7 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentTransaction.setPrimaryNavigationFragment(fragment);
         fragmentTransaction.setReorderingAllowed(true);
-        fragmentTransaction.addToBackStack(null);//뒤로가기 눌렀을 떄 이전 프래그먼트로 이동가능
+        fragmentTransaction.addToBackStack(null);//뒤로가기 눌렀을 때 이전 프래그먼트로 이동가능
         fragmentTransaction.commit();
     }
 
