@@ -77,7 +77,7 @@ public class Main_Fragment extends Fragment {
 
         // 임시 아이템 추가
         adapter.items.add(new board("key", "id", "writeId", "닉네임", "운동", "운동같이할사람", "운동 같이 하실래요?",
-                "endDay", "createAt"));
+                "endDay", "createAt", 60, 127.1));
 
         databaseRef = FirebaseDatabase.getInstance().getReference("grapeMate/post");
 
@@ -280,7 +280,9 @@ public class Main_Fragment extends Fragment {
             String postContent = String.valueOf(snapshot.child("postContent").getValue());    // 글 내용
             String endDay = String.valueOf(snapshot.child("endDay").getValue());     // 마감기한
             String createAt = String.valueOf(snapshot.child("createAt").getValue());       // 작성시간
-            board b = new board(postId, id, writeId, nickname, postType, title, postContent, endDay, createAt);
+            double mapX = (double) snapshot.child("mapX").getValue();
+            double mapY = (double) snapshot.child("mapY").getValue();
+            board b = new board(postId, id, writeId, nickname, postType, title, postContent, endDay, createAt, mapX, mapY);
 
             item.add(b);
         }

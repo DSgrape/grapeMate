@@ -16,6 +16,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class ShowMapDialog extends Dialog implements OnMapReadyCallback {
     private Context context;
@@ -23,7 +24,9 @@ public class ShowMapDialog extends Dialog implements OnMapReadyCallback {
     private MapView mapView = null;
     private GoogleMap mMap;
     private Button ok;
-    private double X,Y;
+    public double[] location = new double[2];
+    private double X = 37.1;
+    private double Y = 127.1;
 
     public ShowMapDialog(@NonNull Context context, MapDialogClickListener mapDialogClickListener){
         super(context);
@@ -37,6 +40,7 @@ public class ShowMapDialog extends Dialog implements OnMapReadyCallback {
         setContentView(R.layout.show_map_dialog);
 
         ok=findViewById(R.id.Yes);
+        location = this.mapDialogClickListener.provideLocation();
 
         mapView=findViewById(R.id.map_dialog);
         mapView.onCreate(savedInstanceState);
@@ -53,8 +57,8 @@ public class ShowMapDialog extends Dialog implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         //위치 좌표
-        X=37.6512;
-        Y=127.0161;
+        X = location[0];
+        Y = location[1];
 
         mMap=googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);

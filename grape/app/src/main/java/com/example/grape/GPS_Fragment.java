@@ -49,7 +49,7 @@ public class GPS_Fragment extends Fragment implements OnMapReadyCallback {
         setHasOptionsMenu(true);
         View v = inflater.inflate(R.layout.gps_fragment, container, false);
 
-        String[] REQUIRED_PERMISSIONS={Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION};
+        String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION};
 
         Toast.makeText(getContext(),"마커를 두번 연속 클릭하면\n해당 포스트로 이동합니다.",Toast.LENGTH_SHORT).show();
 
@@ -63,7 +63,7 @@ public class GPS_Fragment extends Fragment implements OnMapReadyCallback {
 
                     locationClient=LocationServices.getFusedLocationProviderClient(getContext());
                     locationClient.getLastLocation().addOnSuccessListener(location -> {
-                        if(location==null){
+                        if(location == null){
                             Toast.makeText(getContext(),"위치 확인 실패\n위치 기능 사용을 확인해주세요",Toast.LENGTH_SHORT).show();
                         }else {
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()),15f));
@@ -82,18 +82,18 @@ public class GPS_Fragment extends Fragment implements OnMapReadyCallback {
                             }
                         });
 
-                        AlertDialog alertDialog=builder.create();
+                        AlertDialog alertDialog = builder.create();
                         alertDialog.show();
 
 
-                    }else{//처음 권한 물을 떄
+                    }else{//처음 권한 물을 때
                         ActivityCompat.requestPermissions((MainActivity)getActivity(),REQUIRED_PERMISSIONS,100);
                     }
                 }
             }
         });
 
-        mapView=v.findViewById(R.id.map);
+        mapView = v.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
         mapView.getMapAsync(this);
@@ -107,18 +107,18 @@ public class GPS_Fragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap=googleMap;
+        mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.6512,127.0161),15f));
 
-        for(int i=0;i<1;i++) {
+        for(int i=0; i<1; i++) {
             X=37.6512; Y=127.0161;
             Title="카테고리";
             snippet="제목";
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(X, Y))
-                    .title(Title)//여기에 카테고리+제목표시하고
-                    .snippet(snippet)//아이디를 받을 장소가 안보여서 그냥 여기 포스트아이디 넣고 받을까?
+                    .title(Title)   //여기에 카테고리+제목표시하고
+                    .snippet(snippet)   //아이디를 받을 장소가 안보여서 그냥 여기 포스트아이디 넣고 받을까?
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin60602)));
         }
 

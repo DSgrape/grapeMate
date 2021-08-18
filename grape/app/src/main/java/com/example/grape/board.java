@@ -13,11 +13,13 @@ public class board {
     private String title;   // 글 제목
     private String postContent;    // 글 내용
     private String endDay;     // 마감기한
+    private double mapX;
+    private double mapY;
     private String createAt;       // 작성시간
 
     public board(){}
 
-    public board(String pid, String id, String writeId, String nickname, String postType, String title, String postContent, String endDay, String createAt) {
+    public board(String pid, String id, String writeId, String nickname, String postType, String title, String postContent, String endDay, String createAt, double x, double y) {
         this.postId = pid;
         this.id = id;
         this.writeId = writeId;
@@ -27,6 +29,8 @@ public class board {
         this.postContent = postContent;
         this.endDay = endDay;
         this.createAt = createAt;
+        this.mapX = x;
+        this.mapY = y;
     }
 
     public String getPostId() { return postId; }
@@ -38,6 +42,10 @@ public class board {
     public String getTitle(){return title;}
 
     public String getPostContent() { return postContent; }
+
+    public double getMapX() { return mapX; }
+
+    public double getMapY() { return mapY; }
 
     public String getWriteId() { return writeId; }
 
@@ -51,7 +59,7 @@ public class board {
 
     public void setId(String id) { this.id = id; }
 
-    public void setWriteId(String wirteId) { this.writeId = wirteId; }
+    public void setWriteId(String writeId) { this.writeId = writeId; }
 
     public void setTitle(String title){this.title=title;}
 
@@ -64,5 +72,9 @@ public class board {
     public void setCreateAt(String createAt) { this.createAt = createAt; }
 
     public void setNickname(String nickname) { this.nickname = nickname; }
+
+    public void setMapX(double mapX) { this.mapX = mapX; }
+
+    public void setMapY(double mapY) { this.mapY = mapY; }
 }
 

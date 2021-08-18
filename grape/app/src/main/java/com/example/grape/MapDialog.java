@@ -25,6 +25,8 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.ktx.Firebase;
 
 public class MapDialog extends Dialog implements OnMapReadyCallback {
     private Context context;
@@ -32,15 +34,16 @@ public class MapDialog extends Dialog implements OnMapReadyCallback {
     private MapView mapView = null;
     private GoogleMap mMap;
     private Button ok,no;
-    private Activity mainActiity;
+    private Activity mainActivity;
     private com.google.android.material.floatingactionbutton.FloatingActionButton fab;
     private FusedLocationProviderClient locationClient = null;
+    public double[] x = new double[2];
 
     public MapDialog(@NonNull Context context, Activity mainActivity, MapDialogClickListener mapDialogClickListener){
         super(context);
         this.context=context;
         this.mapDialogClickListener=mapDialogClickListener;
-        this.mainActiity=mainActivity;
+        this.mainActivity=mainActivity;
     }
 
     @Override
@@ -50,8 +53,8 @@ public class MapDialog extends Dialog implements OnMapReadyCallback {
 
         String[] REQUIRED_PERMISSIONS={android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
 
-        ok=findViewById(R.id.Yes);
-        no=findViewById(R.id.No);
+        ok = findViewById(R.id.Yes);
+        no = findViewById(R.id.No);
         fab=findViewById(R.id.map_fab);
 
         mapView=findViewById(R.id.map_dialog);
@@ -74,14 +77,14 @@ public class MapDialog extends Dialog implements OnMapReadyCallback {
                 });
 
             }else {//권한이 허용되지 않았을 경우
-                if(ActivityCompat.shouldShowRequestPermissionRationale(mainActiity,Manifest.permission.ACCESS_FINE_LOCATION)){
+                if(ActivityCompat.shouldShowRequestPermissionRationale(mainActivity,Manifest.permission.ACCESS_FINE_LOCATION)){
                     //거부된 적 있을 떄
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setMessage("위치권한이 필요한 기능입니다.");
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions(mainActiity,REQUIRED_PERMISSIONS,100);
+                            ActivityCompat.requestPermissions(mainActivity,REQUIRED_PERMISSIONS,100);
                         }
                     });
 
@@ -90,7 +93,7 @@ public class MapDialog extends Dialog implements OnMapReadyCallback {
 
 
                 }else{//처음 권한 물을 떄
-                    ActivityCompat.requestPermissions(mainActiity,REQUIRED_PERMISSIONS,100);
+                    ActivityCompat.requestPermissions(mainActivity,REQUIRED_PERMISSIONS,100);
                 }
             }
         });
@@ -108,21 +111,23 @@ public class MapDialog extends Dialog implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        double[] x = new double[2];
 
-        mMap=googleMap;
+
+        mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        // 덕성
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.6512,127.0161),15f));
 
         mMap.setOnMapClickListener(point ->{
             mMap.clear();
-            MarkerOptions markerOptions=new MarkerOptions();
+            MarkerOptions markerOptions = new MarkerOptions();
             markerOptions
                     .position(point)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin60602));
             mMap.addMarker(markerOptions);
-            x[0] =point.latitude;//x좌표
-            x[1] =point.longitude;//y좌표 다이얼로그 클릭 리스너로 전달? 그냥 전달?
+            x[0] = point.latitude;      //x좌표
+            x[1] = point.longitude;     //y좌표
+            this.mapDialogClickListener.sendLocation(x[0], x[1]);
         });
 
 

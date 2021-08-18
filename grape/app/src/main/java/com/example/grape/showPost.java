@@ -57,6 +57,9 @@ public class showPost extends Fragment implements OnBackPressedListener {
     private DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference userRef, postUserRef;
 
+    //좌표
+    double mapX = 37;
+    double mapY = 127;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -132,6 +135,8 @@ public class showPost extends Fragment implements OnBackPressedListener {
                 content.setText(String.valueOf(snapshot.child("postContent").getValue()));
                 category.setText(String.valueOf(snapshot.child("postType").getValue()));
                 date.setText(String.valueOf(snapshot.child("endDay").getValue()) + "까지");
+                mapX = (double) snapshot.child("mapX").getValue();
+                mapY = (double) snapshot.child("mapY").getValue();
 
                 // 135~144아님
                 // 로그인한 사용자가 좋아요한 이력이 있는지 확인
@@ -226,16 +231,32 @@ public class showPost extends Fragment implements OnBackPressedListener {
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowMapDialog mapDialog=new ShowMapDialog(getContext(), new MapDialogClickListener() {
+                ShowMapDialog mapDialog = new ShowMapDialog(getContext(), new MapDialogClickListener(){
+
                     @Override
-                    public void onPositiveClick() { }
+                    public void onPositiveClick() {
+
+                    }
 
                     @Override
                     public void onNegativeClick() { }
+
+                    @Override
+                    public void sendLocation(double x, double y) { }
+
+                    @Override
+                    public double[] provideLocation() {
+                        double[] x = new double[2];
+                        x[0] = mapX;
+                        x[1] = mapY;
+                        return x;
+                    }
+
                 });
                 mapDialog.setCanceledOnTouchOutside(true);//다이얼로그 외부 터치시 꺼짐
                 mapDialog.setCancelable(true);//뒤로가기 버튼으로 취소
                 mapDialog.show();
+
             }
         });
 

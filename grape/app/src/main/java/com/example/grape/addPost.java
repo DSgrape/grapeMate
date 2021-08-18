@@ -55,7 +55,9 @@ public class addPost extends Fragment {
     private String emailId;
     private String Uid;
     private String nickname;
-    private Button btn_loc;
+    private Button btnLocation;
+    private double mapX = 37.6512;
+    private double mapY = 127.0161;
 
     private DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
 
@@ -102,17 +104,29 @@ public class addPost extends Fragment {
 
         });
 
-        btn_loc=v.findViewById(R.id.btn_setloc);
-        btn_loc.setOnClickListener(new View.OnClickListener() {
+        btnLocation = v.findViewById(R.id.btn_setLocation);
+        btnLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MapDialog mapDialog=new MapDialog(getContext(), (MainActivity)getActivity(), new MapDialogClickListener() {
+                MapDialog mapDialog = new MapDialog(getContext(), (MainActivity)getActivity(), new MapDialogClickListener() {
                     @Override
                     public void onPositiveClick() {
                         //위치 넘기기
-                        btn_loc.setText("위치 설정 완료");
+                        btnLocation.setText("위치 설정 완료");
                         Toast.makeText(getContext(),"위치가 설정되었습니다.",Toast.LENGTH_SHORT).show();
                     }
+                    @Override
+                    public void sendLocation(double x, double y) {
+                        mapX = x;
+                        mapY = y;
+                        Log.e("mapX mapY", String.valueOf(mapX));
+                    }
+
+                    @Override
+                    public double[] provideLocation() {
+                        return new double[0];
+                    }
+
 
                     @Override
                     public void onNegativeClick() {
@@ -192,8 +206,9 @@ public class addPost extends Fragment {
                                 String todayString = formatter.format(todayDate);
                                 Log.e("print", todayString);
 
-                                savePost(Uid, emailId, nickname, postType, title.getText().toString(), content.getText().toString(), date, todayString);
-
+                                savePost(Uid, emailId, nickname, postType, title.getText().toString(), content.getText().toString(), date, todayString, mapX, mapY);
+                                title.setText("");
+                                content.setText("");
                                 //메인으로 이동
                                 ((MainActivity)getActivity()).toMain();
                             }
@@ -214,10 +229,11 @@ public class addPost extends Fragment {
     }
 
     // 데이터베이스에 글 저장하는 함수
-    public void savePost(String Uid, String emailId, String nickname, String postType, String title, String content, String date, String todayString) {
+    public void savePost(String Uid, String emailId, String nickname, String postType, String title, String content, String date, String todayString, double mapX, double mapY) {
         // 키값을 임의의 문자열로 지정하고 싶으면 push() 사용
         String key = databaseRef.child("grapeMate/post").push().getKey();
-        board b = new board(key, Uid, emailId, nickname, postType, title, content, date, todayString);
+        Log.e("mapx", String.valueOf(mapX));
+        board b = new board(key, Uid, emailId, nickname, postType, title, content, date, todayString, mapX, mapY);
         databaseRef.child("grapeMate/post").child(key).setValue(b);
     }
 
