@@ -77,7 +77,7 @@ public class addPost extends Fragment {
 
         // 스피너
         spin = v.findViewById(R.id.spin);
-        String[] category={ "귀가", "운동", "음식", "공부", "기타" };
+        String[] category={ "귀가", "거래", "월경", "운동", "생활" };
 
         ArrayAdapter adapter= new ArrayAdapter(getContext(),R.layout.spinner_item,category);
         spin.setAdapter(adapter);
@@ -90,7 +90,7 @@ public class addPost extends Fragment {
                         case 1: postType = category[1]; break;  // 운동
                         case 2: postType = category[2]; break;  // 음식
                         case 3: postType = category[3]; break;  // 공부
-                        case 4: postType = category[4]; break;  // 기타
+                        case 4: postType = category[4]; break;  // 생활
                         default: postType = "오류"; break;
                 }
             }
