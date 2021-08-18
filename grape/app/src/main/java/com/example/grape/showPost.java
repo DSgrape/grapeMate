@@ -37,6 +37,7 @@ public class showPost extends Fragment implements OnBackPressedListener {
     TextView content;
     TextView name;
     TextView date;
+    TextView writeTime;
     ImageButton btnChat, btnMap;// 채팅버튼
     EditText etShowPost; //댓글쓰기
     ImageButton btnShowPost; //댓글쓰기
@@ -96,6 +97,7 @@ public class showPost extends Fragment implements OnBackPressedListener {
         content = v.findViewById(R.id.show_post_content);
         name = v.findViewById(R.id.show_post_name);
         date = v.findViewById(R.id.show_post_date);
+        writeTime = v.findViewById(R.id.writeTime);
 
         // 글쓴이 하트 수 높이기
         postUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -136,10 +138,11 @@ public class showPost extends Fragment implements OnBackPressedListener {
                 content.setText(String.valueOf(snapshot.child("postContent").getValue()));
                 category.setText(String.valueOf(snapshot.child("postType").getValue()));
                 date.setText(String.valueOf(snapshot.child("endDay").getValue()) + "까지");
+                writeTime.setText(String.valueOf(snapshot.child("createAt").getValue().toString()));
+
                 mapX = (double) snapshot.child("mapX").getValue();
                 mapY = (double) snapshot.child("mapY").getValue();
 
-                // 135~144아님
                 // 로그인한 사용자가 좋아요한 이력이 있는지 확인
                 if (snapshot.child(user.getUid()).exists()) {
                     isHeart = Integer.parseInt(String.valueOf(snapshot.child(user.getUid()).getValue()));
