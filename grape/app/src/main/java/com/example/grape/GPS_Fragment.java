@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.Manifest;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,8 +42,9 @@ import com.google.firebase.ktx.Firebase;
 public class GPS_Fragment extends Fragment implements OnMapReadyCallback {
     private MapView mapView = null;
     private GoogleMap mMap;
-    private ImageButton myloc;
+    private com.google.android.material.floatingactionbutton.FloatingActionButton myloc;
     private FusedLocationProviderClient locationClient = null;
+    private ImageButton favorite;
     private double X,Y;
     private String flag="";
     private String flag2="";
@@ -59,6 +61,14 @@ public class GPS_Fragment extends Fragment implements OnMapReadyCallback {
         View v = inflater.inflate(R.layout.gps_fragment, container, false);
 
         String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION};
+
+        favorite=v.findViewById(R.id.favorite);
+        favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.6512,127.0161),15f));
+            }
+        });
 
         myloc=v.findViewById(R.id.myloc);
         myloc.setOnClickListener(new View.OnClickListener() {
