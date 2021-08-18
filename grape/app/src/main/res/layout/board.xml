@@ -12,7 +12,7 @@
         android:text="\u003c귀가\u003e"
         android:textSize="30dp"
         android:fontFamily="@font/jalnan"
-        android:textColor="#af7ed7"/>
+        android:textColor="#434343"/>
     <TextView
         android:id="@+id/tv_title"
         android:singleLine="true"
@@ -23,7 +23,7 @@
         android:text="419역 후문aaaaaaaaaaaaaaaaaaaa"
         android:textSize="30dp"
         android:fontFamily="@font/jalnan"
-        android:textColor="#af7ed7"
+        android:textColor="#434343"
         android:layout_marginRight="10dp"/>
 
 </LinearLayout>
