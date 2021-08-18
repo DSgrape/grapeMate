@@ -155,6 +155,8 @@ public class GPS_Fragment extends Fragment implements OnMapReadyCallback {
                 if(System.currentTimeMillis()>backKeyPressedTime+500){
                     backKeyPressedTime = System.currentTimeMillis();
 
+                }else {
+                    Log.d("체크","포스트로");
                     String postId = marker.getSnippet();
                     MainActivity main = (MainActivity) getContext();
                     FirebaseDatabase.getInstance().getReference("grapeMate/post").child(postId).addValueEventListener(new ValueEventListener() {
@@ -169,10 +171,6 @@ public class GPS_Fragment extends Fragment implements OnMapReadyCallback {
 
                         }
                     });
-
-                }else {
-                    Log.d("체크","포스트로");
-                    //((MainActivity)getActivity()).ShowPost(Id,id);
                 }
                 return false;
             }
