@@ -138,8 +138,8 @@ public class Chatting extends Fragment {
         Map<String, Boolean> users2 = new HashMap<String, Boolean>();
         users.put("채팅러1", true);
         users2.put("채팅러2", true);
-        adapter.items.add(new chat("chatKey", "postId", new chat.Comment(), "timestamp", new chat.Users("uid", "destinationUid")));
-        adapter.items.add(new chat("chatKey", "postId", new chat.Comment(), "timestamp", new chat.Users("uid", "destinationUid2")));
+        adapter.items.add(new chat("chatKey", "postId", new chat.Comment(), new chat.Users("uid", "destinationUid")));
+        adapter.items.add(new chat("chatKey", "postId", new chat.Comment(), new chat.Users("uid", "destinationUid2")));
 
         btnSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,6 +250,7 @@ public class Chatting extends Fragment {
 
                     if(c.users.destinationUid.equals(c.users.uid)) {
                         Toast.makeText(getContext(), "본인과는 대화할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                        databaseRef.child("chatroom").child(item.getKey()).removeValue();
                         not = true;
                     }
 
@@ -264,7 +265,7 @@ public class Chatting extends Fragment {
                     //(((c.users.destinationUid.equals(firstDestinationUid) && c.users.uid.equals(uid))
                     //                            || (c.users.destinationUid.equals(uid) && c.users.uid.equals(firstDestinationUid)))
                     //                            && postId.equals(c.getPostId()))
-                    if(true) {
+                    if(postId.equals(c.getPostId())) {
                         if(isMe) {
                             Log.e("안에 실행됨", c.users.uid);
                             //가져올때 너랑 나를 바꿔야함

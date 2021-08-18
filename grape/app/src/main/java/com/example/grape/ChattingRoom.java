@@ -6,11 +6,9 @@ import java.util.Map;
 public class ChattingRoom {
     private String chatId;      // 채팅방 고유키
     private String postId;      // 글 id
-    private String timestamp;   // 시간
     private String nickname;
     private String category;
     private String title;
-
     private Comment comments = new Comment();
     Users users = new Users();    //유저 아이디
 
@@ -64,7 +62,6 @@ public class ChattingRoom {
 
     public String getPostId() { return postId; }
 
-    public String getTimestamp() { return timestamp; }
 
     public Comment getComments() { return comments; }
 
@@ -73,8 +70,6 @@ public class ChattingRoom {
     public void setChatId(String chatId) { this.chatId = chatId; }
 
     public void setPostId(String postId) { this.postId = postId; }
-
-    public void setTimestamp(String timestamp) { this.timestamp = timestamp; }
 
     public void setComments(Comment comments) { this.comments = comments; }
 
