@@ -32,6 +32,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.ktx.Firebase;
 
 public class GPS_Fragment extends Fragment implements OnMapReadyCallback {
     private MapView mapView = null;
@@ -39,9 +44,11 @@ public class GPS_Fragment extends Fragment implements OnMapReadyCallback {
     private ImageButton myloc;
     private FusedLocationProviderClient locationClient = null;
     private double X,Y;
-    private String Title;
-    private String snippet;
+
     private long backKeyPressedTime = 0;
+
+    private String postId, category, title;
+    private double[] location = new double[2];
 
     @Nullable
     @Override
@@ -109,32 +116,60 @@ public class GPS_Fragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        // 덕성여대 학생일 경우
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.6512,127.0161),15f));
 
-        for(int i=0; i<1; i++) {
-            X=37.6512; Y=127.0161;
-            Title="카테고리";
-            snippet="제목";
-            mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(X, Y))
-                    .title(Title)   //여기에 카테고리+제목표시하고
-                    .snippet(snippet)   //아이디를 받을 장소가 안보여서 그냥 여기 포스트아이디 넣고 받을까?
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin60602)));
-        }
+        // db 통신 후 카테고리, 제목, 좌표, postId 받아오기
+        FirebaseDatabase.getInstance().getReference("grapeMate/post").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                    // post 하나씩 다 돌기
+                    postId = String.valueOf(dataSnapshot.child("postId").getValue());
+                    title = String.valueOf(dataSnapshot.child("title").getValue());
+                    category = String.valueOf(dataSnapshot.child("postType").getValue());
+                    location[0] = (double) dataSnapshot.child("mapX").getValue();
+                    location[1] = (double) dataSnapshot.child("mapY").getValue();
 
-        //실험적인 마커 추가 나중에 지워야함
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(X+10, Y+10))
-                .title(Title+"2")
-                .snippet(snippet+"2")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin60602)));
+                    mMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(location[0], location[1]))
+                            .title("\u003c" + category + "\u003e" + title)
+                            .snippet(postId)   //아이디를 받을 장소가 안보여서 그냥 여기 포스트아이디 넣고 받을까?
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin60602)));
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 Log.d("체크",marker.getTitle());
+
                 if(System.currentTimeMillis()>backKeyPressedTime+500){
                     backKeyPressedTime = System.currentTimeMillis();
+
+                    String postId = marker.getSnippet();
+                    MainActivity main = (MainActivity) getContext();
+                    FirebaseDatabase.getInstance().getReference("grapeMate/post").child(postId).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String Uid = snapshot.child("id").getValue().toString();
+                            main.ShowPost(postId, Uid);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                 }else {
                     Log.d("체크","포스트로");
                     //((MainActivity)getActivity()).ShowPost(Id,id);
