@@ -346,7 +346,7 @@
             android:textColor="#af7ed7"
             android:textSize="25dp" />
 
-        <View
+        <!--View
             android:layout_width="4dp"
             android:layout_height="match_parent"
             android:background="#af7ed7"/>
@@ -361,7 +361,7 @@
             android:fontFamily="@font/jalnan"
             android:text="회원탈퇴"
             android:textColor="#af7ed7"
-            android:textSize="25dp" />
+            android:textSize="25dp" /-->
     </LinearLayout>
 
 </LinearLayout>
