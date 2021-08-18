@@ -44,6 +44,8 @@ public class GPS_Fragment extends Fragment implements OnMapReadyCallback {
     private ImageButton myloc;
     private FusedLocationProviderClient locationClient = null;
     private double X,Y;
+    private String flag="";
+    private String flag2="";
 
     private long backKeyPressedTime = 0;
 
@@ -57,8 +59,6 @@ public class GPS_Fragment extends Fragment implements OnMapReadyCallback {
         View v = inflater.inflate(R.layout.gps_fragment, container, false);
 
         String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION};
-
-        Toast.makeText(getContext(),"마커를 두번 연속 클릭하면\n해당 포스트로 이동합니다.",Toast.LENGTH_SHORT).show();
 
         myloc=v.findViewById(R.id.myloc);
         myloc.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +151,31 @@ public class GPS_Fragment extends Fragment implements OnMapReadyCallback {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 Log.d("체크",marker.getTitle());
+                Toast t=Toast.makeText(getContext(),"한번 더 클릭하면\n해당 포스트로 이동합니다.",Toast.LENGTH_SHORT);
 
+                if(flag.equals(marker.getSnippet())){
+                    t.cancel();
+                    String postId = marker.getSnippet();
+                    MainActivity main = (MainActivity) getContext();
+                    FirebaseDatabase.getInstance().getReference("grapeMate/post").child(postId).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String Uid = snapshot.child("id").getValue().toString();
+                            main.ShowPost(postId, Uid);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }else {
+                    flag=marker.getSnippet();
+                    t.show();
+
+                }
+
+/*
                 if(System.currentTimeMillis()>backKeyPressedTime+500){
                     backKeyPressedTime = System.currentTimeMillis();
 
@@ -172,6 +196,8 @@ public class GPS_Fragment extends Fragment implements OnMapReadyCallback {
                         }
                     });
                 }
+
+ */
                 return false;
             }
         });
