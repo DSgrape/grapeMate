@@ -253,7 +253,6 @@ public class Chatting extends Fragment {
                         not = true;
                     }
 
-
                     Log.e("postId",postId);
                     Log.e("postId",c.getPostId());
                     Log.e("id", firstDestinationUid);

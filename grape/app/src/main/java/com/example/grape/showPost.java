@@ -1,5 +1,6 @@
 package com.example.grape;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,6 +44,10 @@ public class showPost extends Fragment implements OnBackPressedListener {
     ImageButton btnShowPost; //댓글쓰기
     TextView showProfile;
 
+    String postUserProfile = "";
+    String postUserName = "";
+    String postUserSchool = "";
+
     int heart = 10;
 
     private int isHeart = 0;   //false
@@ -62,6 +67,7 @@ public class showPost extends Fragment implements OnBackPressedListener {
     //좌표
     double mapX = 37;
     double mapY = 127;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -89,6 +95,7 @@ public class showPost extends Fragment implements OnBackPressedListener {
         userRef = databaseRef.child("grapeMate/UserAccount").child(user.getUid());
         postUserRef = databaseRef.child("grapeMate/UserAccount").child(postUid);
 
+        showProfile = v.findViewById(R.id.show_post_name);
 
         Log.d("체크", postToken);
 
@@ -100,13 +107,31 @@ public class showPost extends Fragment implements OnBackPressedListener {
         writeTime = v.findViewById(R.id.writeTime);
 
         // 글쓴이 하트 수 높이기
-        postUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        postUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // 유저 하트 수 바꾸기
                 if (snapshot.child("sticker").exists()) {
                     Log.e("print", "글쓴이 하트 개수 바꾸기");
+                    // 프로필에 띄울 정보 get
+
                     heart = Integer.parseInt(String.valueOf(snapshot.child("sticker").getValue()));
+
+
+                    showProfile.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+
+                            ProDialog proDialog = new ProDialog(getContext());
+                            proDialog.setInfo(snapshot);
+                            proDialog.setCanceledOnTouchOutside(true);
+                            proDialog.setCancelable(true);
+                            proDialog.show();
+                        }
+                    });
+
+
                     Log.e("print", String.valueOf(heart));
                 }
             }
@@ -205,7 +230,6 @@ public class showPost extends Fragment implements OnBackPressedListener {
             public void onClick(View view) {
 
 
-
                 if (isHeart == 1) {
                     //좋아요 취소
                     isHeart = 0;
@@ -220,12 +244,12 @@ public class showPost extends Fragment implements OnBackPressedListener {
                     Log.e("좋아요 취소 완료", String.valueOf(heart));
                 } else {
                     // 좋아요
-                    isHeart= 1;
+                    isHeart = 1;
                     btnHeart.setImageResource(R.drawable.fullheart);
                     Log.e("좋아요", String.valueOf(heart));
                     postRef.child(user.getUid()).setValue(1);
 
-                    heart +=1;
+                    heart += 1;
 
                     Log.e("좋아요 완료", String.valueOf(heart));
                 }
@@ -235,7 +259,7 @@ public class showPost extends Fragment implements OnBackPressedListener {
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowMapDialog mapDialog = new ShowMapDialog(getContext(), new MapDialogClickListener(){
+                ShowMapDialog mapDialog = new ShowMapDialog(getContext(), new MapDialogClickListener() {
 
                     @Override
                     public void onPositiveClick() {
@@ -243,10 +267,12 @@ public class showPost extends Fragment implements OnBackPressedListener {
                     }
 
                     @Override
-                    public void onNegativeClick() { }
+                    public void onNegativeClick() {
+                    }
 
                     @Override
-                    public void sendLocation(double x, double y) { }
+                    public void sendLocation(double x, double y) {
+                    }
 
                     @Override
                     public double[] provideLocation() {
@@ -264,16 +290,6 @@ public class showPost extends Fragment implements OnBackPressedListener {
             }
         });
 
-        showProfile=v.findViewById(R.id.show_post_name);
-        showProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ProDialog proDialog=new ProDialog(getContext());
-                proDialog.setCanceledOnTouchOutside(true);
-                proDialog.setCancelable(true);
-                proDialog.show();
-            }
-        });
 
         //채팅으로
         btnChat.setOnClickListener(new View.OnClickListener() {
@@ -294,18 +310,18 @@ public class showPost extends Fragment implements OnBackPressedListener {
 
         return v;
     }
+
     //백 버튼 눌렀을 때
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         ((MainActivity) getActivity()).toMain2(heart);
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-        ((MainActivity)getActivity()).setOnBackPressedListener(this);
+        ((MainActivity) getActivity()).setOnBackPressedListener(this);
     }
-
 
 
     @Override
@@ -325,6 +341,7 @@ public class showPost extends Fragment implements OnBackPressedListener {
                 nickname = String.valueOf(snapshot.child("nickname").getValue());    // name
                 String content = String.valueOf(snapshot.child("content").getValue()); // content
                 createAt = String.valueOf(snapshot.child("createAt").getValue());    // 댓글 작성시간
+
                 comment c = new comment(commentId, postId, writeId, nickname, content, createAt);
 
                 item.add(c);

@@ -33,14 +33,15 @@
                 android:textColor="#af7ed7"
                 android:fontFamily="@font/jalnan"
                 android:textSize="30dp"/>
+
             <TextView
                 android:id="@+id/school_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/jalnan"
                 android:text="덕성여자대학교"
                 android:textColor="#af7ed7"
-                android:fontFamily="@font/jalnan"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

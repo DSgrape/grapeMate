@@ -7,11 +7,12 @@ public class ChattingRoom {
     private String chatId;      // 채팅방 고유키
     private String postId;      // 글 id
     private String timestamp;   // 시간
-    private Comment comments = new Comment();
-    Users users = new Users();    //유저 아이디
     private String nickname;
     private String category;
     private String title;
+
+    private Comment comments = new Comment();
+    Users users = new Users();    //유저 아이디
 
     public static class Comment {
         public String uid;
@@ -28,9 +29,9 @@ public class ChattingRoom {
         public String destinationUid;
 
         public Users() {}
-        public Users(String uid, String destinaionUid) {
+        public Users(String uid, String destinationUid) {
             this.uid = uid;
-            this.destinationUid = destinaionUid;
+            this.destinationUid = destinationUid;
         }
     }
 
@@ -51,14 +52,6 @@ public class ChattingRoom {
         this.nickname = nickname;
         this.category = category;
         this.title = title;
-    }
-
-    public ChattingRoom(String chatId, String postId, String timestamp, Comment comments, Users users) {
-        this.chatId = chatId;
-        this.postId = postId;
-        this.timestamp = timestamp;
-        this.comments = comments;
-        this.users = users;
     }
 
     public String getNickname() { return nickname; }
