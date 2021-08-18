@@ -28,7 +28,7 @@
         android:textColor="#af7ed7 "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="35dp"
+        android:textSize="30dp"
         android:text="덕성"
         android:textStyle="bold"
         android:layout_marginLeft="15dp"/>
@@ -54,9 +54,9 @@
             android:textColor="@color/white"
             android:layout_marginLeft="8dp"
             android:background="@drawable/btn_choice"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:textSize="20dp"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:textSize="25dp"
             android:textStyle="bold"
             android:text="전체"/>
         <Button
@@ -65,9 +65,9 @@
             android:textColor="@color/white"
             android:layout_marginLeft="8dp"
             android:background="@drawable/btn_choice"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:textSize="20dp"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:textSize="25dp"
             android:textStyle="bold"
             android:text="귀가"/>
         <Button
@@ -76,45 +76,45 @@
             android:textColor="@color/white"
             android:layout_marginLeft="8dp"
             android:background="@drawable/btn_choice"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:textSize="20dp"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:textSize="25dp"
             android:textStyle="bold"
-            android:text="운동"/>
+            android:text="거래"/>
         <Button
             android:id="@+id/btn_food"
             android:fontFamily="@font/jalnan"
             android:textColor="@color/white"
             android:layout_marginLeft="8dp"
             android:background="@drawable/btn_choice"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:textSize="20dp"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:textSize="25dp"
             android:textStyle="bold"
-            android:text="음식"/>
+            android:text="월경"/>
         <Button
             android:id="@+id/btn_study"
             android:fontFamily="@font/jalnan"
             android:textColor="@color/white"
             android:layout_marginLeft="8dp"
             android:background="@drawable/btn_choice"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:textSize="20dp"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:textSize="25dp"
             android:textStyle="bold"
-            android:text="공부"/>
+            android:text="운동"/>
         <Button
             android:id="@+id/btn_etc"
             android:fontFamily="@font/jalnan"
             android:textColor="@color/white"
             android:layout_marginLeft="8dp"
             android:background="@drawable/btn_choice"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:textSize="20dp"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:textSize="25dp"
             android:textStyle="bold"
             android:layout_marginRight="20dp"
-            android:text="기타"/>
+            android:text="생활"/>
 
     </LinearLayout>
 </HorizontalScrollView>

@@ -196,7 +196,7 @@ public class Main_Fragment extends Fragment {
             case 2:
                 item_exercise.clear();
                 for (board b : item) {
-                    if (b.getPostType().equals("운동")) {
+                    if (b.getPostType().equals("거래")) {
                         item_exercise.add(b);
                         if (adapter_exercise == null) {
                             adapter_exercise = new boardAdapter(item_exercise, getContext());
@@ -212,7 +212,7 @@ public class Main_Fragment extends Fragment {
             case 3:
                 item_food.clear();
                 for (board b : item) {
-                    if (b.getPostType().equals("음식")) {
+                    if (b.getPostType().equals("월경")) {
                         item_food.add(b);
                         if (adapter_food == null) {
                             adapter_food = new boardAdapter(item_food, getContext());
@@ -230,7 +230,7 @@ public class Main_Fragment extends Fragment {
 
                 item_study.clear();
                 for (board b : item) {
-                    if (b.getPostType().equals("공부")) {
+                    if (b.getPostType().equals("운동")) {
                         item_study.add(b);
                         if (adapter_study == null) {
                             adapter_study = new boardAdapter(item_study, getContext());
@@ -248,7 +248,7 @@ public class Main_Fragment extends Fragment {
                 item_etc.clear();
                 for (board b : item) {
 
-                    if (b.getPostType().equals("기타")) {
+                    if (b.getPostType().equals("생활")) {
                         Log.e("테스트", b.getPostId());
                         item_etc.add(b);
                         if (adapter_etc == null) {
