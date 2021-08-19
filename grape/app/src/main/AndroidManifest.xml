@@ -30,13 +30,14 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.Grape">
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity"/>
         <activity android:name=".LoginActivity2"/>
         <activity android:name=".JoinActivity"/>
         <provider
