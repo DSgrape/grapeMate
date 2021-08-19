@@ -204,7 +204,6 @@ public class addPost extends Fragment {
                                 Date todayDate = Calendar.getInstance().getTime();
                                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                                 String todayString = formatter.format(todayDate);
-                                Log.e("print", todayString);
 
                                 savePost(Uid, emailId, nickname, postType, title.getText().toString(), content.getText().toString(), date, todayString, mapX, mapY);
                                 title.setText("");

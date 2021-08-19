@@ -73,26 +73,20 @@ public class LoginActivity2  extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()) {
                                     // 로그인 성공
-                                    // grade가 2일때만 메인 액티비티로 넘어가도록
+                                    // grade가 2(정회원)일때만 메인 액티비티로 넘어가도록
                                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                                     DatabaseReference mref = FirebaseDatabase.getInstance().getReference();
                                     DatabaseReference ref = mref.child("grapeMate/UserAccount").child(user.getUid());
-                                    Log.e("print", user.getUid().toString());
 
                                     ref.addValueEventListener(new ValueEventListener() {
-
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) { ;
-
-
                                             if(snapshot.child("grade").exists()) {
-
                                                 int grade = Integer.parseInt(String.valueOf(snapshot.child("grade").getValue()));
-                                                Log.e("print", String.valueOf(grade));  // TEST
 
-                                                // 정회원인지 확인
-                                                if(grade == 2) {
+
+                                                if(grade == 2) {    // 정회원인지 확인
                                                     Intent intent = new Intent(LoginActivity2.this, MainActivity.class);
                                                     startActivity(intent);
                                                     finish(); // 다시 안 쓰니까 파괴
@@ -100,13 +94,9 @@ public class LoginActivity2  extends AppCompatActivity {
                                                     Toast.makeText(getApplicationContext(), "정회원이 아닙니다.", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
-                                            Log.e("print", "grade값이 없음");
                                         }
-
                                         @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-
-                                        }
+                                        public void onCancelled(@NonNull DatabaseError error) { }
                                     });
                                 } else {
                                     Toast.makeText(LoginActivity2.this, "로그인 실패", Toast.LENGTH_SHORT).show();

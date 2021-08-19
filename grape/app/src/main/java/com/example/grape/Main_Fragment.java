@@ -167,8 +167,6 @@ public class Main_Fragment extends Fragment {
 
     // 특정 카테고리 선택
     private void loadSpecificBoardList() {
-
-
         switch (state) {
             case 0:
                 adapter.setItems(item);
@@ -282,6 +280,7 @@ public class Main_Fragment extends Fragment {
             String createAt = String.valueOf(snapshot.child("createAt").getValue());       // 작성시간
             double mapX = (double) snapshot.child("mapX").getValue();
             double mapY = (double) snapshot.child("mapY").getValue();
+            //board b = snapshot.getValue(board.class);
             board b = new board(postId, id, writeId, nickname, postType, title, postContent, endDay, createAt, mapX, mapY);
 
             item.add(b);

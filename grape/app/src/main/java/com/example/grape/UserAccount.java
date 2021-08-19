@@ -16,6 +16,18 @@ public class UserAccount {
 
     public UserAccount() { }    // firebase realtime database 사용 시에 필수
 
+    public UserAccount(String idToken, String emailId, String password, String nickname, int grade, String school, String phoneNumber, String studentCardPhoto) {
+        this.idToken = idToken;
+        this.emailId = emailId;
+        this.password = password;
+        this.nickname = nickname;
+        this.grade = grade;
+        this.school = school;
+        this.phoneNumber = phoneNumber;
+        this.studentCardPhoto = studentCardPhoto;
+        this.sticker = sticker;
+    }
+
     public String getEmailId() {
         return emailId;
     }

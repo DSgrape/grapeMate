@@ -180,7 +180,7 @@ public class GPS_Fragment extends Fragment implements OnMapReadyCallback {
                         }
                     });
                 }else {
-                    flag=marker.getSnippet();
+                    flag = marker.getSnippet();
                     t.show();
 
                 }

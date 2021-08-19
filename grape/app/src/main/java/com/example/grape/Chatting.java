@@ -264,8 +264,7 @@ public class Chatting extends Fragment {
 
                     if(postId.equals(c.getPostId())) {
                         if(isMe) {
-                            Log.e("안에 실행됨", c.users.uid);
-                            //가져올때 너랑 나를 바꿔야함
+                            // db와 나, 상대 id가 반대이므로 채팅방 내에서 잠깐 id를 서로 스위치
                             c.users.destinationUid = c.users.uid;
                             c.users.uid = uid;
                         }
@@ -275,8 +274,6 @@ public class Chatting extends Fragment {
 
                         loadChatList(snapshot.child(chatRoomUid).child("comments"));
 
-
-                        adapter.notifyDataSetChanged();
                         recyclerView.setAdapter(adapter);
                         recyclerView.smoothScrollToPosition(adapter.getItemCount());
                         isMe = false;

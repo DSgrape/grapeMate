@@ -174,24 +174,11 @@ public class JoinActivity extends AppCompatActivity {
 
                                     FirebaseUser firebaseUser = mfbAuth.getCurrentUser();
                                     Log.e("print", firebaseUser!=null?"불러옴":"못불러옴");
-
-                                    UserAccount account = new UserAccount();
-                                    // account에 토큰, 이메일, 비밀번호, 등급, 닉네임, 학교,  넣음
-                                    account.setIdToken(firebaseUser.getUid());  //Uid : 로그인하면 나오는 거
-                                    account.setEmailId(firebaseUser.getEmail());
-                                    account.setPassword(strPwd);
-                                    account.setGrade(1);
-                                    account.setNickname(strNickname);
-                                    account.setPhoneNumber(strPhoneNumber);
-                                    account.setStudentCardPhoto(imgUrl);
-                                    account.setSchool(mySchool);
+                                    // account에 토큰, 이메일, 비밀번호, 등급, 닉네임, 학교
+                                    UserAccount account = new UserAccount(firebaseUser.getUid(), firebaseUser.getEmail(), strPwd, strNickname, 1, mySchool, strPhoneNumber, imgUrl);
                                     // 기본 프로필 사진
                                     account.setProfile("https://firebasestorage.googleapis.com/v0/b/grape-3cabc.appspot.com/o/user.png?alt=media&token=4e337b01-bbc3-4c3a-9beb-657f2ff0fa2e");
 
-                                    Log.e("print", "정보 저장 성공");
-
-                                    //grapeMate 하위에 넣는다는 뜻
-                                    // setValue : database에 insert
                                     databaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
 
                                     Toast.makeText(JoinActivity.this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
