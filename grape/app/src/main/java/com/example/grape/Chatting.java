@@ -211,7 +211,7 @@ public class Chatting extends Fragment {
                     }
                 });
 
-                AlertDialog alertDialog=builder.create();
+                AlertDialog alertDialog = builder.create();
                 alertDialog.show();
 
             }
@@ -219,6 +219,11 @@ public class Chatting extends Fragment {
 
         // 기존에 만들어진 채팅방이 있는지 검사
         checkChatRoom();
+
+        if(adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
+
 
 
         return v;
@@ -267,7 +272,19 @@ public class Chatting extends Fragment {
                             // db와 나, 상대 id가 반대이므로 채팅방 내에서 잠깐 id를 서로 스위치
                             c.users.destinationUid = c.users.uid;
                             c.users.uid = uid;
-                        }
+                            FirebaseDatabase.getInstance().getReference("grapeMate/UserAccount").child(c.users.destinationUid).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    tv_nickname.setText(snapshot.child("nickname").getValue().toString());
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                            }
+
 
                         chatRoomUid  = item.getKey();
                         btnSendMessage.setEnabled(true);

@@ -90,15 +90,7 @@ public class myChat extends Fragment {
 
 
                 for (DataSnapshot item : snapshot.getChildren()) {
-                    Log.e("실행", "실행");
-
-
-
                     postId = item.child("postId").getValue().toString();
-
-                    Log.e("실행되나?2", postId);
-                    Log.e("세팅", "setting");
-
                     chatRoomUid = item.getKey();
 
                     @NonNull DataSnapshot dataSnapshot = snapshot.child(chatRoomUid).child("users");
@@ -112,8 +104,6 @@ public class myChat extends Fragment {
                             // 내가 만든 채팅방인 경우
                             destinationUid = dataSnapshot.child("destinationUid").getValue().toString();
                         }
-                        //Log.e("destinationUid", destinationUid);
-
 
                     }
 
