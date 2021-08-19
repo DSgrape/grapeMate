@@ -25,6 +25,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
@@ -139,18 +140,17 @@ public class JoinActivity extends AppCompatActivity {
                 int writePermission = ContextCompat.checkSelfPermission(JoinActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
                 int readPermission = ContextCompat.checkSelfPermission(JoinActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
 
-                if(writePermission == PackageManager.PERMISSION_DENIED || readPermission == PackageManager.PERMISSION_DENIED) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // 권한 체크(READ_PHONE_STATE의 requestCode를 1000으로 세팅
-                        Log.e("print", "권한 있음");
-                        requestPermissions( new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1000);
-                    }
+                if(writePermission == PackageManager.PERMISSION_GRANTED && readPermission == PackageManager.PERMISSION_GRANTED) {
+                    // 권한 허용
+                    Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setType("image/*");
+                    startActivityForResult(intent, 102);
+                } else {
+                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1000);
                 }
+
                 // https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=zoomen1004&logNo=110183313246
                 Log.e("print", "카메라 화면 이동");
-                //Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, 102);
             }
         });
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -284,5 +284,12 @@ public class JoinActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, 102);
 
+    }
 }
