@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <TextView
+        <!--TextView
             android:fontFamily="@font/jalnan"
             android:textColor="#af7ed7 "
             android:layout_marginTop="20dp"
@@ -18,17 +18,40 @@
             android:layout_height="wrap_content"
             android:text="MAIN"
             android:textSize="55dp"
-            android:textStyle="bold" />
-
-        <ImageButton
-            android:id="@+id/favorite"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="150dp"
-            android:layout_marginTop="5dp"
-            android:background="#00000000"
-            android:src="@drawable/heart2" />
+            android:textStyle="bold" /-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:fontFamily="@font/jalnan"
+                android:textColor="#af7ed7 "
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HERE"
+                android:textSize="50dp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="5dp"
+                android:text="is mate!"
+                android:textSize="30dp"
+                android:layout_marginLeft="25dp"
+                android:fontFamily="@font/jalnan"
+                android:textColor="#af7ed7 "
+                android:textStyle="bold"/>
+            <ImageButton
+                android:id="@+id/favorite"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="right|center"
+                android:layout_marginRight="20dp"
+                android:background="#00000000"
+                android:src="@drawable/heart2" />
+        </FrameLayout>
         <!--ImageButton
             android:id="@+id/myloc"
             android:layout_marginTop="5dp"

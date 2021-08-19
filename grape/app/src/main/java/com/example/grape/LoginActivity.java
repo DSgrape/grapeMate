@@ -23,6 +23,12 @@ public class LoginActivity extends AppCompatActivity {
 
         new hideNavigationBar(getWindow().getDecorView());
 
+        //스피너 하단바 오류개선
+        View decorView = getWindow().getDecorView();
+        decorView.setOnSystemUiVisibilityChangeListener(
+                visibility -> decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+        );
+
         // 최근에 로그인한 사람은 로그인 안하도록
 //        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 //        if(user != null) {

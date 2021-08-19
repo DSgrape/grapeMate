@@ -44,6 +44,12 @@ public class LoginActivity2  extends AppCompatActivity {
 
         new hideNavigationBar(getWindow().getDecorView());
 
+        //스피너 하단바 오류개선
+        View decorView = getWindow().getDecorView();
+        decorView.setOnSystemUiVisibilityChangeListener(
+                visibility -> decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+        );
+
         join = findViewById(R.id.btn_join);
         join.setOnClickListener(new View.OnClickListener() {
             @Override
