@@ -16,7 +16,7 @@ Android Studio Version 4.1.1
 ## 사용 예제
 
 ![loginActivity](https://user-images.githubusercontent.com/57867252/131130469-b12f72c1-d622-42b6-bd26-b0df5b76cd45.png)
-<img src="https://user-images.githubusercontent.com/57867252/131130469-b12f72c1-d622-42b6-bd26-b0df5b76cd45.png" width="800" height="450">
+<img src="https://user-images.githubusercontent.com/57867252/131130469-b12f72c1-d622-42b6-bd26-b0df5b76cd45.png" width="300">
 
 
 
