@@ -20,34 +20,44 @@ Android Studio Version 4.1.1
 
 ## 사용 예제
 ### 로그인 화면  
-<img src="https://user-images.githubusercontent.com/57867252/131130469-b12f72c1-d622-42b6-bd26-b0df5b76cd45.png" width="300"/>
+- LoginActivity.java
+- 로그인 및 회원가입 가능(Firebase Authentication)
+<img src="https://user-images.githubusercontent.com/57867252/131130469-b12f72c1-d622-42b6-bd26-b0df5b76cd45.png" width="200"/>
 
 ### 회원가입 화면 
+- JoinActivity.java
 - 회원가입(Firebase Authentication) / 학생증 인증(Firebase Storage) / 회원정보 저장(Firebase Realtime Database)
-<img src="https://user-images.githubusercontent.com/57867252/131136973-37dac5a7-b79b-4bd8-8b43-213c0b19c765.png" width="300"/>
+<img src="https://user-images.githubusercontent.com/57867252/131136973-37dac5a7-b79b-4bd8-8b43-213c0b19c765.png" width="200"/>
 
 ### 메인 화면
+- Main_Fragment.java
 - 사용자들이 쓴 글을 게시판 형식으로 확인하기
-<img src="https://user-images.githubusercontent.com/57867252/131136587-9e87acdb-f810-4d99-ae33-c8d09b6ce4bd.png" width="300"/>
+<img src="https://user-images.githubusercontent.com/57867252/131136587-9e87acdb-f810-4d99-ae33-c8d09b6ce4bd.png" width="200"/>
 
 ### 메인 화면2
 - 사용자들이 쓴 글을 위치 별로 확인하기
-<img src="https://user-images.githubusercontent.com/57867252/131138994-f4ebf5a9-5ca3-4f77-89ec-c21312161d07.png" width="300"/>
+<img src="https://user-images.githubusercontent.com/57867252/131138994-f4ebf5a9-5ca3-4f77-89ec-c21312161d07.png" width="200"/>
 
 ### 마이페이지
-<img src="https://user-images.githubusercontent.com/57867252/131139094-59398fcb-3d9f-4f9b-b31f-37582a64501d.png" width="300"/>
+<img src="https://user-images.githubusercontent.com/57867252/131139094-59398fcb-3d9f-4f9b-b31f-37582a64501d.png" width="200"/>
 
 ### 세부 글 내용 보기 
-- 좋아요, 댓글, 선호 거래 위치 확인, 채팅하기 기능
-<img src="https://user-images.githubusercontent.com/57867252/131139465-892e87ad-5b70-4a82-bbf8-f2145d3fb191.png" width="300"/>
+- showPost.java  
+- 좋아요 및 댓글, 선호 거래 위치 확인, 채팅하기 기능  
+
+<img src="https://user-images.githubusercontent.com/57867252/131140540-00075252-43f7-47a5-ac3a-92b7cf5b12a4.png" width="200"/> <img src="https://user-images.githubusercontent.com/57867252/131140251-bbe30fa2-907a-41b3-86f3-eeb3f5d34630.png" width="200"/> <img src="https://user-images.githubusercontent.com/57867252/131140695-104fdb70-5584-492f-9eeb-cdc6017871b2.png" width="200"/>
 
 
 ### 채팅하기
-<img src="https://user-images.githubusercontent.com/57867252/131139316-cc0bddee-aa0c-4332-aa49-ebac2628219d.png" width="300"/>
+- ChattingRoom.java(클래스 파일) / myChat.java
+- 본인이 속한 채팅방을 확인
+<img src="https://user-images.githubusercontent.com/57867252/131141062-c778b023-194f-42cf-9d07-083014e5d242.png" width="200"/>
+
 
 
 ### 글쓰기 화면
-<img src="https://user-images.githubusercontent.com/57867252/131138818-29d441b6-9bd6-45e7-9a58-0e9ead2bc53c.png" width="300"/>
+- addPost.java
+<img src="https://user-images.githubusercontent.com/57867252/131138818-29d441b6-9bd6-45e7-9a58-0e9ead2bc53c.png" width="200"/>
 
 
 
