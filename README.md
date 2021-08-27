@@ -76,8 +76,10 @@ Android Studio Version 4.1.1
 * 0.0.1
     * 작업 진행 중
 
-## 정보
+## Information
 
-인스타그램 – [@ds_podong](https://www.instagram.com/ds_podong/)
-이메일 - shn7446@duksung.ac.kr  - kytbible@gmail.com
+📌 Instagram [@ds_podong](https://www.instagram.com/ds_podong/)  
+💬 Email  
+- BackEnd : shn7446@duksung.ac.kr  
+- FrontEnd : kytbible@gmail.com
 
