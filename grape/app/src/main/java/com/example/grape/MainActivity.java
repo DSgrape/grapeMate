@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("체크","체크");
         }
 
+        clearBackStack();
         fragmentTransaction.setPrimaryNavigationFragment(fragment);
         fragmentTransaction.setReorderingAllowed(true);
         fragmentTransaction.commitAllowingStateLoss();
@@ -136,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.setPrimaryNavigationFragment(fragment);
         fragmentTransaction.setReorderingAllowed(true);
         fragmentTransaction.addToBackStack(null);//뒤로가기 눌렀을 때 이전 프래그먼트로 이동가능
-        fragmentTransaction.commit();
+        fragmentTransaction.commitNow();
     }
 
     public void toMain(){
@@ -166,13 +167,14 @@ public class MainActivity extends AppCompatActivity {
             Log.d("체크","체크3");
         }
 
+        clearBackStack();
         fragmentTransaction.setPrimaryNavigationFragment(fragment);
         fragmentTransaction.setReorderingAllowed(true);
         fragmentTransaction.commitAllowingStateLoss();
     }
 
     public void toMain2(int num){
-
+        Log.d("체크3", String.valueOf(num));
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -206,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("체크","체크3");
         }
 
+        clearBackStack();
         fragmentTransaction.setPrimaryNavigationFragment(fragment);
         fragmentTransaction.setReorderingAllowed(true);
         fragmentTransaction.commitNow();
@@ -430,9 +433,18 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.show(fragment);
         }
 
+        clearBackStack();
         fragmentTransaction.setPrimaryNavigationFragment(fragment);
         fragmentTransaction.setReorderingAllowed(true);
         fragmentTransaction.commitNow();
+    }
+
+    //백스택 제거
+    private void clearBackStack() {
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+        while (fragmentManager.getBackStackEntryCount() != 0) {
+            fragmentManager.popBackStackImmediate();
+        }
     }
 
     //프래그먼트 트랜젝션 삭제

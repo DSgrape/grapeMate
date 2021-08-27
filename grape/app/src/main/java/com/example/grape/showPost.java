@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class showPost extends Fragment implements OnBackPressedListener {
+public class showPost extends Fragment  {
     ImageButton back;
     String postToken, postUid;
     TextView category;
@@ -312,6 +312,7 @@ public class showPost extends Fragment implements OnBackPressedListener {
     }
 
     //백 버튼 눌렀을 때
+    /*
     @Override
     public void onBackPressed() {
         ((MainActivity) getActivity()).toMain2(heart);
@@ -321,7 +322,7 @@ public class showPost extends Fragment implements OnBackPressedListener {
     public void onResume() {
         super.onResume();
         ((MainActivity) getActivity()).setOnBackPressedListener(this);
-    }
+    }*/
 
 
     @Override
