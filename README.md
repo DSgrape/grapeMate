@@ -47,9 +47,9 @@ Android Studio Version 4.1.1
 
 ### 세부 글 내용 보기 
 - showPost.java  
-- 좋아요 및 댓글, 선호 거래 위치 확인, 채팅하기 기능  
+- 좋아요 및 댓글, 글쓴이 미니 프로필, 선호 거래 위치 확인, 채팅하기 기능  
 
-<img src="https://user-images.githubusercontent.com/57867252/131140540-00075252-43f7-47a5-ac3a-92b7cf5b12a4.png" width="200"/> <img src="https://user-images.githubusercontent.com/57867252/131140251-bbe30fa2-907a-41b3-86f3-eeb3f5d34630.png" width="200"/> <img src="https://user-images.githubusercontent.com/57867252/131140695-104fdb70-5584-492f-9eeb-cdc6017871b2.png" width="200"/>
+<img src="https://user-images.githubusercontent.com/57867252/131140540-00075252-43f7-47a5-ac3a-92b7cf5b12a4.png" width="200"/> <img src="https://user-images.githubusercontent.com/57867252/131142761-3ef2b749-57c1-47c9-ae34-9a38e951068c.png" width="200"/> <img src="https://user-images.githubusercontent.com/57867252/131140251-bbe30fa2-907a-41b3-86f3-eeb3f5d34630.png" width="200"/> <img src="https://user-images.githubusercontent.com/57867252/131140695-104fdb70-5584-492f-9eeb-cdc6017871b2.png" width="200"/>
 
 ### 채팅하기
 - ChattingRoom.java(클래스 파일) / myChat.java
@@ -61,6 +61,10 @@ Android Studio Version 4.1.1
 - addPost.java
 <img src="https://user-images.githubusercontent.com/57867252/131138818-29d441b6-9bd6-45e7-9a58-0e9ead2bc53c.png" width="200"/>
 
+### 내 스티커 보기
+- showSticker.java
+- 서로의 신뢰도를 확인할 수 있는 지표가 됩니다.
+<img src="https://user-images.githubusercontent.com/57867252/131142660-10ceac62-505d-4523-b7e4-5fa5a85b529f.png" width="200"/>
 
 
 
