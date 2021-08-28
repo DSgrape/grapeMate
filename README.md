@@ -71,17 +71,29 @@ Android Studio Version 4.1.1
 ## 업데이트 내역
 
 * 0.1.0
-    * 작품 제출
+    * 출품
     * 서울여대 해커톤 인기상 수상
 * 0.0.1
     * 작업 진행 중
 
+
+## 해결하지 못한 오류
+- 채팅이 실시간으로 업데이트되지 않고 채팅방을 나갔다 들어와야 업데이트되는 오류
+- 본인 글에 좋아요를 누르지 못하도록 예외처리하지 않음
+
+
+
 ## Information
 
 🍇 Member  
-[김은서](https://github.com/kimpeep) [신하늘](https://github.com/sky-innerpeace) [김신영](https://github.com/tlsdud135) [권희원](https://github.com/won0324) [홍수연](https://github.com/tndus03)  
+- [김은서](https://github.com/kimpeep) Designer
+- [신하늘](https://github.com/sky-innerpeace) BackEnd Developer
+- [김신영](https://github.com/tlsdud135) FrontEnd Developer
+- [권희원](https://github.com/won0324) Planner
+- [홍수연](https://github.com/tndus03) Planner    
+
 📌 Instagram [@ds_podong](https://www.instagram.com/ds_podong/)  
 💬 Email  
-- BackEnd : shn7446@duksung.ac.kr(https://github.com/sky-innerpeace)
-- FrontEnd : kytbible@gmail.com(https://github.com/tlsdud135)
+- BackEnd : shn7446@duksung.ac.kr
+- FrontEnd : kytbible@gmail.com
 
