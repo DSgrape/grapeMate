@@ -82,6 +82,6 @@ Android Studio Version 4.1.1
 [김은서](https://github.com/kimpeep) [신하늘](https://github.com/sky-innerpeace) [김신영](https://github.com/tlsdud135) [권희원](https://github.com/won0324) [홍수연](https://github.com/tndus03)  
 📌 Instagram [@ds_podong](https://www.instagram.com/ds_podong/)  
 💬 Email  
-- BackEnd : shn7446@duksung.ac.kr
-- FrontEnd : kytbible@gmail.com
+- BackEnd : shn7446@duksung.ac.kr(https://github.com/sky-innerpeace)
+- FrontEnd : kytbible@gmail.com(https://github.com/tlsdud135)
 
